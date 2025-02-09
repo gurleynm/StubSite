@@ -1,0 +1,17 @@
+﻿@if(HeaderType == 1)
+{
+    <h1 class="header" style="width:95%;text-align:@Alignment">&nbsp;@Title&nbsp;</h1>
+}
+else
+{
+    <h2 class="header" style="width:95%;text-align:@Alignment">&nbsp;@Title&nbsp;</h2>
+}
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public int HeaderType { get; set; } = 1;
+    [Parameter]
+    public string Alignment { get; set; } = "center";
+}

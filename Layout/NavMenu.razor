@@ -1,0 +1,68 @@
+﻿@implements IDisposable
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" style="position:sticky;top:0;z-index:2">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <img alt="Logo image" src="images/CompanyLogo.png" style="height:10vh" />
+        </a>
+        <h2 class="navbar-toggler @NavButtonCssClass" style="border:none;font-size:xx-large;color:#cc8f3a">@Constants.CurPage</h2>
+        <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
+                @* <li class="nav-item">
+                    <NavLink class="nav-link" href="services">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Services
+                    </NavLink>
+                </li> *@
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="menu">
+                        <span class="oi" aria-hidden="true"></span> Menu
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="contact-us">
+                        <span class="oi" aria-hidden="true"></span> Contact Us
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-brand" style="text-align:center">
+            <div>Contact us: <a style="font-size:large" href="contact-us">@Constants.CompanyContact</a></div>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavBarCssClass => collapseNavMenu ? null : "show";
+    private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
+
+    protected override Task OnInitializedAsync()
+    {
+        Constants.CurPageChanged += CurPageUpdated;
+        return base.OnInitializedAsync();
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CurPageUpdated(object sender, string cp)
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        Constants.CurPageChanged -= CurPageUpdated;
+    }
+}

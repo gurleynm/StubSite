@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rapid development & smarter solutions tailored to you. No matter your challenge, we are ready to approach it head-on. We are the team you need to build your website, micro-controlleed device or personalized database." />
+    <title>Sitwell's Act II</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/Adjusted.css" />
+    <link rel="icon" type="image/png" href="images/CompanyLogo.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="SubSite.styles.css" rel="stylesheet" />
+    <style>
+        @font-face {
+            font-display: swap;
+            font-family: 'GTS Default';
+            src: url('../fonts/IMPRISHA.TTF') format('truetype'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+        }
+
+        div, span, h1, h2, h3, h4, h5 {
+            font-family: 'GTS Default';
+            color: silver;
+        }
+    </style>
+</head>
+
+<body style="background-color:#063558">
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text" style="color:silver"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a href="" class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        let IsMobile;
+        window.onload = function () {
+            IsMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent);
+        };
+        function isDevice() {
+            return IsMobile;
+        }
+    </script>
+</body>
+
+</html>

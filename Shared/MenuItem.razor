@@ -1,0 +1,16 @@
+﻿<div class="flex-c" style="width:100%;margin-bottom:1em;align-content:start;align-items:start">
+    <div class="switch-space" style="width:100%">
+        <h2>@Title</h2>
+        <h2>@Cost</h2>
+    </div>
+        <h5>@Desc</h5>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public string Desc { get; set; }
+    [Parameter]
+    public string Cost { get; set; }
+}

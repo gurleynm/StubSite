@@ -5,7 +5,7 @@
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
             { "Main", "#f4b933" }
             ,{ "Accent", "#063558" }
-            ,{ "Text", "silver" }
+            ,{ "Text", "black" }
         };
 
         public static bool Mobile { get; set; }

@@ -1,8 +1,25 @@
 ﻿@inherits LayoutComponentBase
 <style>
-    body {
-        background-color:@Constants.ColorScheme["Main"];
+    .header {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
     }
+
+        .header:before, .header:after {
+            position: absolute;
+            top: 51%;
+            overflow: hidden;
+            width: 50%;
+            height: 1px;
+            content: '\a0';
+            background-color: @Constants.ColorScheme["Text"];
+        }
+
+        .header:before {
+            margin-left: -50%;
+            text-align: right;
+        }
 </style>
 <NavMenu />
 

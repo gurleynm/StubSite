@@ -1,31 +1,38 @@
 ﻿@inherits LayoutComponentBase
 <style>
     .header {
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
     }
 
-        .header:before, .header:after {
-            position: absolute;
-            top: 51%;
-            overflow: hidden;
-            width: 50%;
-            height: 1px;
-            content: '\a0';
-            background-color: @Constants.ColorScheme["Text"];
-        }
+    .header:before, .header:after {
+    position: absolute;
+    top: 51%;
+    overflow: hidden;
+    width: 50%;
+    height: 1px;
+    content: '\a0';
+    background-color: @Constants.ColorScheme["Text"];
+    }
 
-        .header:before {
-            margin-left: -50%;
-            text-align: right;
-        }
+    .header:before {
+    margin-left: -50%;
+    text-align: right;
+    }
 </style>
-<NavMenu />
+<NavMenu @bind-Main=@Main @bind-Accent=@Accent />
 
 <main>
-    <div>
+    <div style="background-image:linear-gradient(@Accent,@Main);">
         @Body
     </div>
 </main>
+<Footer @bind-Main=@Main />
+
+@code
+{
+    string Main { get; set; } = Constants.ColorScheme["Main"];
+    string Accent { get; set; } = Constants.ColorScheme["Accent"];
+}
 

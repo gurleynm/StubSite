@@ -3,11 +3,11 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="position:sticky;top:0;z-index:2">
     <div class="container-fluid">
         <a class="navbar-brand" href="">
-            <img alt="Logo image" src="images/CompanyLogo.png" style="height:10vh" />
+            <img alt="Logo image" src="images/CompanyLogo.png" style="height:3em" />
         </a>
         <h2 class="navbar-toggler @NavButtonCssClass" style="border:none;font-size:xx-large;color:#cc8f3a">@Constants.CurPage</h2>
         <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
+        aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
@@ -34,10 +34,46 @@
                 </li>
             </ul>
         </div>
+        <input @bind=@Accent type="color" />
+        <input @bind=@Main type="color" />
     </div>
 </nav>
 
 @code {
+    public string main { get; set; }
+    [Parameter]
+    public EventCallback<string> MainChanged { get; set; }
+    [Parameter]
+    public string Main
+    {
+        get { return main; }
+        set
+        {
+            if (main == value)
+                return;
+            main = value;
+            Constants.ColorScheme["Main"] = main;
+            MainChanged.InvokeAsync(value);
+        }
+    }
+
+    public string accent { get; set; }
+    [Parameter]
+    public EventCallback<string> AccentChanged { get; set; }
+    [Parameter]
+    public string Accent
+    {
+        get { return accent; }
+        set
+        {
+            if (accent == value)
+                return;
+            accent = value;
+            Constants.ColorScheme["Accent"] = accent;
+            AccentChanged.InvokeAsync(value);
+        }
+    }
+
     private bool collapseNavMenu = true;
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;

@@ -1,5 +1,48 @@
-﻿<div class="footer">Footer</div>
+﻿<div class="footer" style="height:fit-content;padding:1em 0;background-color:@Main">
+    <div class="flex-r-100" style="height:fit-content;align-items:center;justify-content:space-around">
+        <div class="footer-company-holder" style="width:90%">
+            <div class="footer-non-hours">
+                <img src="/images/CompanyLogo.png" style="max-height:8em" />
+                <div class="flex-c">
+                    <div style="text-align:center">
+                        @Constants.CompanyAddress
+                    </div>
+                    <a href="mailto:@Constants.CompanyEmail">
+                        @Constants.CompanyEmail
+                    </a>
+                    <a href="tel:@Constants.CompanyPhone">
+                        @Constants.CompanyPhone
+                    </a>
+                </div>
+            </div>
+            <div class="footer-hours">
+                <div class="flex-c">
+                    <div>Shop Hours:</div>
+                    @foreach (var key in Constants.CompanyHours.Keys)
+                    {
+                        <span style="text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
-
+    [Parameter]
+    public string Main
+    {
+        get { return main; }
+        set
+        {
+            if (main == value)
+                return;
+            main = value;
+            Constants.ColorScheme["Main"] = main;
+            MainChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<string> MainChanged { get; set; }
+    public string main { get; set; }
 }

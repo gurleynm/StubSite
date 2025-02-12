@@ -77,14 +77,14 @@ a, .btn-link {
 
     .loading-progress circle {
         fill: none;
-        stroke: #e0e0e0;
+        stroke: #fd8748;
         stroke-width: 0.6rem;
         transform-origin: 50% 50%;
         transform: rotate(-90deg);
     }
 
         .loading-progress circle:last-child {
-            stroke: #cc8f3a;
+            stroke: black;
             stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
             transition: stroke-dasharray 0.05s ease-in-out;
         }
@@ -102,6 +102,14 @@ a, .btn-link {
 
 code {
     color: #c02d76;
+}
+
+.footer-non-hours div {
+    margin: 1em 0;
+}
+
+.footer-non-hours a {
+    margin: .5em 0;
 }
 
 @media (max-width: 640.98px) {
@@ -168,9 +176,57 @@ code {
         background-color: #063558;
         width: 90%;
     }
+
+    .footer-non-hours {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 50%;
+        align-items: center
+    }
+
+    .footer-hours {
+        width:50%;
+    }
+
+    .footer-hours div {
+        align-items: end;
+    }
+
+    .footer-company-holder {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: start;
+    }
 }
 
 @media (min-width: 641px) {
+    .footer-hours {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: fit-content;
+        width: 33.3%
+    }
+
+    .footer-hours div {
+        align-items: center;
+    }
+    .footer-non-hours {
+        display: flex;
+        flex-direction: row;
+        width: 66.67%;
+        justify-content: space-around;
+    }
+
+    .footer-company-holder {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .preview-goodie-invert, .preview-goodie {
         display: flex;
         flex-direction: row;

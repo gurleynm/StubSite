@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png" href="images/CompanyLogo.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="SubSite.styles.css" rel="stylesheet" />
+    <link rel="canonical" href="https://testsite.gurleytech.com" />
     <style>
         @font-face {
             font-display: swap;
@@ -24,16 +25,22 @@
             font-family: 'GTS Default';
             color: black;
         }
+        body {
+            padding-top: env(safe-area-inset-top);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+        }
     </style>
 </head>
 
-<body style="background-color: #f4b933">
+<body style="background-image: linear-gradient(#fd8748,#f9da56); height: 100vh ">
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
             <circle r="40%" cx="50%" cy="50%" />
         </svg>
-        <div class="loading-progress-text" style="color:silver"></div>
+        <div class="loading-progress-text" style="color:black"></div>
     </div>
 
     <div id="blazor-error-ui">

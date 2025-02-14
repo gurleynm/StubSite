@@ -12,10 +12,10 @@
         <div style="font-size:5vmin">Full Bar</div>
     </div>
     <div class="flex-r-100" style="justify-content:space-evenly;align-items:center;margin:2em 0;padding-bottom:1em">
-        <button @onclick=@(() => NavMan.NavigateTo("https://order.online/store/sitwell's-coffee-house-cincinnati-641061/?hideModal=true&pickup=true")) class="btn btn-primary" style="background-color:@Constants.ColorScheme["Accent"];color:black;border-radius:2em;">
+        <button class="btn btn-primary" style="background-color:@Main;color:black;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("https://order.online/store/sitwell's-coffee-house-cincinnati-641061/?hideModal=true&pickup=true"))>
             <span class="oi oi-basket" style="color:black" />&nbsp;Order Pickup
         </button>
-        <button @onclick=@(() => NavMan.NavigateTo("https://order.online/store/sitwell's-coffee-house-cincinnati-641061/?hideModal=true&delivery=true")) class="btn btn-primary" style="background-color:@Constants.ColorScheme["Accent"];color:black;border-radius:2em;">
+        <button class="btn btn-primary" style="background-color:@Main;color:black;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("https://order.online/store/sitwell's-coffee-house-cincinnati-641061/?hideModal=true&delivery=true"))>
             <span class="oi oi-cart" style="color:black" />&nbsp;Order Delivery
         </button>
     </div>
@@ -40,6 +40,12 @@
 </div>
 
 @code {
+    [CascadingParameter]
+    public string Main { get; set; }
+
+    [CascadingParameter]
+    public string Accent { get; set; }
+
     protected override Task OnInitializedAsync()
     {
         Constants.CurPage = "Home";

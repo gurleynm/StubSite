@@ -77,14 +77,14 @@ a, .btn-link {
 
     .loading-progress circle {
         fill: none;
-        stroke: #fd8748;
+        stroke: black;
         stroke-width: 0.6rem;
         transform-origin: 50% 50%;
         transform: rotate(-90deg);
     }
 
         .loading-progress circle:last-child {
-            stroke: black;
+            stroke: white;
             stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
             transition: stroke-dasharray 0.05s ease-in-out;
         }
@@ -114,6 +114,33 @@ code {
 
 .switch-space-center{
     margin:2em 0;
+}
+
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.marquee-content {
+    display: inline-block;
+    padding-left: 100%; /* Initial starting position */
+    animation: marquee-animation 30s linear infinite;
+}
+
+@keyframes marquee-animation {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-100%, 0);
+    }
+}
+
+/* Optional: Pause on hover */
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
 }
 
 @media (max-width: 640.98px) {

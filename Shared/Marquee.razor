@@ -1,0 +1,9 @@
+﻿<div class="marquee-container">
+    <div class="marquee-content">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

@@ -1,30 +1,47 @@
-﻿<div class="footer" style="height:fit-content;padding:1em 0;background-color:@Main">
+﻿<div class="footer" style="height:fit-content;padding:1em 0;background-color:#212529">
     <div class="flex-r-100" style="height:fit-content;align-items:center;justify-content:space-around">
         <div class="footer-company-holder" style="width:90%">
             <div class="footer-non-hours">
-                <img alt="Company logo" src="/images/CompanyLogo.png" style="max-height:8em" />
-                <div class="flex-c">
-                    <div style="text-align:center">
-                        @Constants.CompanyAddress
-                    </div>
-                    <a href="mailto:@Constants.CompanyEmail">
-                        @Constants.CompanyEmail
-                    </a>
-                    <a href="tel:@Constants.CompanyPhone">
-                        @Constants.CompanyPhone
-                    </a>
-                </div>
+                <img alt="Company logo" src="/images/CompanyLogo.webp" style="max-height:8em" />
             </div>
             <div class="footer-hours">
                 <div class="flex-c">
                     <div>Shop Hours:</div>
-                    @foreach (var key in Constants.CompanyHours.Keys)
+                    @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
                     {
-                        <span style="text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
+                        <span style="text-align:end">@("Daily: " + Constants.CompanyHours.Values.First())</span>
+                    }
+                    else
+                    {
+                        @foreach (var key in Constants.CompanyHours.Keys)
+                        {
+                            <span style="text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
+                        }
                     }
                 </div>
             </div>
         </div>
+    </div>
+    <div class="flex-c">
+        <div class="flex-r-100">
+            @foreach (string key in Constants.CompanySocials.Keys)
+            {
+                <a href="@Constants.CompanySocials[key]" target="_blank" class="" aria-label="@key" style="width:2em;margin:.5em">
+                    <div style="background-color:white;border-radius:2em">
+                        <img src="/images/@(key).png" style="width:2em;" />
+                    </div>
+                </a>
+            }
+        </div>
+        <div style="text-align:center">
+            <span class="oi oi-location" /> @Constants.CompanyAddress
+        </div>
+        <a href="mailto:@Constants.CompanyEmail" style="color:@Constants.ColorScheme["Text"];text-decoration:none">
+            <span class="oi oi-envelope-closed" /> @Constants.CompanyEmail
+        </a>
+        <a href="tel:@Constants.CompanyPhone" style="color:@Constants.ColorScheme["Text"];text-decoration:none">
+            <span class="oi oi-phone" /> @Constants.CompanyPhone
+        </a>
     </div>
 </div>
 

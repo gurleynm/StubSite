@@ -29,6 +29,25 @@ namespace StubSite.Repo
             Items.Add(new Item("The Classic Start", "Sausage or bacon, egg and cheddar on a croissant", "Sandwiches", "$7.00"));
             Items.Add(new Item("The B.E.A.S.T.", "Bacon, egg, avocado, spinach and tomato on an everything bagel", "Sandwiches", "$8.00"));
             Items.Add(new Item("The GOAT", "Egg, spinach, tomato and goat cheese on an everything bagel", "Sandwiches", "$8.00"));
+            
+            
+            Items.Add(new Item("The Cozy Bowl", "Bacon, spinach, egg, roasted sweet potatoes and apples with maple drizzle", "Bowls", "$8.00"));
+            Items.Add(new Item("The Breakfast Bowl", "Roasted potatoes, bacon or sausage, eggs, sourdough toast", "Bowls", "$8.00"));
+            Items.Add(new Item("The Goetta Bowl", "Goetta, spinach, egg, roasted potatoes & onions with rosemary", "Bowls", "$8.00"));
+            Items.Add(new Item("The Rancheros Bowl", "Egg, sausage, roasted potatoes with onions, bell peppers, avocado and chipotle sauce", "Bowls", "$8.00"));
+            Items.Add(new Item("The Oats De Jour", "Steel cut oats prepared with almond milk and served with seasonal toppings", "Bowls", "$6.00"));
+            
+            Items.Add(new Item("The Garden", "Sourdough, avocado, tomato, fresh basil, pickled onions and balsamic drizzle", "Toasts", "$8.00"));
+            Items.Add(new Item("The Southwest", "Sourdough, avocado, tomato, red bell pepper, pickled onions, bacon and chipotle sauce", "Toasts", "$8.00"));
+            Items.Add(new Item("The Hot Honey", "Sourdough, avocado, cucumber, goat cheese, red pepper flakes and honey", "Toasts", "$8.00"));
+            Items.Add(new Item("The Fusion", "Sourdough, avocado, cucumber, carrot, red bell pepper, sesame ginger crunch and sesame oil", "Toasts", "$8.00"));
+            Items.Add(new Item("The Loaded Bagel", "Everything bagel, herb caper cream cheese, smoked salmon, tomato, dill", "Toasts", "$13.00"));
+            
+            Items.Add(new Item("Tropical Trailside", "Pineapple, banana, coconut milk, orange puree", "Smoothies", "$7.00"));
+            Items.Add(new Item("Strawberry Banana", "Strawberry, banana, honey", "Smoothies", "$7.00"));
+            Items.Add(new Item("Monkey Moo", "Banana, chocolate, milk", "Smoothies", "$7.00"));
+            Items.Add(new Item("Frogman", "Kale, spinach, pineapple, banana, avocado", "Smoothies", "$7.00"));
+            Items.Add(new Item("Protein Powder", "", "Smoothies", "+ $2.00"));
 
             Items.Add(new Item("Drip Coffee", "Fresh brewed coffee", "Coffee", "$3.00"));
             Items.Add(new Item("Tea", "Hot or iced tea", "Coffee", "$3.50"));

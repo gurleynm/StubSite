@@ -1,4 +1,8 @@
-﻿@implements IDisposable
+﻿@using StubSite.Data
+@using StubSite.Repo
+@inject NavigationManager NavMan
+@inject IJSRuntime JSRuntime
+@implements IDisposable
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="position:sticky;top:0;z-index:2">
     <div class="container-fluid">
@@ -7,7 +11,7 @@
         </a>
         <h2 class="navbar-toggler @NavButtonCssClass" style="border:none;font-size:xx-large;color:@Constants.ColorScheme["Text"]">@Constants.CurPage</h2>
         <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-        aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
+                aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
@@ -38,10 +42,36 @@
                     </NavLink>
                 </li>
             </ul>
+            <div class="flex-r">
+                <div class="flex-c-start">
+                    <p>Main</p>
+                    <input @bind=@Accent type="color" />
+                </div>
+                <div class="flex-c-start">
+                    <p>Accent</p>
+                    <input @bind=@Main type="color" />
+                </div>
+                <div class="flex-c-start">
+                    <p>Text</p>
+                    <input @bind=@Text type="color" />
+                </div>
+            </div>
         </div>
-        <input @bind=@Accent type="color" />
-        <input @bind=@Main type="color" />
     </div>
+    @if (NavMan.Uri.Trim('/').EndsWith("menu"))
+    {
+        <div class="flex-r-100" style="align-items:center">
+            <h5 style="margin-right:.25em">
+                Jump to Section:
+            </h5>
+            <FancySelect @bind-Value="SelCat" Style="width:fit-content">
+                @foreach (string cat in Categories)
+                {
+                    <option value="@cat">@cat</option>
+                }
+            </FancySelect>
+        </div>
+    }
 </nav>
 
 @code {
@@ -78,15 +108,50 @@
             AccentChanged.InvokeAsync(value);
         }
     }
+    
+    public string text { get; set; }
+    [Parameter]
+    public EventCallback<string> TextChanged { get; set; }
+    [Parameter]
+    public string Text
+    {
+        get { return text; }
+        set
+        {
+            if (text == value)
+                return;
+            text = value;
+            Constants.ColorScheme["Text"] = text;
+            TextChanged.InvokeAsync(value);
+        }
+    }
 
     private bool collapseNavMenu = true;
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
 
-    protected override Task OnInitializedAsync()
+    List<string> Categories = new List<string>();
+
+    string selCat { get; set; }
+    string SelCat
+    {
+        get { return selCat; }
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+                return;
+
+            selCat = value;
+            JumpToSection(selCat);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
     {
         Constants.CurPageChanged += CurPageUpdated;
-        return base.OnInitializedAsync();
+
+        Dictionary<string, List<Item>> Items = await MenuRepo.GetMenuItemsAsDictionary();
+        Categories = Items.Keys.ToList();
     }
 
     private void ToggleNavMenu()
@@ -97,6 +162,11 @@
     private void CurPageUpdated(object sender, string cp)
     {
         StateHasChanged();
+    }
+
+    private async Task JumpToSection(string id)
+    {
+        await JSRuntime.InvokeVoidAsync("scrollToFragment", id);
     }
 
     public void Dispose()

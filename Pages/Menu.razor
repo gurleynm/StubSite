@@ -2,14 +2,19 @@
 @using StubSite.Data
 @using StubSite.Repo
 @inject NavigationManager NavMan
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Menu</PageTitle>
 <div class="flex-c" style="width:100%;border-bottom:1px black solid">
-    <Header Title="Menu" />
+    <Header Title="Menu" Id="Menu" />
+
     <div class="flex-c" style="width:90%">
-        @foreach(string cat in Categories)
+        @for (int index = 0; index < Categories.Count; index++)
         {
-            <Header Title="@cat" HeaderType="2" />
+            string cat = Categories[index];
+            int localI = index;
+
+            <Header Id="@cat" Title="@cat" HeaderType="2" ShowButton=@(localI != 0) />
             @foreach (var item in Items[cat])
             {
                 <MenuItem Title="@item.Name" Desc="@item.Desc" Cost="@item.Cost" />
@@ -22,11 +27,30 @@
     Dictionary<string, List<Item>> Items = new Dictionary<string, List<Item>>();
     List<string> Categories = new List<string>();
 
+    string selCat { get; set; }
+    string SelCat
+    {
+        get { return selCat; }
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+                return;
+
+            selCat = value;
+            JumpToSection(selCat);
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         Constants.CurPage = "Menu";
 
         Items = await MenuRepo.GetMenuItemsAsDictionary();
         Categories = Items.Keys.ToList();
+    }
+
+    private async Task JumpToSection(string id)
+    {
+        await JSRuntime.InvokeVoidAsync("scrollToFragment", id);
     }
 }

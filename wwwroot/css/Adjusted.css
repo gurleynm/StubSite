@@ -160,6 +160,53 @@ td a, td input, td img {
     transform: translateY(-100%);
 }
 
+.custom-select-wrapper {
+    position: relative; /* Essential for positioning the arrow */
+    display: inline-block; /* Or block, depending on your layout */
+    max-width: 100%;
+    width: fit-content;
+}
+
+    .custom-select-wrapper::after {
+        content: '\25BC'; /* Downward-pointing triangle symbol */
+        position: absolute;
+        top: 50%;
+        right: 10px; /* Adjust as needed */
+        transform: translateY(-50%); /* Vertically center the arrow */
+        pointer-events: none; /* Prevents the arrow from interfering with select clicks */
+        color: #78eaff; /* Customize arrow color */
+    }
+
+/* Add focus style for accessibility */
+.custom-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border-color: #007bff;
+}
+
+.custom-select {
+    /* Remove browser default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    /* Custom styling for the select box */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #78eaff;
+    background-color: #0f1424;
+    padding: 10px 40px 10px 15px; /* Add padding for the custom arrow */
+    border: 1px solid rgba(91,122,255,0.4);
+    border-radius: 1em;
+    cursor: pointer;
+    width: fit-content;
+    max-width: 100%;
+}
+
+    .custom-select option {
+        color: white;
+    }
+
 @keyframes slide-hor {
     to {
         transform: translateX(0);

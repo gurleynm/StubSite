@@ -23,16 +23,18 @@
 
     div, span, h1, h2, h3, h4, h5, button {
         font-family: Dosis;
-        color: white;
+        color: @Text;
     }
 </style>
-<NavMenu @bind-Main=@Main @bind-Accent=@Accent />
+<NavMenu @bind-Main=@Main @bind-Accent=@Accent @bind-Text=@Text />
 
 <main>
     <div style="background-image:linear-gradient(@Accent,@Main);">
-        <CascadingValue Value="Accent">
-            <CascadingValue Value="Main">
-                @Body
+        <CascadingValue Value="Text" Name="Text">
+            <CascadingValue Value="Accent" Name="Accent">
+                <CascadingValue Value="Main" Name="Main">
+                    @Body
+                </CascadingValue>
             </CascadingValue>
         </CascadingValue>
     </div>

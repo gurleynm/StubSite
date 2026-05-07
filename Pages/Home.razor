@@ -36,11 +36,11 @@
     </Marquee>
 
     <div class="flex-r-100" style="justify-content:space-evenly;align-items:center;margin:2em 0;padding-bottom:1em">
-        <button class="btn btn-primary" style="background-color:@Main;color:@Constants.ColorScheme["Text"];border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("https://squareup.com/gift/ESVA674CM3G4A/order"))>
+        <button class="btn btn-primary" style="background-color:@Main;color:@Text;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("https://squareup.com/gift/ESVA674CM3G4A/order"))>
             🎁&nbsp;Gift Cards
         </button>
-        <button class="btn btn-primary" style="background-color:@Main;color:@Constants.ColorScheme["Text"];border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("menu"))>
-            <span class="oi oi-spreadsheet" style="color:@Constants.ColorScheme["Text"]" />&nbsp;Menu
+        <button class="btn btn-primary" style="background-color:@Main;color:@Text;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("menu"))>
+            <span class="oi oi-spreadsheet" style="color:@Text" />&nbsp;Menu
         </button>
     </div>
     <div class="switch-space-center">
@@ -64,11 +64,14 @@
 </div>
 
 @code {
-    [CascadingParameter]
+    [CascadingParameter(Name = "Main")]
     public string Main { get; set; }
 
-    [CascadingParameter]
+    [CascadingParameter(Name = "Accent")]
     public string Accent { get; set; }
+
+    [CascadingParameter(Name = "Text")]
+    public string Text { get; set; }
 
     protected override Task OnInitializedAsync()
     {

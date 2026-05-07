@@ -3,9 +3,10 @@
     public class Constants
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
-            { "Main", "#000000" }
-            ,{ "Accent", "#827878" }
-            ,{ "Text", "#ffffff" }
+            { "Main", "#ffffff" }
+            ,{ "Accent", "#ffffff" }
+            ,{ "Text", "#000000" }
+            ,{ "ButtonText", "#000000" }
         };
 
         public static bool Mobile { get; set; }

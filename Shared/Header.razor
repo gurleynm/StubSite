@@ -3,16 +3,16 @@
 <div class="flex-r-100" style="align-items:center">
     @if (HeaderType == 1)
     {
-        <h1 id="@Id" class="header" style="width:95%;text-align:@Alignment">&nbsp;@Title&nbsp;</h1>
+        <h1 id="@Id" class="header" style="@Style;width:95%;text-align:@Alignment">&nbsp;@Title&nbsp;</h1>
     }
     else
     {
-        <h2 id="@Id" class="header" style="width:@(ShowButton ? "90%" : "95%");text-align:@Alignment">&nbsp;@Title&nbsp;</h2>
+        <h2 id="@Id" class="header" style="@Style;width:@(ShowButton ? "90%" : "95%");text-align:@Alignment">&nbsp;@Title&nbsp;</h2>
         @if (ShowButton)
         {
-            <button class="btn btn-primary" style="margin-left:.5em;background-color:@Main;color:@Text;border-radius:2em;"
+            <button class="btn btn-primary" style="margin-left:.5em;background-color:@Accent;color:@ButtonText;border-radius:2em;"
                     @onclick=@(() => JumpToSection("Menu"))>
-                <span class="oi oi-arrow-thick-top" style="color:@Text" />&nbsp;Back to Top
+                <span class="oi oi-arrow-thick-top" style="color:@ButtonText" />&nbsp;Back to Top
             </button>
         }
     }
@@ -28,6 +28,9 @@
     [CascadingParameter(Name = "Text")]
     public string Text { get; set; }
 
+    [CascadingParameter(Name = "ButtonText")]
+    public string ButtonText { get; set; }
+
     [Parameter]
     public string Id { get; set; } = Guid.NewGuid().ToString();
     [Parameter]
@@ -36,6 +39,8 @@
     public int HeaderType { get; set; } = 1;
     [Parameter]
     public string Alignment { get; set; } = "center";
+    [Parameter]
+    public string Style { get; set; }
     [Parameter]
     public bool ShowButton { get; set; } = true;
 

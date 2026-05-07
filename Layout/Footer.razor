@@ -1,4 +1,29 @@
 ﻿<div class="footer" style="height:fit-content;padding:1em 0;background-color:#212529">
+    <hr style="color:white" />
+    <Header HeaderType="2" ShowButton=false Title="Demo color settings" Style="color:white" />
+    <div class="flex-r-100" style="align-items:end">
+        <div class="flex-c-start">
+            <p style="color: white;">Main</p>
+            <input @bind=@Main type="color" />
+        </div>
+        <div class="flex-c-start">
+            <p style="color: white;">Accent</p>
+            <input @bind=@Accent type="color" />
+        </div>
+        <div class="flex-c-start">
+            <p style="color: white;">--- Text ---</p>
+            <div class="flex-r">
+                <p style="color: white;margin:0 .25em">General</p>
+                <p style="color: white;margin:0 .25em">Button</p>
+            </div>
+            <div class="flex-r">
+                <input style="margin:0 .25em" @bind=@Text type="color" />
+                <input style="margin:0 .25em" @bind=@ButtonText type="color" />
+            </div>
+        </div>
+    </div>  
+    <hr style="color:white" />
+
     <div class="flex-r-100" style="height:fit-content;align-items:center;justify-content:space-around">
         <div class="footer-company-holder" style="width:90%">
             <div class="footer-non-hours">
@@ -6,16 +31,16 @@
             </div>
             <div class="footer-hours">
                 <div class="flex-c">
-                    <div>Shop Hours:</div>
+                    <div style="color: white;">Shop Hours:</div>
                     @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
                     {
-                        <span style="text-align:end">@("Daily: " + Constants.CompanyHours.Values.First())</span>
+                        <span style="color: white;text-align:end">@("Daily: " + Constants.CompanyHours.Values.First())</span>
                     }
                     else
                     {
                         @foreach (var key in Constants.CompanyHours.Keys)
                         {
-                            <span style="text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
+                            <span style="color: white;text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
                         }
                     }
                 </div>
@@ -33,19 +58,22 @@
                 </a>
             }
         </div>
-        <div style="text-align:center">
-            <span class="oi oi-location" /> @Constants.CompanyAddress
+        <div style="color: white;text-align:center">
+            <span class="oi oi-location" style="color: white;" /> @Constants.CompanyAddress
         </div>
-        <a href="mailto:@Constants.CompanyEmail" style="color:@Constants.ColorScheme["Text"];text-decoration:none">
-            <span class="oi oi-envelope-closed" /> @Constants.CompanyEmail
+        <a href="mailto:@Constants.CompanyEmail" style="color: white;text-decoration:none">
+            <span class="oi oi-envelope-closed" style="color: white;" /> @Constants.CompanyEmail
         </a>
-        <a href="tel:@Constants.CompanyPhone" style="color:@Constants.ColorScheme["Text"];text-decoration:none">
-            <span class="oi oi-phone" /> @Constants.CompanyPhone
+        <a href="tel:@Constants.CompanyPhone" style="color: white;text-decoration:none">
+            <span class="oi oi-phone" style="color: white;" /> @Constants.CompanyPhone
         </a>
     </div>
 </div>
 
 @code {
+    public string main { get; set; }
+    [Parameter]
+    public EventCallback<string> MainChanged { get; set; }
     [Parameter]
     public string Main
     {
@@ -59,7 +87,55 @@
             MainChanged.InvokeAsync(value);
         }
     }
+
+    public string accent { get; set; }
     [Parameter]
-    public EventCallback<string> MainChanged { get; set; }
-    public string main { get; set; }
+    public EventCallback<string> AccentChanged { get; set; }
+    [Parameter]
+    public string Accent
+    {
+        get { return accent; }
+        set
+        {
+            if (accent == value)
+                return;
+            accent = value;
+            Constants.ColorScheme["Accent"] = accent;
+            AccentChanged.InvokeAsync(value);
+        }
+    }
+
+    public string text { get; set; }
+    [Parameter]
+    public EventCallback<string> TextChanged { get; set; }
+    [Parameter]
+    public string Text
+    {
+        get { return text; }
+        set
+        {
+            if (text == value)
+                return;
+            text = value;
+            Constants.ColorScheme["Text"] = text;
+            TextChanged.InvokeAsync(value);
+        }
+    }
+
+    public string buttonText { get; set; }
+    [Parameter]
+    public EventCallback<string> ButtonTextChanged { get; set; }
+    [Parameter]
+    public string ButtonText
+    {
+        get { return buttonText; }
+        set
+        {
+            if (buttonText == value)
+                return;
+            buttonText = value;
+            Constants.ColorScheme["ButtonText"] = buttonText;
+            ButtonTextChanged.InvokeAsync(value);
+        }
+    }
 }

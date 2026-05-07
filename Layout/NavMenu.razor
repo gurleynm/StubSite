@@ -9,7 +9,7 @@
         <a class="navbar-brand" href="">
             <img alt="Logo image" src="images/CompanyLogo.png" style="height:3em" />
         </a>
-        <h2 class="navbar-toggler @NavButtonCssClass" style="border:none;font-size:xx-large;color:@Constants.ColorScheme["Text"]">@Constants.CurPage</h2>
+        <h2 class="navbar-toggler @NavButtonCssClass" style="border:none;font-size:xx-large;color:white">@Constants.CurPage</h2>
         <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
@@ -52,24 +52,11 @@
             </ul>
         </div>
     </div>
-    <div class="flex-r-100">
-        <div class="flex-c-start">
-            <p>Main</p>
-            <input @bind=@Accent type="color" />
-        </div>
-        <div class="flex-c-start">
-            <p>Accent</p>
-            <input @bind=@Main type="color" />
-        </div>
-        <div class="flex-c-start">
-            <p>Text</p>
-            <input @bind=@Text type="color" />
-        </div>
-    </div>
+    
     @if (NavMan.Uri.Trim('/').EndsWith("menu"))
     {
         <div class="flex-r-100" style="align-items:center;margin-top:1em">
-            <h5 style="margin-right:.25em">
+            <h5 style="margin-right:.25em;color: white;">
                 Jump to Section:
             </h5>
             <FancySelect @bind-Value="SelCat" Style="width:fit-content">
@@ -83,57 +70,6 @@
 </nav>
 
 @code {
-    public string main { get; set; }
-    [Parameter]
-    public EventCallback<string> MainChanged { get; set; }
-    [Parameter]
-    public string Main
-    {
-        get { return main; }
-        set
-        {
-            if (main == value)
-                return;
-            main = value;
-            Constants.ColorScheme["Main"] = main;
-            MainChanged.InvokeAsync(value);
-        }
-    }
-
-    public string accent { get; set; }
-    [Parameter]
-    public EventCallback<string> AccentChanged { get; set; }
-    [Parameter]
-    public string Accent
-    {
-        get { return accent; }
-        set
-        {
-            if (accent == value)
-                return;
-            accent = value;
-            Constants.ColorScheme["Accent"] = accent;
-            AccentChanged.InvokeAsync(value);
-        }
-    }
-    
-    public string text { get; set; }
-    [Parameter]
-    public EventCallback<string> TextChanged { get; set; }
-    [Parameter]
-    public string Text
-    {
-        get { return text; }
-        set
-        {
-            if (text == value)
-                return;
-            text = value;
-            Constants.ColorScheme["Text"] = text;
-            TextChanged.InvokeAsync(value);
-        }
-    }
-
     private bool collapseNavMenu = true;
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;

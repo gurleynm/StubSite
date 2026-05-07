@@ -26,25 +26,28 @@
         color: @Text;
     }
 </style>
-<NavMenu @bind-Main=@Main @bind-Accent=@Accent @bind-Text=@Text />
+<NavMenu />
 
 <main>
-    <div style="background-image:linear-gradient(@Accent,@Main);">
-        <CascadingValue Value="Text" Name="Text">
-            <CascadingValue Value="Accent" Name="Accent">
-                <CascadingValue Value="Main" Name="Main">
-                    @Body
+    <div style="background-image:linear-gradient(@Main,@Main);">
+        <CascadingValue Value="ButtonText" Name="ButtonText">
+            <CascadingValue Value="Text" Name="Text">
+                <CascadingValue Value="Accent" Name="Accent">
+                    <CascadingValue Value="Main" Name="Main">
+                        @Body
+                    </CascadingValue>
                 </CascadingValue>
             </CascadingValue>
         </CascadingValue>
     </div>
 </main>
-<Footer @bind-Main=@Main />
+<Footer @bind-Main=@Main @bind-Accent=@Accent @bind-Text=@Text @bind-ButtonText=ButtonText />
 
 @code
 {
     string Main { get; set; } = Constants.ColorScheme["Main"];
     string Accent { get; set; } = Constants.ColorScheme["Accent"];
     string Text { get; set; } = Constants.ColorScheme["Text"];
+    string ButtonText { get; set; } = Constants.ColorScheme["ButtonText"];
 }
 

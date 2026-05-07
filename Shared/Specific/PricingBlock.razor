@@ -2,7 +2,7 @@
 @inject NavigationManager NavMan
 
 <div class="flex-c-start price-block @(Product.Beautify ? "beautify" : "")" style="@Style">
-    <h2 style="font-family: 'GTS Default';color:silver">@Product.Title</h2>
+    <h2 style="font-family: Dosis;color:silver">@Product.Title</h2>
     @foreach (var feature in Product.Features)
     {
         string featShow = feature;
@@ -28,7 +28,7 @@
         </div>
     }
     <div class="switch-space" style="align-items:center;width:100%;margin-top:2em">
-        <h1 style="font-family: 'GTS Default';color:silver;margin:0;">@Product.Cost <span style="font-size:medium">@Product.Duration</span></h1>
+        <h1 style="font-family:Dosis;color:silver;margin:0;">@Product.Cost <span style="font-size:medium">@Product.Duration</span></h1>
 
         @if (ShowButton)
         {

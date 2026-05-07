@@ -8,13 +8,13 @@
             @* Event Rental *@
             @foreach (PricingProduct prod in EventProds)
             {
-                <PricingBlock Product="prod" Style="width:95%" />
+                <PricingBlock Product="prod" Style="width:95%" Subject=@(prod.Title + " Inquiry") />
             }
         </div>
     </PricingBlock>
 
     <PricingBlock Product="GeneralCatering" Style="width:95%" ShowButton=false>
-        <PricingBlock Product="KitchenAccess" Style="width:95%" />
+        <PricingBlock Product="KitchenAccess" Style="width:95%" Subject=@(KitchenAccess.Title + " Inquiry") />
     </PricingBlock>
 
     <h3 style="margin:1em;text-align:center">Your evening event includes the use of the patio</h3>
@@ -51,8 +51,8 @@
     PricingProduct KitchenAccess = new PricingProduct()
     {
         Title = "Kitchen Access",
-        Cost = "100",
-        Duration = "For the Evening",
+        Cost = "$100",
+        Duration = "for the evening",
         Features = new List<string>()
             {
                 "Ability for caterers to use our kitchen"

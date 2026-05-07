@@ -1,9 +1,29 @@
 ﻿@page "/contact-us"
+
+@inject NavigationManager NavMan
 @using StubSite.Shared
+
 <div style="min-height:100vh;padding:1em">
-    <ContactForm></ContactForm>
+    <ContactForm DefaultSubject="@DefaultSubject"></ContactForm>
 </div>
 
 @code {
+    string DefaultSubject = "";
 
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(NavMan.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        try
+        {
+            DefaultSubject = query["subject"];
+        }
+        catch (Exception e)
+        {
+            
+        }
+
+        base.OnInitialized();
+    }
 }

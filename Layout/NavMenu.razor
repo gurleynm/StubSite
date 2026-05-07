@@ -50,20 +50,20 @@
                     </NavLink>
                 </li>
             </ul>
-            <div class="flex-r">
-                <div class="flex-c-start">
-                    <p>Main</p>
-                    <input @bind=@Accent type="color" />
-                </div>
-                <div class="flex-c-start">
-                    <p>Accent</p>
-                    <input @bind=@Main type="color" />
-                </div>
-                <div class="flex-c-start">
-                    <p>Text</p>
-                    <input @bind=@Text type="color" />
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="flex-r-100">
+        <div class="flex-c-start">
+            <p>Main</p>
+            <input @bind=@Accent type="color" />
+        </div>
+        <div class="flex-c-start">
+            <p>Accent</p>
+            <input @bind=@Main type="color" />
+        </div>
+        <div class="flex-c-start">
+            <p>Text</p>
+            <input @bind=@Text type="color" />
         </div>
     </div>
     @if (NavMan.Uri.Trim('/').EndsWith("menu"))

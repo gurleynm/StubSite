@@ -12,6 +12,8 @@
 
     protected override void OnInitialized()
     {
+        Constants.CurPage = "Contact Us";
+
         var uri = new Uri(NavMan.Uri);
         var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
 

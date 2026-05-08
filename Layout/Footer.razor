@@ -3,22 +3,22 @@
     <Header HeaderType="2" ShowButton=false Title="Demo color settings" Style="color:white" />
     <div class="flex-r-100" style="align-items:end">
         <div class="flex-c-start">
-            <p style="color: white;">Main</p>
-            <input @bind=@Main type="color" />
+            <label for="main-color" style="color: white;">Main</label>
+            <input id="main-color" @bind=@Main type="color" />
         </div>
         <div class="flex-c-start">
-            <p style="color: white;">Accent</p>
-            <input @bind=@Accent type="color" />
+            <label style="color: white;">Accent</label>
+            <input id="accent-color" @bind=@Accent type="color" />
         </div>
         <div class="flex-c-start">
             <p style="color: white;">--- Text ---</p>
             <div class="flex-r">
-                <p style="color: white;margin:0 .25em">General</p>
-                <p style="color: white;margin:0 .25em">Button</p>
+                <label id="general-text-color" style="color: white;margin:0 .25em">General</label>
+                <label id="button-text-color" style="color: white;margin:0 .25em">Button</label>
             </div>
             <div class="flex-r">
-                <input style="margin:0 .25em" @bind=@Text type="color" />
-                <input style="margin:0 .25em" @bind=@ButtonText type="color" />
+                <input id="general-text-color" style="margin:0 .25em" @bind=@Text type="color" />
+                <input id="button-text-color" style="margin:0 .25em" @bind=@ButtonText type="color" />
             </div>
         </div>
     </div>  

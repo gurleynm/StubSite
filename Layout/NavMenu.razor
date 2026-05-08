@@ -1,23 +1,18 @@
 ﻿@using StubSite.Data
 @using StubSite.Repo
 @inject NavigationManager NavMan
+
 @inject IJSRuntime JSRuntime
 @implements IDisposable
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark @(!collapseNavMenu ? "border-while-open" : "")" style="position:sticky;top:0;z-index:2;">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark top-bar fade-in border-while-open navbar-grow flex-c-start">
     <div class="container-fluid">
         <a class="navbar-brand" href="">
             <img alt="Logo image" src="images/CompanyLogo.png" style="height:3em" />
         </a>
         <h2 class="navbar-toggler @NavButtonCssClass" style="border:none;font-size:xx-large;color:white">@Constants.CurPage</h2>
-        
-        <label class="hamburger-menu @NavButtonCssClass">
-            <input class="toggler" type="checkbox" @bind=ShowToggler @onclick="ToggleNavMenu">
-            <div class="line" />
-            <div class="line" />
-            <div class="line" />
-        </label>
-        <div class="collapse navbar-collapse @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
+        <ToggleMenu OnToggle="ToggleNavMenu" />
+        <div class="collapse navbar-collapse  fade-in-delay @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
@@ -34,7 +29,7 @@
                         <span class="oi" aria-hidden="true"></span> Menu
                     </NavLink>
                 </li>
-                
+
                 @* Specific Start *@
                 <li class="nav-item">
                     <NavLink class="nav-link" href="events">
@@ -54,26 +49,25 @@
                 </li>
             </ul>
         </div>
+
+        @if (NavMan.Uri.Trim('/').EndsWith("menu"))
+        {
+            <div class="flex-r-100" style="align-items:center;margin-top:1em;position:relative;bottom:0">
+                <h5 style="margin-right:.25em;color: white;">
+                    Jump to Section:
+                </h5>
+                <FancySelect @bind-Value="SelCat" Style="width:fit-content">
+                    @foreach (string cat in Categories)
+                    {
+                        <option value="@cat">@cat</option>
+                    }
+                </FancySelect>
+            </div>
+        }
     </div>
-    
-    @if (NavMan.Uri.Trim('/').EndsWith("menu"))
-    {
-        <div class="flex-r-100" style="align-items:center;margin-top:1em">
-            <h5 style="margin-right:.25em;color: white;">
-                Jump to Section:
-            </h5>
-            <FancySelect @bind-Value="SelCat" Style="width:fit-content">
-                @foreach (string cat in Categories)
-                {
-                    <option value="@cat">@cat</option>
-                }
-            </FancySelect>
-        </div>
-    }
 </nav>
 
 @code {
-    private bool ShowToggler = true;
     private bool collapseNavMenu = true;
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
@@ -101,15 +95,13 @@
         Dictionary<string, List<Item>> Items = await MenuRepo.GetMenuItemsAsDictionary();
         Categories = Items.Keys.ToList();
     }
-
-    private void ToggleNavMenu()
+    private async void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 
     private void CurPageUpdated(object sender, string cp)
     {
-        ShowToggler = false;
         StateHasChanged();
     }
 

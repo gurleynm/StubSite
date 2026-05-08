@@ -38,7 +38,7 @@
         }
         else
         {
-            <button type="submit" disabled class="btn btn-primary" style="margin:1em 0">Send</button>
+            <button type="submit" disabled class="btn btn-primary" style="background-color:@Accent;color:@ButtonText;margin:1em 0">Send</button>
             <br/>
             <div>'Send' is currently disabled for demo, but this would typically send your company an email filled with the contents above</div>
         }
@@ -52,6 +52,18 @@
 }
 
 @code {
+    [CascadingParameter(Name = "Main")]
+    public string Main { get; set; }
+
+    [CascadingParameter(Name = "Accent")]
+    public string Accent { get; set; }
+
+    [CascadingParameter(Name = "Text")]
+    public string Text { get; set; }
+
+    [CascadingParameter(Name = "ButtonText")]
+    public string ButtonText { get; set; }
+
     [Parameter]
     public string DefaultSubject { get; set; } = "";
 

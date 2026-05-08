@@ -10,9 +10,9 @@
         <h2 id="@Id" class="header" style="@Style;width:@(ShowButton ? "90%" : "95%");text-align:@Alignment">&nbsp;@Title&nbsp;</h2>
         @if (ShowButton)
         {
-            <button class="btn btn-primary" style="margin-left:.5em;background-color:@Accent;color:@ButtonText;border-radius:2em;"
+            <button class="btn btn-primary flex-r" style="align-items:center;margin-left:.5em;background-color:@Accent;color:@ButtonText;border-radius:2em;"
                     @onclick=@(() => JumpToSection("Menu"))>
-                <span class="oi oi-arrow-thick-top" style="color:@ButtonText" />&nbsp;Back to Top
+                <span class="oi oi-arrow-thick-top" style="color:@ButtonText" />&nbsp;Top
             </button>
         }
     }

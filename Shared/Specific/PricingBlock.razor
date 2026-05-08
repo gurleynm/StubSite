@@ -11,8 +11,8 @@
     @foreach (var feature in Product.Features)
     {
         string featShow = feature;
+        bool None = feature.StartsWith("!");
         bool Not = feature.StartsWith("~");
-        bool None = feature.StartsWith("~");
         bool Required = feature.StartsWith("*");
         if (Not || Required || None)
             featShow = feature.Substring(1);

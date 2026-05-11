@@ -50,21 +50,21 @@
             </ul>
         </div>
 
-        @if (NavMan.Uri.Trim('/').EndsWith("menu"))
-        {
-            <div class="flex-r-100" style="align-items:center;margin-top:1em;position:relative;bottom:0">
-                <h5 style="margin-right:.25em;color: white;">
-                    Jump to Section:
-                </h5>
-                <FancySelect @bind-Value="SelCat" Style="width:fit-content">
-                    @foreach (string cat in Categories)
-                    {
-                        <option value="@cat">@cat</option>
-                    }
-                </FancySelect>
-            </div>
-        }
     </div>
+    @if (NavMan.Uri.Trim('/').EndsWith("menu"))
+    {
+        <div class="flex-r-100" style="align-items:center;margin-top:1em;position:relative;bottom:0">
+            <h5 style="margin-right:.25em;color: white;">
+                Jump to Section:
+            </h5>
+            <FancySelect @bind-Value="SelCat" Style="width:fit-content">
+                @foreach (string cat in Categories)
+                {
+                    <option value="@cat">@cat</option>
+                }
+            </FancySelect>
+        </div>
+    }
 </nav>
 
 @code {

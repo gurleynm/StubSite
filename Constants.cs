@@ -15,6 +15,7 @@
         public static string CompanyEmail = "hometowncafeloveland@gmail.com";
         public static string CompanyPhone = "(513) 677-2600";
         public static string CompanyAddress = "111 Railroad Ave, Loveland, OH 45140";
+        public static string CompanyMapsURL = "https://www.google.com/maps?ll=39.268557,-84.258477&z=16&t=m&hl=en&gl=US&mapclient=embed&cid=17689472602934336567";
         public static Dictionary<string,string> CompanyHours = new() { 
             { "Monday" ,"8AM-3PM" } 
             ,{ "Tuesday" ,"8AM-3PM" } 

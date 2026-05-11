@@ -156,7 +156,18 @@ code {
     aspect-ratio: 1 / 1;
 }
 
+.jumbotron {
+    background-image: url('/images/Background.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}
+
 @media (max-width: 640.98px) {
+    .jumbotron {
+        height: 50vh;
+    }
+
     .map-iframe {
         width: 90%;
     }
@@ -256,6 +267,10 @@ code {
 }
 
 @media (min-width: 641px) {
+    .jumbotron {
+        height: 70vh;
+    }
+
     .map-iframe {
         width: 25%;
     }

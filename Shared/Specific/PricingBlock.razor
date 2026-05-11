@@ -2,11 +2,7 @@
 @inject NavigationManager NavMan
 
 <div class="flex-c-start price-block @(Product.Beautify ? "beautify" : "")" style="@Style">
-    <h2 style="font-family: Dosis;color:@Text">@Product.Title</h2>
-    @if (ChildContent != null)
-    {
-        @ChildContent
-    }
+    <h2 style="font-family: Dosis;color:@Text">@Product.Title</h2>   
 
     @foreach (var feature in Product.Features)
     {
@@ -42,6 +38,11 @@
         @if (ShowButton)
         {
             <button class="btn btn-primary" style="background-color:@Accent;color:@ButtonText;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("contact-us" + SubjectParam))>📲 Reach Out</button>
+        }
+
+        @if (ChildContent != null)
+        {
+            @ChildContent
         }
     </div>
 </div>

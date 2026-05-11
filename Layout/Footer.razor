@@ -1,28 +1,31 @@
 ﻿<div class="footer" style="height:fit-content;padding:1em 0;background-color:#212529">
-    <hr style="color:white" />
-    <Header HeaderType="2" ShowButton=false Title="Demo color settings" Style="color:white" />
-    <div class="flex-r-100" style="align-items:end">
-        <div class="flex-c-start">
-            <label for="main-color" style="color: white;">Main</label>
-            <input id="main-color" @bind=@Main type="color" />
-        </div>
-        <div class="flex-c-start">
-            <label for="accent-color" style="color: white;">Accent</label>
-            <input id="accent-color" @bind=@Accent type="color" />
-        </div>
-        <div class="flex-c-start">
-            <p style="color: white;">--- Text ---</p>
-            <div class="flex-r">
-                <label for="general-text-color" style="color: white;margin:0 .25em">General</label>
-                <label for="button-text-color" style="color: white;margin:0 .25em">Button</label>
+    @if (false)
+    {
+        <hr style="color:white" />
+        <Header HeaderType="2" ShowButton=false Title="Demo color settings" Style="color:white" />
+        <div class="flex-r-100" style="align-items:end">
+            <div class="flex-c-start">
+                <label for="main-color" style="color: white;">Main</label>
+                <input id="main-color" @bind=@Main type="color" />
             </div>
-            <div class="flex-r">
-                <input id="general-text-color" style="margin:0 .25em" @bind=@Text type="color" />
-                <input id="button-text-color" style="margin:0 .25em" @bind=@ButtonText type="color" />
+            <div class="flex-c-start">
+                <label for="accent-color" style="color: white;">Accent</label>
+                <input id="accent-color" @bind=@Accent type="color" />
+            </div>
+            <div class="flex-c-start">
+                <p style="color: white;">--- Text ---</p>
+                <div class="flex-r">
+                    <label for="general-text-color" style="color: white;margin:0 .25em">General</label>
+                    <label for="button-text-color" style="color: white;margin:0 .25em">Button</label>
+                </div>
+                <div class="flex-r">
+                    <input id="general-text-color" style="margin:0 .25em" @bind=@Text type="color" />
+                    <input id="button-text-color" style="margin:0 .25em" @bind=@ButtonText type="color" />
+                </div>
             </div>
         </div>
-    </div>  
-    <hr style="color:white" />
+        <hr style="color:white" />
+    }
 
     <div class="flex-r-100" style="height:fit-content;align-items:center;justify-content:space-around">
         <div class="footer-company-holder" style="width:90%">

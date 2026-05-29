@@ -5,10 +5,10 @@
 @inject IJSRuntime JSRuntime
 @implements IDisposable
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark top-bar fade-in border-while-open navbar-grow flex-c-start">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark top-bar fade-in border-while-open navbar-grow flex-c-start sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="">
-            <img alt="Logo image" src="images/CompanyLogo.png" style="height:3em" />
+            <img alt="Logo image" src="images/CompanyLogo.jpg" style="height:3em;border-radius:1em" />
         </a>
         <h2 class="navbar-toggler @NavButtonCssClass" style="border:none;font-size:xx-large;color:white">@Constants.CurPage</h2>
         <ToggleMenu OnToggle="ToggleNavMenu" />
@@ -29,22 +29,19 @@
                         <span class="oi" aria-hidden="true"></span> Menu
                     </NavLink>
                 </li>
-
-                @* Specific Start *@
+                
+                @* Specific Start 
                 <li class="nav-item">
                     <NavLink class="nav-link" href="events">
                         <span class="oi" aria-hidden="true"></span> Events & Rentals
                     </NavLink>
                 </li>
+                *@
+
                 @* Specific End *@
                 <li class="nav-item">
                     <NavLink class="nav-link" href="contact-us">
                         <span class="oi" aria-hidden="true"></span> Contact Us
-                    </NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="https://form.jotform.com/252374009495158">
-                        <span class="oi" aria-hidden="true"></span> Apply Here!
                     </NavLink>
                 </li>
             </ul>

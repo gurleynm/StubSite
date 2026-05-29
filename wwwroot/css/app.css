@@ -1,7 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, 'Playfair Display', serif, sans-serif;
 }
 
 h1:focus {
@@ -157,9 +157,9 @@ code {
 }
 
 .jumbotron {
-    background-image: url('/images/Background.png');
+    background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1600&auto=format&fit=crop');
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     width: 100%;
 }
 

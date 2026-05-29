@@ -174,7 +174,7 @@ td a, td input, td img {
         right: 10px; /* Adjust as needed */
         transform: translateY(-50%); /* Vertically center the arrow */
         pointer-events: none; /* Prevents the arrow from interfering with select clicks */
-        color: #78eaff; /* Customize arrow color */
+        color: black; /* Customize arrow color */
     }
 
 /* Add focus style for accessibility */
@@ -191,7 +191,7 @@ td a, td input, td img {
     appearance: none;
     border: none;
     /* Custom styling for the select box */
-    font-family: Arial, sans-serif;
+    font-family: 'Playfair Display', serif, sans-serif;
     font-size: 16px;
     color: #78eaff;
     background-color: #0f1424;
@@ -204,7 +204,7 @@ td a, td input, td img {
 }
 
     .custom-select option {
-        color: white;
+        color: black;
     }
 
 .price-block {
@@ -324,5 +324,256 @@ input.toggler {
 
     to {
         opacity: 0;
+    }
+}
+
+/* HERO */
+
+.hero-section {
+    position: relative;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+}
+
+.hero-subtitle {
+    text-transform: uppercase;
+    letter-spacing: .35em;
+    color: #d8c3a5;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 10vw, 7rem);
+    margin-bottom: 1.5rem;
+    color:white;
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: .92;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.custom-btn {
+    padding: .95rem 2rem;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.btn-primary.custom-btn {
+    background: #a8c3b2;
+    border: none;
+    color: black;
+}
+
+/* SECTIONS */
+
+.section-padding {
+    padding: 7rem 0;
+}
+
+.section-label {
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    color: #8d7b68;
+    font-size: .85rem;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.2;
+    margin-bottom: 2rem;
+}
+
+.section-text {
+    font-size: 1.1rem;
+    line-height: 2;
+    color: rgba(0,0,0,.72);
+}
+
+.feature-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.feature-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+}
+
+.feature-text {
+    color: rgba(0,0,0,.6);
+}
+
+/* GALLERY */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.gallery-img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 2rem;
+}
+
+    .gallery-img.tall {
+        height: 320px;
+    }
+
+    .gallery-img.wide {
+        grid-column: span 2;
+        height: 260px;
+    }
+
+.offset-img {
+    margin-top: 3rem;
+}
+
+/* MENU */
+
+.menu-section {
+    background: #ebe3db;
+}
+
+.drink-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 2rem;
+    height: 100%;
+    transition: .2s ease;
+}
+
+    .drink-card:hover {
+        transform: translateY(-4px);
+    }
+
+.drink-image-placeholder {
+    height: 220px;
+    border-radius: 1.5rem;
+    background: #d9cab3;
+    margin-bottom: 1.5rem;
+}
+
+.drink-title {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1rem;
+}
+
+.drink-description {
+    color: rgba(0,0,0,.65);
+    line-height: 1.8;
+}
+
+/* VISIT */
+
+.visit-block {
+    margin-top: 2rem;
+}
+
+    .visit-block p {
+        color: rgba(0,0,0,.7);
+        line-height: 1.9;
+    }
+
+.map-placeholder {
+    min-height: 420px;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(0,0,0,.55);
+    font-size: 1.25rem;
+}
+
+/* SOCIAL */
+
+.social-section {
+    background: black;
+    color: white;
+    padding: 6rem 0;
+}
+
+.social-label {
+    color: #a8c3b2;
+}
+
+.social-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.social-text {
+    max-width: 700px;
+    margin: auto;
+    line-height: 2;
+    margin-bottom: 2rem;
+    color:  gray;
+}
+
+.social-btn {
+    background: #a8c3b2;
+    color: black;
+    border: none;
+    margin: 1em;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .hero-title {
+        font-size: 4rem;
+    }
+
+    .feature-row {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-img.wide {
+        grid-column: span 1;
+    }
+
+    .offset-img {
+        margin-top: 0;
     }
 }

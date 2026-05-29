@@ -1,87 +1,261 @@
 ﻿@page "/"
 @inject NavigationManager NavMan
 
+<PageTitle>LOT No 1</PageTitle>
 
-<PageTitle>Home</PageTitle>
+<!-- HERO -->
+<section class="hero-section"
+         style="background-image:url('/images/Background1.png')">
 
-<div class="flex-c-start" style="min-height:100vh;">
-    <div class="flex-c jumbotron" fetchpriority=high>
-    </div>
+    <div class="hero-overlay"></div>
 
-    <Marquee>
-        <div class="flex-r" style="align-items:center;margin:2em 0;">
-            <div style="font-size:5vmin">Coffee House</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Market</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Event Space</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Pop-ups</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Kitchen Takeovers</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-
-            <div style="font-size:5vmin">Coffee House</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Market</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Event Space</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Pop-ups</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
-            <div style="font-size:5vmin">Kitchen Takeovers</div>
-            <div class="oi oi-media-record" style="margin:0 1em" />
+    <div class="hero-content container">
+        <div class="hero-subtitle">
+            Downtown Coffee House
         </div>
-    </Marquee>
 
-    <div class="flex-r-100" style="justify-content:space-evenly;align-items:center;margin:1em 0;">
-        <button class="btn btn-primary" style="background-color:@Accent;color:@ButtonText;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("https://squareup.com/gift/ESVA674CM3G4A/order"))>
-            🎁&nbsp;Gift Cards
-        </button>
-        <button class="btn btn-primary" style="background-color:@Accent;color:@ButtonText;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("menu"))>
-            <span class="oi oi-spreadsheet" style="color:@ButtonText" />&nbsp;Menu
-        </button>
-    </div>
-    <div class="switch-space-center">
-        <div class="flex-r" style="width:12em">
-            <img alt="Company logo" src="/images/CompanyLogo.png" style="width:100%;border-radius:1em;background-color:black" />
-        </div>
-        <div class="flex-c" style="padding:1em;">
-            <h1>Welcome to our hometown</h1>
-            <p>Nestled along the Little Miami Scenic Trail in historic downtown Loveland, Hometown cafe is the perfect spot for a relaxing break. Savor coffee and espresso brewed with locally roasted Deeper Roots beans. Enjoy a made-to-order breakfast item. Refuel with a real fruit and veggie smoothie. The cafe is stocked with local treats, snacks and products like cookies, candy, lotion, and energy bars & bites. Kitchen rental is available for makers who need a commercial kitchen to produce their goods. After the café closes, Hometown holds special events like kitchen takeovers and is available for event rental.</p>
+        <h1 class="hero-title">
+            LOT No 1
+        </h1>
+
+        <p class="hero-description">
+            Coffee, conversation, and a place to slow down.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("/menu"))>
+                View Menu
+            </button>
+
+            <button class="btn btn-outline-light custom-btn" @onclick=@(() => NavMan.NavigateTo("#visit"))>
+                Visit Us
+            </button>
         </div>
     </div>
-    <div class="switch-space-center">
-        <div class="flex-r" style="width:12em">
-            <img alt="Coffee Logo" src="/images/Coffee_cup.jpg" style="width:100%;border-radius:1em" />
-        </div>
-        <div class="flex-c desc" style="padding:1em;">
-            <h1>Coffee & Market</h1>
-            <p>We are honored to offer items made by local small businesses. Our selection is always growing. Check back often!</p>
+</section>
+
+<!-- THE SPACE -->
+<section class="section-padding" id="space">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+                <div class="section-label">
+                    THE SPACE
+                </div>
+
+                <h2 class="section-title">
+                    Built for slow mornings and long conversations.
+                </h2>
+
+                <p class="section-text">
+                    LOT No 1 blends cozy atmosphere, quality coffee,
+                    and a downtown neighborhood feel into a space designed
+                    for connection, creativity, and comfort.
+                </p>
+
+                <div class="feature-row">
+                    <div>
+                        <div class="feature-number">
+                            Local
+                        </div>
+
+                        <div class="feature-text">
+                            Community Focused
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="feature-number">
+                            Fresh
+                        </div>
+
+                        <div class="feature-text">
+                            Crafted Daily
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="gallery-grid">
+                    <img src="/images/interior-1.jpg"
+                         class="gallery-img tall" />
+
+                    <img src="/images/interior-2.jpg"
+                         class="gallery-img tall offset-img" />
+
+                    <img src="/images/interior-3.jpg"
+                         class="gallery-img wide" />
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <h1>Where to Find Us</h1>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3084.813359835614!2d-84.4923443!3d39.360463!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f98f137d2975%3A0xf57da19c09e7dc37!2sHometown%20Cafe%20Loveland!5e0!3m2!1sen!2sus!4v1778215224793!5m2!1sen!2sus" 
-            class="map-iframe" style="border:0;margin-bottom:2em;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
+<!-- FEATURED DRINKS -->
+<section class="menu-section section-padding" id="menu">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="section-label">
+                FEATURED DRINKS
+            </div>
+
+            <h2 class="section-title">
+                Crafted with intention.
+            </h2>
+            <p><i>(Replace these with actual photos of the drinks)</i></p>
+        </div>
+
+        <div class="row g-4">
+
+            @foreach (var drink in Drinks)
+            {
+                <div class="col-md-4">
+                    <div class="drink-card">
+
+                        <div class="drink-image-placeholder">
+                            <img src="@drink.ImgSrc" alt="@drink.Name" class="gallery-img" />
+                        </div>
+
+                        <h3 class="drink-title">
+                            @drink.Name
+                        </h3>
+
+                        <p class="drink-description">
+                            @drink.Description
+                        </p>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+<!-- VISIT -->
+<section class="section-padding" id="visit">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+
+            <div class="col-lg-6">
+                <div class="section-label">
+                    VISIT US
+                </div>
+
+                <h2 class="section-title">
+                    Stop in and stay awhile.
+                </h2>
+
+                <div class="visit-block">
+                    <h5>Hours</h5>
+
+                    <p>
+                        @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
+                        {
+                            @("Daily: " + Constants.CompanyHours.Values.First())
+
+                            <br />
+                        }
+                        else
+                        {
+                            @foreach (var key in Constants.CompanyHours.Keys)
+                            {
+                                @(key + ": " + Constants.CompanyHours[key])
+
+                                <br />
+                            }
+                        }
+                    </p>
+                </div>
+
+                <div class="visit-block">
+                    <h5>Location</h5>
+
+                    <p>
+                        Heart of Lebanon, Ohio<br />
+                        Free street parking nearby
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="map-placeholder">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.6020202605705!2d-84.20771169999999!3d39.4331231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f4228987bf1f%3A0x31bdfa0e267a1145!2s9%20E%20Main%20St%2C%20Lebanon%2C%20OH%2045036!5e0!3m2!1sen!2sus!4v1780084882864!5m2!1sen!2sus"
+                            class="map-iframe" style="height:100%;width:100%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="social-section">
+    <div class="container text-center">
+
+        <div class="section-label social-label">
+            FOLLOW ALONG
+        </div>
+
+        <h2 class="social-title">
+            @@lotno1coffee
+        </h2>
+
+        <p class="social-text">
+            Daily drinks, seasonal specials,
+            and moments from inside the shop.
+        </p>
+
+        <div class="flex-r-100" style="flex-wrap:wrap">
+            @foreach (string key in Constants.CompanySocials.Keys)
+            {
+                <button class="btn custom-btn social-btn" @onclick=@(() => NavMan.NavigateTo(Constants.CompanySocials[key]))>
+                    Visit @key
+                </button>
+            }
+        </div>
+    </div>
+</section>
+
 
 @code {
-    [CascadingParameter(Name = "Main")]
-    public string Main { get; set; }
 
-    [CascadingParameter(Name = "Accent")]
-    public string Accent { get; set; }
+    private List<DrinkItem> Drinks = new()
+    {
+        new()
+        {
+            Name = "Honey Cinnamon Latte",
+            Description = "Espresso, steamed milk, honey, cinnamon",
+            ImgSrc = "/images/Mouse.jpg"
+        },
 
-    [CascadingParameter(Name = "Text")]
-    public string Text { get; set; }
+        new()
+        {
+            Name = "Vanilla Cold Brew",
+            Description = "Slow steeped cold brew with vanilla cream",
+            ImgSrc = "/images/Pug.jpg"
+        },
 
-    [CascadingParameter(Name = "ButtonText")]
-    public string ButtonText { get; set; }
+        new()
+        {
+            Name = "Seasonal Espresso",
+            Description = "Rotating local roast with bright notes",
+            ImgSrc = "/images/Bear.jpg"
+        }
+    };
 
     protected override Task OnInitializedAsync()
     {
-        Constants.CurPage = "Hometown";
+        Constants.CurPage = "Home";
         return base.OnInitializedAsync();
+    }
+
+    public class DrinkItem
+    {
+        public string Name { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string ImgSrc { get; set; } = "";
     }
 }

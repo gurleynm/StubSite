@@ -3,31 +3,36 @@
     public class Constants
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
-            { "Main", "#ffffff" }
-            ,{ "Accent", "#ffffff" }
-            ,{ "Text", "#000000" }
+            { "Main", "#efe1d6" }
+            ,{ "Accent", "#a8c3b2" }
+            ,{ "Text", "#5d5250" }
             ,{ "ButtonText", "#000000" }
         };
 
         public static bool Mobile { get; set; }
         public static EventHandler<string> CurPageChanged = (sender, value) => { };
-        public static string CompanyName = "Hometown Cafe Loveland ";
-        public static string CompanyEmail = "hometowncafeloveland@gmail.com";
-        public static string CompanyPhone = "(513) 677-2600";
-        public static string CompanyAddress = "111 Railroad Ave, Loveland, OH 45140";
-        public static string CompanyMapsURL = "https://www.google.com/maps?ll=39.268557,-84.258477&z=16&t=m&hl=en&gl=US&mapclient=embed&cid=17689472602934336567";
+        public static string CompanyName = "Lot No. 1 Coffee";
+        public static string CompanyEmail = "";//"lotno1coffee@gmail.com";
+        public static string CompanyPhone = "(513) 836-3103";
+        public static string CompanyAddress = "9 E Main St, Lebanon, OH, United States, 45036";
+        public static string CompanyMapsURL = "https://maps.app.goo.gl/15o6sYDL42qmk3MT6";
         public static Dictionary<string,string> CompanyHours = new() { 
-            { "Monday" ,"8AM-3PM" } 
-            ,{ "Tuesday" ,"8AM-3PM" } 
-            ,{ "Wednesday" ,"8AM-3PM" } 
-            ,{ "Thursday" ,"8AM-3PM" } 
-            ,{ "Friday" ,"8AM-3PM" } 
-            ,{ "Saturday" ,"8AM-3PM" } 
-            ,{ "Sunday" ,"8AM-3PM" } 
+            { "Monday - Friday" ,"7:30AM-6PM" } 
+            ,{ "Saturday" ,"8AM-6PM" } 
+            ,{ "Sunday" ,"12PM-6PM" } 
         };
+        //public static Dictionary<string,string> CompanyHours = new() { 
+        //    { "Monday" ,"7:30AM-6:00PM" } 
+        //    ,{ "Tuesday" ,"7:30AM-6:00PM" } 
+        //    ,{ "Wednesday" ,"7:30AM-6:00PM" } 
+        //    ,{ "Thursday" ,"7:30AM-6:00PM" } 
+        //    ,{ "Friday" ,"7:30AM-6:00PM" } 
+        //    ,{ "Saturday" ,"8:00AM-6:00PM" } 
+        //    ,{ "Sunday" ,"12:00PM-6:00PM" } 
+        //};
         public static Dictionary<string,string> CompanySocials = new() { 
-            { "Instagram" ,"https://www.instagram.com/hometowncafeloveland/" } 
-            ,{ "Facebook" ,"https://www.facebook.com/hometowncafeloveland/" }
+            { "Instagram" ,"https://www.instagram.com/lotno1coffee?igsh=MWY3a2t1cHc2M3Mzaw==" } 
+            ,{ "Facebook" ,"https://www.facebook.com/profile.php?id=61564617675174&locale=nl_BE" }
         };
 
         private static string curPage;

@@ -22,11 +22,18 @@
         }
 
     div, span, h1, h2, h3, h4, h5, button {
-        font-family: Dosis;
+        font-family: 'Playfair Display', serif;
         color: @Text;
     }
 </style>
-<NavMenu />
+
+<CascadingValue Value="ButtonText" Name="ButtonText">
+    <CascadingValue Value="Accent" Name="Accent">
+        <CascadingValue Value="Main" Name="Main">
+            <NavMenu />
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
 
 <main>
     <div style="background-image:linear-gradient(@Main,@Main);">

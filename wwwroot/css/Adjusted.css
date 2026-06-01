@@ -470,10 +470,12 @@ input.toggler {
 
 .drink-card {
     background: white;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 2rem;
     height: 100%;
+    width: 25%;
     transition: .2s ease;
+    margin: .5em .25em;
 }
 
     .drink-card:hover {
@@ -481,10 +483,8 @@ input.toggler {
     }
 
 .drink-image-placeholder {
-    height: 220px;
     border-radius: 1.5rem;
     background: #d9cab3;
-    margin-bottom: 1.5rem;
 }
 
 .drink-title {
@@ -575,5 +575,9 @@ input.toggler {
 
     .offset-img {
         margin-top: 0;
+    }
+
+    .drink-card {
+        width: 45%;
     }
 }

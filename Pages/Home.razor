@@ -106,28 +106,33 @@
                 <h2 class="section-title">
                     Crafted with intention.
                 </h2>
-                <p><i>(Replace these with actual photos of the drinks)</i></p>
+                <div class="feature-number">
+                    JUNE SPECIALS
+                </div>
             </div>
 
-            <div class="row g-4">
+            <div class="flex-r-100" style="flex-wrap:wrap">
 
                 @foreach (var drink in Drinks)
                 {
-                    <div class="col-md-4">
-                        <div class="drink-card">
+                    <div class="drink-card">
+                        <div class="drink-image-placeholder">
+                            <img src="@drink.ImgSrc" alt="@drink.Name" class="gallery-img" />
+                        </div>
 
-                            <div class="drink-image-placeholder">
-                                <img src="@drink.ImgSrc" alt="@drink.Name" class="gallery-img" />
-                            </div>
-
+                        @if (!string.IsNullOrEmpty(drink.Name))
+                        {
                             <h3 class="drink-title" style="text-align:center">
                                 @drink.Name
                             </h3>
+                        }
 
+                        @if (!string.IsNullOrEmpty(drink.Description))
+                        {
                             <p class="drink-description" style="text-align:center">
                                 @drink.Description
                             </p>
-                        </div>
+                        }
                     </div>
                 }
 
@@ -227,23 +232,41 @@
     {
         new()
         {
-            Name = "Honey Cinnamon Latte",
-            Description = "Espresso, steamed milk, honey, cinnamon",
-            ImgSrc = "/images/Mouse.jpg"
+            Name = "",
+            Description = "",
+            ImgSrc = "/images/Teddy.png"
         },
 
         new()
         {
-            Name = "Vanilla Cold Brew",
-            Description = "Slow steeped cold brew with vanilla cream",
-            ImgSrc = "/images/Pug.jpg"
+            Name = "",
+            Description = "",
+            ImgSrc = "/images/Coconut.png"
         },
 
         new()
         {
-            Name = "Seasonal Espresso",
-            Description = "Rotating local roast with bright notes",
-            ImgSrc = "/images/Bear.jpg"
+            Name = "",
+            Description = "",
+            ImgSrc = "/images/Banana.png"
+        },
+        new()
+        {
+            Name = "",
+            Description = "",
+            ImgSrc = "/images/Shortcake.png"
+        },
+        new()
+        {
+            Name = "",
+            Description = "",
+            ImgSrc = "/images/Cherry.png"
+        },
+        new()
+        {
+            Name = "",
+            Description = "",
+            ImgSrc = "/images/Strawberry.png"
         }
     };
 

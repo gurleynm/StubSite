@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\nateg\Desktop\Publishes\Stub_Site</_PublishTargetUrl>
-    <History>True|2025-02-09T21:23:32.4898166Z||;</History>
+    <_PublishTargetUrl>C:\Users\nateg\Desktop\Publishes\Stub_LotNo1</_PublishTargetUrl>
+    <History>True|2026-06-01T18:09:10.1651231Z||;True|2026-05-30T01:15:03.2647954-04:00||;True|2026-05-29T19:23:28.7119230-04:00||;True|2026-05-29T19:11:30.7285257-04:00||;True|2026-05-29T19:09:11.6616524-04:00||;True|2026-05-29T19:01:52.1202268-04:00||;True|2026-05-29T18:42:14.9591052-04:00||;False|2026-05-29T18:41:32.5254146-04:00||;False|2026-05-29T18:40:56.1530249-04:00||;True|2025-02-09T16:23:32.4898166-05:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

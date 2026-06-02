@@ -367,6 +367,8 @@ input.toggler {
     letter-spacing: .35em;
     color: #d8c3a5;
     margin-bottom: 1rem;
+    background-color: dimgray;
+    border-radius: .5em;
 }
 
 .hero-title {
@@ -414,6 +416,10 @@ input.toggler {
     color: #d8c3a5;
     font-size: .85rem;
     margin-bottom: 1rem;
+    width:fit-content;
+    padding: .5em;
+    background-color: dimgray;
+    border-radius: .5em;
 }
 
 .section-title {
@@ -434,11 +440,19 @@ input.toggler {
     letter-spacing: .25em;
     color: #d8c3a5;
     font-size: .85rem;
+    background-color: dimgray;
+    border-radius: .5em;
+    padding:.5em;
 }
 
 .booking-cost {
     font-size: 1.1rem;
-    color: rgba(0,0,0,.72);
+    color: black;
+}
+
+.booking-cost-total {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,.72);
 }
 
 .feature-row {

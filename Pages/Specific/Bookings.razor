@@ -36,10 +36,10 @@
         <p class="mt-3">You selected: <strong>@SelectedDate.ToString("dddd - MMMM dd, yyyy @") @selectedSlot.DisplayTime</strong></p>
         <div class="flex-r-100-wrap">
             <div class="price-block">
-                <h2 class="section-label">
+                <h2 class="booking-label">
                     Paddlers (Age 10+):
                 </h2>
-                <div class="flex-r-100" style="justify-content:space-around;align-items:center">
+                <div class="flex-r-100" style="justify-content:space-between;align-items:center">
                     <FancySelect @bind-Value="Paddlers">
                         <option value="0">0</option>
                         @for (int cnt = 1; cnt < 10; cnt++)
@@ -57,10 +57,10 @@
             </div>
 
             <div class="price-block">
-                <h2 class="section-label">
+                <h2 class="booking-label">
                     Youth Paddlers (Age 5-9):
                 </h2>
-                <div class="flex-r-100" style="justify-content:space-around;align-items:center">
+                <div class="flex-r-100" style="justify-content:space-between;align-items:center">
                     <FancySelect @bind-Value="YouthPaddlers">
                         <option value="0">0</option>
                         @for (int cnt = 1; cnt < 10; cnt++)
@@ -79,18 +79,18 @@
                     </div>
                 }
             </div>
-            <div class="price-block">
-                <div class="flex-r-100" style="justify-content:space-between">
+            <div class="price-block booking-label">
+                <div class="flex-r-100" style="justify-content:space-between;align-items:center">
                     <h2 class="booking-label">Subtotal:</h2>
-                    <h3 class="booking-cost">@((PaddlersSubtotal + YouthSubtotal).ToString("$0.00"))</h3>
+                    <h3 class="booking-cost-total">@((PaddlersSubtotal + YouthSubtotal).ToString("$0.00"))</h3>
                 </div>
-                <div class="flex-r-100" style="justify-content:space-between">
+                <div class="flex-r-100" style="justify-content:space-between;align-items:center">
                     <h2 class="booking-label">Taxes:</h2>
-                    <h3 class="booking-cost">@Taxes.ToString("$0.00")</h3>
+                    <h3 class="booking-cost-total">@Taxes.ToString("$0.00")</h3>
                 </div>
-                <div class="flex-r-100" style="justify-content:space-between">
-                    <h2 class="booking-label" style="font-size:xx-large">Total:</h2>
-                    <h2>@((PaddlersSubtotal + YouthSubtotal + Taxes).ToString("$0.00"))</h2>
+                <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                    <h2 class="booking-label" style="font-size:x-large">Total:</h2>
+                    <h2 class="booking-cost-total" style="font-size:x-large">@((PaddlersSubtotal + YouthSubtotal + Taxes).ToString("$0.00"))</h2>
                 </div>
             </div>
             <div class="flex-r-100">

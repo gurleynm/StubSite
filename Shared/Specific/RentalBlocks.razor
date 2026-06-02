@@ -5,10 +5,56 @@
     {
         <PricingBlock Product="prod" Subject=@prod.Title/>
     }
+
+    <PricingBlock Product="FivePack" Style="width:95%" ShowButton=false>
+        <div class="flex-r-100" style="justify-content:space-evenly;padding:0% 5%;flex-wrap:wrap">
+            @* Event Rental *@
+            @foreach (PricingProduct prod in FivePackSubs)
+            {
+                <PricingBlock Product="prod" Subject=@(prod.Title) />
+            }
+        </div>
+    </PricingBlock>
 </div>
 
 @code {
+    PricingProduct FivePack = new PricingProduct()
+        {
+            Title = "5-Pack Special",
+            Cost = "",
+            Duration = "",
+            Features = new List<string>()
+            {
+                "5 Trips at a discounted rate"
+                ,"Gift Cards are available for 5 Packs"
+            }
+        };
 
+    List<PricingProduct> FivePackSubs = new List<PricingProduct>()
+    {
+        new PricingProduct()
+        {
+            Title = "5-Pack: Weekdays",
+            Cost = "$185",
+            Duration = "",
+            Features = new List<string>()
+            {
+                "5 Weekday Trips"
+                ,"~Major holidays"
+            }
+        }
+        ,new PricingProduct()
+        {
+            Title = "5-Pack: Anytime",
+            Cost = "$205",
+            Duration = "",
+            Features = new List<string>()
+            {
+                "5 Anytime Trips"
+                ,"Anytime Trips are valid any day / time"
+            }
+        }
+    };
 
     List<PricingProduct> TripProds = new List<PricingProduct>()
     {
@@ -40,20 +86,6 @@
                 "Purchase a season pass and paddle all summer for one low price.",
                 "Buy one for each member of the family.",
                 "Gift Cards are available for Season Passes."
-            }
-        }
-        ,new PricingProduct()
-        {
-            Title = "5-Pack Special",
-            Cost = "$185/$205",
-            Duration = "",
-            Features = new List<string>()
-            {
-                "5 Weekday Trips for $185"
-                ,"Weekday Trips valid weekdays excluding major holidays"
-                ,"5 Anytime Trips for $205"
-                ,"Anytime Trips are valid any day / time"
-                ,"Gift Cards are available for 5 Packs."
             }
         }
     };

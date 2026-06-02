@@ -94,7 +94,7 @@
         <div class="container">
 
             <div class="text-center mb-5">
-                <div class="section-label" style="color:#f4801d">
+                <div class="section-label">
                     FEATURED ADVENTURES
                 </div>
 
@@ -122,29 +122,19 @@
                     </h2>
 
                     <div class="visit-block">
-                        <h5>Hours</h5>
+                        <hr style="width:100%;opacity:1;background-color:@Accent" />
+                        <h3>Hours</h3>
 
-                        <div>
-                            Please Note: Operations are subject to weather and river conditions permitting.
-                            <br />
-                            Please call 513-683-4611 or check our <a href="https://www.facebook.com/LovelandCanoe" style="color:orange;text-decoration:underline">Facebook page</a> for current status.
-                        </div>
-
-                        <hr style="width:100%;background-color:@Accent" />
-
-                        <p>
+                        <h4 style="text-align:center">
                             @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
                             {
                                 @("Daily: " + Constants.CompanyHours.Values.First())
 
                                 <br />
-                                <div>
-                                    (Last trip departs at 3:00 PM)
-                                </div>
-                                <div>
-                                    Trips departures on the 1/2 hour from 9:00 AM – 3:00 PM
-                                    All kayaks must be in by 6:00 PM
-                                </div>
+                                <span>
+                                    (Last trip departs at 3:00PM)
+                                </span>
+
                             }
                             else
                             {
@@ -155,16 +145,25 @@
                                     <br />
                                 }
                             }
-                        </p>
+                        </h4>
+
+                        <h4 class="section-label" style="text-align:center">
+                            Note: Operations are subject to weather and river conditions permitting.
+                            <br />
+                            <br />
+                            Please call 513-683-4611 or check our <a href="https://www.facebook.com/LovelandCanoe" style="color:orange;text-decoration:underline">Facebook page</a> for current status.
+                        </h4>
                     </div>
+                    <hr style="width:100%;opacity:1;background-color:@Accent" />
 
                     <div class="visit-block">
-                        <h5>Location</h5>
+                        <h3>Location</h3>
 
-                        <p>
+
+                        <h4>
                             Loveland, Ohio<br />
                             Free parking, easy access nearby
-                        </p>
+                        </h4>
                     </div>
                 </div>
 
@@ -183,8 +182,10 @@
     <section class="social-section">
         <div class="container text-center">
 
-            <div class="section-label social-label">
-                FOLLOW ALONG
+            <div class="flex-r-100">
+                <div class="section-label social-label">
+                    FOLLOW ALONG
+                </div>
             </div>
 
             <h2 class="social-title">
@@ -192,8 +193,7 @@
             </h2>
 
             <p class="social-text">
-                Daily drinks, seasonal specials,
-                and moments from inside the shop.
+                River conditions, customer adventures, special events, kayak inventory updates, and photos from the Little Miami River.
             </p>
 
             <div class="flex-r-100-wrap">
@@ -220,7 +220,7 @@
 
     [CascadingParameter(Name = "ButtonText")]
     public string ButtonText { get; set; }
-        
+
     protected override Task OnInitializedAsync()
     {
         Constants.CurPage = "Home";

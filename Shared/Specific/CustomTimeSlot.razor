@@ -1,0 +1,53 @@
+﻿@using System.Globalization
+<div class="time-slot-container">
+    <h3>Select your departure time:</h3>
+    @foreach (var slot in TimeSlots)
+    {
+        <button class="btn time-btn @GetButtonClass(slot)"
+                @onclick="() => ToggleSlotSelection(slot)"
+                disabled="@(!slot.IsAvailable)">
+            @slot.DisplayTime
+        </button>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public List<TimeSlot> TimeSlots { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<TimeSlot> OnSlotSelected { get; set; }
+
+    private string GetButtonClass(TimeSlot slot)
+    {
+        if (slot.IsSelected) return "btn-primary selected";
+        if (slot.IsAvailable) return "btn-outline-primary";
+        return "btn-secondary disabled";
+    }
+
+    private async Task ToggleSlotSelection(TimeSlot clickedSlot)
+    {
+        // Optional: Deselect others if only one selection is allowed
+        foreach (var slot in TimeSlots.Where(s => s != clickedSlot))
+        {
+            slot.IsSelected = false;
+        }
+
+        clickedSlot.IsSelected = !clickedSlot.IsSelected;
+
+        if (clickedSlot.IsSelected)
+        {
+            await OnSlotSelected.InvokeAsync(clickedSlot);
+        }
+    }
+
+    public class TimeSlot
+    {
+        public TimeSpan Time { get; set; }
+        public bool IsAvailable { get; set; }
+        public bool IsSelected { get; set; }
+
+        public string DisplayTime => new DateTime(Time.Ticks).ToString("h:mm tt", CultureInfo.InvariantCulture);
+    }
+
+}

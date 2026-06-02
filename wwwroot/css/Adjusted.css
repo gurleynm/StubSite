@@ -22,6 +22,14 @@ td a, td input, td img {
     width:100%;
 }
 
+.flex-r-100-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width:100%;
+    flex-wrap: wrap;
+}
+
 .flex-r {
     display: flex;
     flex-direction: row;
@@ -211,6 +219,7 @@ td a, td input, td img {
     border: .125em solid silver;
     padding: 1em;
     margin: 1em;
+    width: 25%;
     border-radius: .5em;
     display: flex;
     flex-direction: column;
@@ -388,7 +397,7 @@ input.toggler {
 }
 
 .btn-primary.custom-btn {
-    background: #a8c3b2;
+    background: #f4801d;
     border: none;
     color: black;
 }
@@ -402,7 +411,7 @@ input.toggler {
 .section-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: #8d7b68;
+    color: #d8c3a5;
     font-size: .85rem;
     margin-bottom: 1rem;
 }
@@ -417,6 +426,18 @@ input.toggler {
 .section-text {
     font-size: 1.1rem;
     line-height: 2;
+    color: rgba(0,0,0,.72);
+}
+
+.booking-label {
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    color: #d8c3a5;
+    font-size: .85rem;
+}
+
+.booking-cost {
+    font-size: 1.1rem;
     color: rgba(0,0,0,.72);
 }
 
@@ -580,4 +601,107 @@ input.toggler {
     .drink-card {
         width: 45%;
     }
+
+    .price-block {
+        width: 85%;
+    }
+}
+
+
+
+.calendar-container {
+    width: 320px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    background: #ffffff;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.month-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.nav-btn {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+    .nav-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    text-align: center;
+}
+
+.day-name {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.85rem;
+    padding-bottom: 5px;
+}
+
+.empty-cell {
+    visibility: hidden;
+}
+
+.date-button {
+    background: #fdfdfd;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.15s ease;
+}
+
+    .date-button:hover {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .date-button.open-date {
+        background-color: #28a745;
+        color: white;
+        border-color: #28a745;
+        font-weight: bold;
+    }
+
+    .date-button.selected-date {
+        background-color: gold;
+        color: black;
+        border-color: gold;
+        font-weight: bold;
+    }
+
+.time-slot-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    flex-wrap:wrap;
+    background-color:white;
+    width: 100%;
+    border-radius:1em;
+    padding: 1em 0;
+}
+
+.time-btn{
+    margin:1em;
 }

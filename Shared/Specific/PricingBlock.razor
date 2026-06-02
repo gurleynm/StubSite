@@ -2,8 +2,13 @@
 @inject NavigationManager NavMan
 
 <div class="flex-c-start price-block @(Product.Beautify ? "beautify" : "")" style="@Style">
-    <h2 style="font-family: 'Playfair Display', serif;color:@Text">@Product.Title</h2>   
-
+    @if (Product.Beautify)
+    {
+        <div class="header-right beautify">MOST POPULAR</div>
+        @* <div class="price-block" style="border-color:white">MOST POPULAR</div> *@
+    }
+    <h2 class="section-title" style="text-align:center;color:@Text">@Product.Title</h2>   
+    <hr style="width:95%;background-color:@Accent;opacity:1;margin:0;height:2px"/>
     @foreach (var feature in Product.Features)
     {
         string featShow = feature;
@@ -13,7 +18,7 @@
         if (Not || Required || None)
             featShow = feature.Substring(1);
 
-        <div class="flex-r-100" style="margin:0;justify-content:space-between;align-items:center;border-bottom:1px solid silver;padding:1em 0">
+        <div class="flex-r-100" style="margin:0;justify-content:space-between;align-items:center;border-bottom:1px solid silver;padding:1em 0;">
             <span style="text-align:start">@featShow</span>
             @if (!None)
             {
@@ -27,7 +32,7 @@
                 }
                 else
                 {
-                    <span class="oi oi-circle-check" style="margin:0; margin-left:1em" />
+                    <span class="oi oi-circle-check" style="margin:0; margin-left:1em;border-radius:.5em;background-color:@Accent" />
                 }
             }
         </div>
@@ -37,7 +42,7 @@
 
         @if (ShowButton)
         {
-            <button class="btn btn-primary" style="background-color:@Accent;color:@ButtonText;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("contact-us" + SubjectParam))>📲 Reach Out</button>
+            <button class="btn btn-primary" style="background-color:@Accent;color:@ButtonText;border-radius:2em;" @onclick=@(() => NavMan.NavigateTo("booking" + SubjectParam))>Reserve 📝</button>
         }
 
         @if (ChildContent != null)

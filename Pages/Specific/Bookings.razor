@@ -1,0 +1,232 @@
+﻿@page "/booking"
+
+@inject NavigationManager NavMan
+@using StubSite.Shared
+@using StubSite.Shared.Specific
+@using static StubSite.Shared.Specific.CustomTimeSlot
+
+<div style="padding:1em">
+    <FancySelect @bind-Value="SelectedProduct">
+        <option value="@string.Empty" disabled selected>--Select Option--</option>
+        @for (int cnt = 0; cnt < Products.Length; cnt++)
+        {
+            <option>@Products[cnt]</option>
+        }
+    </FancySelect>
+
+    <div id="select-day" />
+    @if (!string.IsNullOrEmpty(SelectedProduct))
+    {
+        <div class="flex-r-100">
+            <StubSite.Shared.Specific.CustomCalendar @bind-SelectedDate="SelectedDate" />
+        </div>
+    }
+
+    <div id="select-time" />
+    @if (SelectedDate != default)
+    {
+        <div class="fade-in-delay" style="padding:1em">
+            <StubSite.Shared.Specific.CustomTimeSlot TimeSlots="availableSlots" OnSlotSelected="HandleSlotSelection" />
+        </div>
+    }
+
+    <div id="select-paddlers" />
+    @if (selectedSlot != null)
+    {
+        <p class="mt-3">You selected: <strong>@SelectedDate.ToString("dddd - MMMM dd, yyyy @") @selectedSlot.DisplayTime</strong></p>
+        <div class="flex-r-100-wrap">
+            <div class="price-block">
+                <h2 class="section-label">
+                    Paddlers (Age 10+):
+                </h2>
+                <div class="flex-r-100" style="justify-content:space-around;align-items:center">
+                    <FancySelect @bind-Value="Paddlers">
+                        <option value="0">0</option>
+                        @for (int cnt = 1; cnt < 10; cnt++)
+                        {
+                            <option value="@cnt">@cnt</option>
+                        }
+                    </FancySelect>
+                    <div>x $40</div>
+                </div>
+                <hr style="width:98%" />
+                <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                    <h2 class="booking-label">Paddlers:</h2>
+                    <h3 class="booking-cost">@PaddlersSubtotal.ToString("$0.00")</h3>
+                </div>
+            </div>
+
+            <div class="price-block">
+                <h2 class="section-label">
+                    Youth Paddlers (Age 5-9):
+                </h2>
+                <div class="flex-r-100" style="justify-content:space-around;align-items:center">
+                    <FancySelect @bind-Value="YouthPaddlers">
+                        <option value="0">0</option>
+                        @for (int cnt = 1; cnt < 10; cnt++)
+                        {
+                            <option value="@cnt">@cnt</option>
+                        }
+                    </FancySelect>
+                    <div>x $25</div>
+                </div>
+                <hr style="width:98%" />
+                @if (YouthPaddlers != "0")
+                {
+                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                        <h2 class="booking-label">Youth Paddlers:</h2>
+                        <h3 class="booking-cost">@YouthSubtotal.ToString("$0.00")</h3>
+                    </div>
+                }
+            </div>
+            <div class="price-block">
+                <div class="flex-r-100" style="justify-content:space-between">
+                    <h2 class="booking-label">Subtotal:</h2>
+                    <h3 class="booking-cost">@((PaddlersSubtotal + YouthSubtotal).ToString("$0.00"))</h3>
+                </div>
+                <div class="flex-r-100" style="justify-content:space-between">
+                    <h2 class="booking-label">Taxes:</h2>
+                    <h3 class="booking-cost">@Taxes.ToString("$0.00")</h3>
+                </div>
+                <div class="flex-r-100" style="justify-content:space-between">
+                    <h2 class="booking-label" style="font-size:xx-large">Total:</h2>
+                    <h2>@((PaddlersSubtotal + YouthSubtotal + Taxes).ToString("$0.00"))</h2>
+                </div>
+            </div>
+            <div class="flex-r-100">
+                <button class="fade-in-delay btn btn-primary custom-btn hide-in-desktop" @onclick=@(() => NavMan.NavigateTo("/rentals"))>
+                    Checkout
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    string selectedProduct = "";
+    string SelectedProduct
+    {
+        get { return selectedProduct; }
+        set
+        {
+            if (selectedProduct == value)
+                return;
+
+            selectedProduct = value;
+            Jump("select-day");
+        }
+    }
+    DateTime selectedDate { get; set; }
+    DateTime SelectedDate
+    {
+        get { return selectedDate; }
+        set
+        {
+            if (selectedDate == value)
+                return;
+
+            selectedDate = value;
+            Jump("select-time");
+        }
+    }
+
+    decimal PaddlersSubtotal => GetPaddlersCost();
+    decimal YouthSubtotal => GetYouthPaddlersCost();
+    decimal Total;
+    decimal Taxes => (PaddlersSubtotal + YouthSubtotal) * (decimal)0.0675;
+
+    string[] Products = new string[]
+    {
+        "Castle Adventure"
+        ,"Season Pass"
+        ,"5-Pack Special"
+    };
+
+    string Paddlers = "1";
+    string YouthPaddlers = "0";
+
+    protected override void OnInitialized()
+    {
+        Constants.CurPage = "Reservations";
+
+        var uri = new Uri(NavMan.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        try
+        {
+            SelectedProduct = query["subject"];
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        // Generate time slots (e.g., 9 AM to 3 PM)
+        for (int i = 9; i <= 15; i++)
+        {
+            availableSlots.Add(new TimeSlot
+            {
+                Time = new TimeSpan(i, 0, 0),
+                IsAvailable = i != 12 // Lunch break is unavailable
+            });
+
+            availableSlots.Add(new TimeSlot
+            {
+                Time = new TimeSpan(i, 30, 0),
+                IsAvailable = i != 12 // Lunch break is unavailable
+            });
+        }
+
+        base.OnInitialized();
+    }
+
+    private List<CustomTimeSlot.TimeSlot> availableSlots = new();
+    private CustomTimeSlot.TimeSlot? selectedSlot;
+
+    private decimal GetPaddlersCost()
+    {
+        decimal pst = 0;
+        if (SelectedProduct == "Season Pass")
+        {
+            pst = (decimal.Parse(Paddlers) + decimal.Parse(YouthPaddlers)) * 295;
+        }
+        else if (SelectedProduct == "5-Pack Special")
+        {
+            pst = (decimal.Parse(Paddlers) + decimal.Parse(YouthPaddlers)) * 185;
+        }
+        else
+        {
+            pst = (decimal.Parse(Paddlers) * 40);
+        }
+        return pst;
+    }
+
+    private decimal GetYouthPaddlersCost()
+    {
+        decimal ypst = 0;
+        if (SelectedProduct == "Season Pass")
+        {
+            ypst = (decimal.Parse(Paddlers) + decimal.Parse(YouthPaddlers)) * 295;
+        }
+        else if (SelectedProduct == "5-Pack Special")
+        {
+            ypst = (decimal.Parse(Paddlers) + decimal.Parse(YouthPaddlers)) * 185;
+        }
+        else
+        {
+            ypst = (decimal.Parse(YouthPaddlers) * 25);
+        }
+        return ypst;
+    }
+
+    private async Task Jump(string id)
+    {
+        NavMan.NavigateTo(NavMan.Uri + "#" + id, forceLoad: false);
+    }
+
+    private void HandleSlotSelection(TimeSlot slot)
+    {
+        selectedSlot = slot;
+        Jump("select-paddlers");
+    }
+}

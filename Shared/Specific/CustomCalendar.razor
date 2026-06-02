@@ -1,0 +1,95 @@
+﻿@using System.Globalization
+
+<div class="calendar-container">
+    <!-- Calendar Header Controls -->
+    <div class="calendar-header">
+        <button type="button" class="nav-btn" @onclick="PreviousMonth">&lt;</button>
+        <span class="month-title">@_currentPeriod.ToString("MMMM yyyy")</span>
+        <button type="button" class="nav-btn" @onclick="NextMonth">&gt;</button>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar-grid">
+        <!-- Day Names Header Rows -->
+        @foreach (var day in _dayNames)
+        {
+            <div class="day-name">@day</div>
+        }
+
+        <!-- Empty Spaces for First Week Padding -->
+        @for (int i = 0; i < _emptyDaysAtStart; i++)
+        {
+            <div class="empty-cell"></div>
+        }
+
+        <!-- Day Date Buttons -->
+        @for (int dayNumber = 1; dayNumber <= _daysInMonth; dayNumber++)
+        {
+            var dateToBind = new DateTime(_currentPeriod.Year, _currentPeriod.Month, dayNumber);
+            var isSelected = SelectedDate.Date == dateToBind.Date;
+
+            <button type="button"
+                    class="date-button @(isSelected ? "selected-date" : "") @(dateToBind.Month == DateTime.Now.Month ? "open-date" : "")"
+                    @onclick="() => HandleDateClick(dateToBind)">
+                @dayNumber
+            </button>
+        }
+    </div>
+</div>
+
+@code {
+    private DateTime _currentPeriod = DateTime.Today;
+    private string[] _dayNames = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames;
+    private int _daysInMonth;
+    private int _emptyDaysAtStart;
+
+    public DateTime selectedDate { get; set; }
+    [Parameter]
+    public DateTime SelectedDate
+    {
+        get { return selectedDate; }
+        set
+        {
+            if (selectedDate == value)
+                return;
+
+            selectedDate = value;
+            SelectedDateChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<DateTime> SelectedDateChanged { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CalculateCalendarDimensions();
+    }
+
+    private void CalculateCalendarDimensions()
+    {
+        _daysInMonth = DateTime.DaysInMonth(_currentPeriod.Year, _currentPeriod.Month);
+
+        // Find the day of the week for the 1st of the month
+        var firstDayOfMonth = new DateTime(_currentPeriod.Year, _currentPeriod.Month, 1);
+        _emptyDaysAtStart = (int)firstDayOfMonth.DayOfWeek;
+    }
+
+    private async Task HandleDateClick(DateTime date)
+    {
+        SelectedDate = date;
+        await SelectedDateChanged.InvokeAsync(date);
+    }
+
+    private void PreviousMonth()
+    {
+        _currentPeriod = _currentPeriod.AddMonths(-1);
+        CalculateCalendarDimensions();
+    }
+
+    private void NextMonth()
+    {
+        _currentPeriod = _currentPeriod.AddMonths(1);
+        CalculateCalendarDimensions();
+    }
+}

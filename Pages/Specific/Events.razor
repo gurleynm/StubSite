@@ -1,145 +1,28 @@
-﻿@page "/events"
+﻿@page "/rentals"
 @using StubSite.Data.Specific
 @using StubSite.Shared.Specific
 
 <div class="flex-c-start" style="padding:1em">
-    <PricingBlock Product="GeneralEvent" Style="width:95%" ShowButton=false>
-        <div class="flex-r-100" style="justify-content:space-evenly;padding:0% 5%;flex-wrap:wrap">
-            @* Event Rental *@
-            @foreach (PricingProduct prod in EventProds)
-            {
-                <PricingBlock Product="prod" Subject=@(prod.Title + " Inquiry") />
-            }
-        </div>
-    </PricingBlock>
-
-    <PricingBlock Product="GeneralCatering" Style="width:95%" ShowButton=false>
-        <PricingBlock Product="KitchenAccess" Style="width:95%" Subject=@(KitchenAccess.Title + " Inquiry") />
-    </PricingBlock>
-
-    <h3 style="margin:1em;text-align:center">Your evening event includes the use of the patio</h3>
-    <img data-stretch="false" data-src="https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg" data-image="https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg" data-image-dimensions="2500x1875" data-image-focal-point="0.5,0.5" alt="Your evening event rental includes use of the patio." data-load="false" src="https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg" width="2500" height="1875" sizes="(max-width: 640px) 100vw, (max-width: 767px) 100vw, 100vw" style="display:block;object-fit: cover; width: 100%; height: 100%; object-position: 50% 50%" onload="this.classList.add(&quot;loaded&quot;)" srcset="https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/5c09dc6336099be01911cddf/1559695214817-6S2BUABN4OHASWGO4Q60/20190527_105012.jpg?format=2500w 2500w" loading="lazy" decoding="async">
-
-    <PricingBlock Product="KitchenRental" Style="width:95%" ShowButton=false>
-        <div class="flex-r-100" style="justify-content:space-evenly;padding:0% 5%;flex-wrap:wrap">
-            @* Kitchen Rental *@
-            @foreach (PricingProduct prod in KitchenProds)
-            {
-                <PricingBlock Product="prod" Subject=@(prod.Title + " Inquiry") />
-            }
-        </div>
-    </PricingBlock>
+    <h2 class="section-title">Kayak Rentals</h2>
+    <hr style="background-color:@Accent;width:100%;height:.25em;opacity:1;border-radius:1em" />
+    <RentalBlocks />
 </div>
 
 @code {
-    PricingProduct GeneralEvent = new PricingProduct()
-    {
-        Title = "Event Rentals",
-        Cost = "",
-        Duration = "",
-        Features = new List<string>()
-            {
-                "!Full space access from 4pm - 11pm (Setup and tear down must be done in those hours)",
-                "!Dining room seats up to 25, Patio seats up to 32",
-                "!Rental fee due in full to reserve an evening date",
-                "!30-day cancellation for full refund, 50% refund for later cancellations",
-                "!No Hometown cafe or market items will be purchasable during your event"
-            }
-    };
+    [CascadingParameter(Name = "Main")]
+    public string Main { get; set; }
 
-    PricingProduct GeneralCatering = new PricingProduct()
-    {
-        Title = "Catering Services",
-        Cost = "",
-        Duration = "",
-        Features = new List<string>()
-            {
-                "!Welcome to cater with us or someone else"
-            }
-    };
+    [CascadingParameter(Name = "Accent")]
+    public string Accent { get; set; }
 
-    PricingProduct KitchenAccess = new PricingProduct()
-    {
-        Title = "Kitchen Access",
-        Cost = "$100",
-        Duration = "for the evening",
-        Features = new List<string>()
-            {
-                "Ability for caterers to use our kitchen"
-            }
-    };
+    [CascadingParameter(Name = "Text")]
+    public string Text { get; set; }
 
-    List<PricingProduct> EventProds = new List<PricingProduct>()
-    {
-        new PricingProduct()
-        {
-            Title = "Weekend Rental",
-            Cost = "$300",
-            Duration = "",
-            Features = new List<string>()
-            {
-                "Rental for Friday, Saturday, Sunday Evening",
-            }
-        },
-        new PricingProduct()
-        {
-            Title = "Weekday Rental",
-            Cost = "$250",
-            Duration = "",
-            Features = new List<string>()
-            {
-                "Rental for Monday-Thursday Evening"
-            }
-        }
-    };
-
-    PricingProduct KitchenRental = new PricingProduct()
-    {
-        Title = "Kitchen Rentals",
-        Cost = "",
-        Duration = "",
-        Features = new List<string>()
-            {
-                "!(1) Standard and (1) Convection oven",
-                "!24 inch flat top and 8 burners",
-                "!Meat slicer",
-                "!Cold press juicer X1",
-                "!Fryer",
-                "!Prep tables and can opener",
-                "!Walk in cooler",
-                "!Under counter freezer"
-            }
-    };
-
-    List<PricingProduct> KitchenProds = new List<PricingProduct>()
-    {
-        new PricingProduct()
-        {
-            Title = "Membership",
-            Cost = "$30",
-            Duration = "/Hour",
-            Features = new List<string>()
-            {
-                "Access to kitchen with secure electronic code",
-                "Cooler and shelf rental available",
-                "*60 day notice required to end membership",
-                "*6 hour minimum charge per month",
-                "*3-month commitment required"
-            }
-        },
-        new PricingProduct()
-        {
-            Title = "Single Use",
-            Cost = "$45",
-            Duration = "/Hour",
-            Features = new List<string>()
-            {
-            }
-        }
-    };
+    [CascadingParameter(Name = "ButtonText")]
+    public string ButtonText { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Constants.CurPage = "Events";
+        Constants.CurPage = "Rentals";
     }
 }

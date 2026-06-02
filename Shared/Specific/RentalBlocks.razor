@@ -1,0 +1,60 @@
+﻿@using StubSite.Data.Specific
+<div class="flex-r-100-wrap">
+    @* Trip Rental *@
+    @foreach (PricingProduct prod in TripProds)
+    {
+        <PricingBlock Product="prod" Subject=@prod.Title/>
+    }
+</div>
+
+@code {
+
+
+    List<PricingProduct> TripProds = new List<PricingProduct>()
+    {
+        new PricingProduct()
+        {
+            Title = "Castle Adventure",
+            Cost = "$40",
+            Duration = "/Person",
+            Beautify = true,
+            Features = new List<string>()
+            {
+                "Our most popular paddling adventure"
+                ,"Paddle past the historic Loveland Castle!"
+                ,"Average trip lasts 2-4 hours"
+                ,"Traveling 5 miles"
+                ,"Check in at Loveland Paddlesports, we transport you up river"
+                ,"Ends at Loveland Paddlesports"
+                ,"Gift Cards are available for any amount."
+                ,"*(Add $5 for weekends and holidays)"
+            }
+        }
+        ,new PricingProduct()
+        {
+            Title = "Season Pass",
+            Cost = "$295",
+            Duration = "",
+            Features = new List<string>()
+            {
+                "Purchase a season pass and paddle all summer for one low price.",
+                "Buy one for each member of the family.",
+                "Gift Cards are available for Season Passes."
+            }
+        }
+        ,new PricingProduct()
+        {
+            Title = "5-Pack Special",
+            Cost = "$185/$205",
+            Duration = "",
+            Features = new List<string>()
+            {
+                "5 Weekday Trips for $185"
+                ,"Weekday Trips valid weekdays excluding major holidays"
+                ,"5 Anytime Trips for $205"
+                ,"Anytime Trips are valid any day / time"
+                ,"Gift Cards are available for 5 Packs."
+            }
+        }
+    };
+}

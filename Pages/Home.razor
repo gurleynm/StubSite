@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using StubSite.Shared.Specific
 @inject NavigationManager NavMan
 
 <PageTitle>LOT No 1</PageTitle>
@@ -6,28 +7,24 @@
 <div style="overflow-x: hidden;">
     <!-- HERO -->
     <section class="hero-section"
-             style="background-image:url('/images/Background2.png')">
+             style="background-image:url('/images/Background.png')">
 
         <div class="hero-overlay"></div>
 
         <div class="hero-content container">
             <div class="hero-subtitle">
-                Lebanon Coffee House
+                Adventure Starts Here
             </div>
 
             <h1 class="hero-title">
-                LOT No 1
+                @Constants.CompanyName
             </h1>
 
             <p class="hero-description">
-                Coffee, conversation, and a place to slow down.
+                Experience the Little Miami River with kayak, canoe, and tube adventures. From first-time paddlers to seasoned outdoor enthusiasts, we make it easy to spend an unforgettable day on the water.
             </p>
 
             <div class="hero-buttons">
-                <button class="btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("/menu"))>
-                    View Menu
-                </button>
-
                 <button class="btn btn-outline-light custom-btn" @onclick=@(() => NavMan.NavigateTo("#visit"))>
                     Visit Us
                 </button>
@@ -42,37 +39,35 @@
 
                 <div class="col-lg-6">
                     <div class="section-label">
-                        THE SPACE
+                        THE EXPERIENCE
                     </div>
 
                     <h2 class="section-title">
-                        Built for slow mornings and long conversations.
+                        More than a rental. A day on the river.
                     </h2>
 
                     <p class="section-text">
-                        LOT No 1 blends cozy atmosphere, quality coffee,
-                        and a downtown neighborhood feel into a space designed
-                        for connection, creativity, and comfort.
+                        Paddle through one of Ohio's most scenic river corridors, pass the famous Loveland Castle, and enjoy a relaxing outdoor adventure just minutes from Cincinnati. Transportation, equipment, and local expertise are all included.
                     </p>
 
                     <div class="feature-row">
                         <div>
                             <div class="feature-number">
-                                Local
+                                5 Miles
                             </div>
 
                             <div class="feature-text">
-                                Community Focused
+                                Castle Adventure
                             </div>
                         </div>
 
                         <div>
                             <div class="feature-number">
-                                Fresh
+                                Daily
                             </div>
 
                             <div class="feature-text">
-                                Crafted Daily
+                                Trips Available
                             </div>
                         </div>
                     </div>
@@ -80,13 +75,13 @@
 
                 <div class="col-lg-6">
                     <div class="gallery-grid">
-                        <img src="/images/interior-1.jpg"
+                        <img src="https://lovelandpaddlesports.com/wp-content/uploads/2022/07/home-hero-1.jpg"
                              class="gallery-img tall" />
 
-                        <img src="/images/interior-2.jpg"
+                        <img src="https://lovelandpaddlesports.com/wp-content/uploads/2022/07/home-shop-1.jpg"
                              class="gallery-img tall offset-img" />
 
-                        <img src="/images/interior-3.jpg"
+                        <img src="https://lovelandpaddlesports.com/wp-content/uploads/2022/07/castle-hero-1.jpeg"
                              class="gallery-img wide" />
                     </div>
                 </div>
@@ -94,49 +89,21 @@
         </div>
     </section>
 
-    <!-- FEATURED DRINKS -->
+    <!-- FEATURED ADVENTURES -->
     <section class="menu-section section-padding" id="menu">
         <div class="container">
 
             <div class="text-center mb-5">
-                <div class="section-label">
-                    FEATURED DRINKS
+                <div class="section-label" style="color:#f4801d">
+                    FEATURED ADVENTURES
                 </div>
 
                 <h2 class="section-title">
-                    Crafted with intention.
+                    Choose your river experience.
                 </h2>
-                <div class="feature-number">
-                    JUNE SPECIALS
-                </div>
             </div>
 
-            <div class="flex-r-100" style="flex-wrap:wrap">
-
-                @foreach (var drink in Drinks)
-                {
-                    <div class="drink-card">
-                        <div class="drink-image-placeholder">
-                            <img src="@drink.ImgSrc" alt="@drink.Name" class="gallery-img" />
-                        </div>
-
-                        @if (!string.IsNullOrEmpty(drink.Name))
-                        {
-                            <h3 class="drink-title" style="text-align:center">
-                                @drink.Name
-                            </h3>
-                        }
-
-                        @if (!string.IsNullOrEmpty(drink.Description))
-                        {
-                            <p class="drink-description" style="text-align:center">
-                                @drink.Description
-                            </p>
-                        }
-                    </div>
-                }
-
-            </div>
+            <RentalBlocks />
         </div>
     </section>
 
@@ -151,11 +118,19 @@
                     </div>
 
                     <h2 class="section-title">
-                        Stop in and stay awhile.
+                        Start your adventure in Loveland.
                     </h2>
 
                     <div class="visit-block">
                         <h5>Hours</h5>
+
+                        <div>
+                            Please Note: Operations are subject to weather and river conditions permitting.
+                            <br />
+                            Please call 513-683-4611 or check our <a href="https://www.facebook.com/LovelandCanoe" style="color:orange;text-decoration:underline">Facebook page</a> for current status.
+                        </div>
+
+                        <hr style="width:100%;background-color:@Accent" />
 
                         <p>
                             @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
@@ -163,6 +138,13 @@
                                 @("Daily: " + Constants.CompanyHours.Values.First())
 
                                 <br />
+                                <div>
+                                    (Last trip departs at 3:00 PM)
+                                </div>
+                                <div>
+                                    Trips departures on the 1/2 hour from 9:00 AM – 3:00 PM
+                                    All kayaks must be in by 6:00 PM
+                                </div>
                             }
                             else
                             {
@@ -180,15 +162,15 @@
                         <h5>Location</h5>
 
                         <p>
-                            Heart of Lebanon, Ohio<br />
-                            Free street parking nearby
+                            Loveland, Ohio<br />
+                            Free parking, easy access nearby
                         </p>
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="map-placeholder">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.6020202605705!2d-84.20771169999999!3d39.4331231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f4228987bf1f%3A0x31bdfa0e267a1145!2s9%20E%20Main%20St%2C%20Lebanon%2C%20OH%2045036!5e0!3m2!1sen!2sus!4v1780084882864!5m2!1sen!2sus"
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3088.9603346662743!2d-84.26279232404536!3d39.266466571647655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f8adece5d769%3A0xbce75d716f01c53!2sLoveland%20Paddlesports!5e0!3m2!1sen!2sus!4v1780338715773!5m2!1sen!2sus"
                                 class="map-iframe" style="height:100%;width:100%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
@@ -206,7 +188,7 @@
             </div>
 
             <h2 class="social-title">
-                @@lotno1coffee
+                @@lovelandcanoe
             </h2>
 
             <p class="social-text">
@@ -214,7 +196,7 @@
                 and moments from inside the shop.
             </p>
 
-            <div class="flex-r-100" style="flex-wrap:wrap">
+            <div class="flex-r-100-wrap">
                 @foreach (string key in Constants.CompanySocials.Keys)
                 {
                     <button class="btn custom-btn social-btn" @onclick=@(() => NavMan.NavigateTo(Constants.CompanySocials[key]))>
@@ -227,49 +209,18 @@
 </div>
 
 @code {
+    [CascadingParameter(Name = "Main")]
+    public string Main { get; set; }
 
-    private List<DrinkItem> Drinks = new()
-    {
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Teddy.png"
-        },
+    [CascadingParameter(Name = "Accent")]
+    public string Accent { get; set; }
 
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Coconut.png"
-        },
+    [CascadingParameter(Name = "Text")]
+    public string Text { get; set; }
 
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Banana.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Shortcake.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Cherry.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Strawberry.png"
-        }
-    };
-
+    [CascadingParameter(Name = "ButtonText")]
+    public string ButtonText { get; set; }
+        
     protected override Task OnInitializedAsync()
     {
         Constants.CurPage = "Home";

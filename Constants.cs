@@ -35,7 +35,7 @@
         //    ,{ "Sunday" ,"12:00PM-6:00PM" } 
         //};
         public static Dictionary<string,string> CompanySocials = new() { 
-            { "Instagram" ,"https://www.instagram.com/lovelandcanoe/" } 
+            { "Instagram" ,"https://www.instagram.com/loveland_paddlesports" } 
             ,{ "Facebook" ,"https://www.facebook.com/LovelandCanoe" }
             ,{ "X" ,"https://x.com/lovelandcanoe" }
         };

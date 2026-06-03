@@ -1,0 +1,72 @@
+﻿@page "/cart"
+
+@using System.Collections.ObjectModel
+@using StubSite.StoreItems.Data
+@using System.Text.Json
+@inject IJSRuntime jsRuntime
+@inject NavigationManager NavMan
+
+<StoreStyle />
+@if (Loading)
+{
+    <div>Loading</div>
+    <GTLoginComponents.Shared.GTSLoadingDots />
+}
+else
+{
+    <h5 @onclick=@(() => NavMan.NavigateTo("/shop")) style="cursor:pointer;color:var(--text-color);margin:.5em">
+        <span class="oi oi-arrow-left" />
+        Back to shop
+    </h5>
+}
+<CascadingValue Value="Items">
+    <CartView QuantityChanged=SaveCart />
+</CascadingValue>
+
+@code {
+    bool Loading = true;
+    ObservableCollection<SaleItem> Items = new();
+
+    [SupplyParameterFromQuery]
+    public string Returned { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Constants.CurPage = "Cart";
+        if (StoreConstants.CartItems != null)
+        {
+            Items = new ObservableCollection<SaleItem>(StoreConstants.CartItems);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender || !string.IsNullOrEmpty(Returned))
+        {
+            if (StoreConstants.CartItems == null || StoreConstants.CartItems.Count == 0)
+            {
+                string cartStr = await StoreConstants.ReadCookies(jsRuntime, "CART");
+                try
+                {
+                    StoreConstants.CartItems = JsonSerializer.Deserialize<List<SaleItem>>(cartStr);
+                }
+                catch { }
+
+                if (StoreConstants.CartItems == null)
+                    StoreConstants.CartItems = new List<SaleItem>();
+
+                Items = new ObservableCollection<SaleItem>(StoreConstants.CartItems);
+            }
+            StoreConstants.WriteCookieAsync(jsRuntime, "CART", JsonSerializer.Serialize(StoreConstants.CartItems), 2);
+            Loading = false;
+            Returned = "";
+            StateHasChanged();
+        }
+    }
+
+    private void SaveCart()
+    {
+        StoreConstants.WriteCookieAsync(jsRuntime, "CART", JsonSerializer.Serialize(StoreConstants.CartItems), 2);
+        StateHasChanged();
+    }
+}

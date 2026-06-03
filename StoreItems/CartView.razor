@@ -1,0 +1,158 @@
+﻿@using StubSite.StoreItems.Data
+@using System.Collections.ObjectModel
+@using System.Text.Json
+@inject HttpClient Http
+@inject NavigationManager NavMan
+@inject IJSRuntime jsRuntime
+
+@if (TotalQuantity == 0)
+{
+    <div class="store-flex-r-100">
+        <h3 style="text-align:center">Cart is empty</h3>
+    </div>
+}
+else
+{
+    <div class="store-flex-c">
+        <div class="store-flex-r-100-sa" style="padding:.5em;">
+            @foreach (SaleItem SI in Items.Where(i => i.Quantity > 0))
+            {
+                <CartItemDisplay @key=@("cid-" + SI.Id) Item="SI" QuantityChanged=QuantityChanged />
+            }
+        </div>
+        <div class="store-flex-c cart-bottom-info" style="width:100%">
+            <div>
+                @if (Items.Sum(item => item.Quantity) is int QuanCnt && QuanCnt > 1)
+                {
+                    <div style="justify-self:end;width:fit-content">
+                        <p class="discount-tag">Bundle Discount: @(QuanCnt == 2 ? "25% Off" : "40% Off")</p>
+                    </div>
+                }
+
+                <h3>Order Subtotal: @StoreConstants.Pretty(SubtotalCost)</h3>
+                <DiscountBar @ref=discBar />
+            </div>
+            <h5 style="text-align:center">All orders include Free shipping!!</h5>
+            <h6 style="text-align:center"><i>(Taxes will be calculated at checkout)</i></h6>
+
+            @* Clear cart *@
+            <div>
+                <div class="store-flex-r" style="flex-wrap:nowrap;overflow-x:hidden;justify-content:start">
+                    <div class="store-flex-r-100 quantity-buttons" style="flex-shrink:0;transform:translateX(-@CancelX%)">
+                        <button class="store-btn-primary" @onclick=@(() => CancelBool = true)><span class="oi oi-circle-x" /> Clear Cart?</button>
+                    </div>
+                    <div class="store-flex-r-100-sb quantity-buttons" style="flex-shrink:0;transform:translateX(-@CancelX%)">
+                        <button class="store-btn-primary-outline" @onclick=@(() => CancelBool = false)>Nevermind</button>
+                        <button class="store-btn-primary-outline" style="color:red;border-color:red" @onclick=@ClearCart>Confirm Clear</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <hr style="width:100%;color:var(--main-theme)" />
+        @if (!string.IsNullOrEmpty(ErrorMsg))
+        {
+            <h4 style="text-align:center">@ErrorMsg</h4>
+        }
+        @if (Loading)
+        {
+            <GTLoginComponents.Shared.GTSLoadingDots />
+        }
+        else
+        {
+            <button class="store-btn-primary" style="margin:1em" @onclick="Checkout">Checkout</button>
+        }
+    </div>
+}
+
+
+@code {
+    [CascadingParameter]
+    public ObservableCollection<SaleItem> Items { get; set; }
+
+    [Parameter]
+    public Action QuantityChanged { get; set; }
+
+    DiscountBar discBar;
+    public string ErrorMsg = "";
+    bool Loading;
+    bool CancelBool;
+    int CancelX => CancelBool ? 100 : 0;
+
+    int TotalQuantity => Items.Where(i => i.Quantity > 0).Select(ci => ci.Quantity).Sum();
+    decimal SubtotalCost => CalcSubtotal();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    SaleItem GetSaleItem(string id)
+    {
+        return Items.FirstOrDefault(item => item.Id == id);
+    }
+
+    decimal CalcSubtotal()
+    {
+        decimal Subtotal = 0;
+        var holder = Items.Where(i => i.Quantity > 0);
+
+        foreach (var item in holder)
+        {
+            Subtotal += item.DisplayCost * item.Quantity;
+        }
+
+        if (holder.Count() == 2)
+            Subtotal *= .75M;
+        else if (holder.Count() == 2)
+            Subtotal *= .6M;
+
+        if (discBar != null)
+            discBar.Update();
+
+        return Subtotal;
+    }
+
+    void ClearCart()
+    {
+        foreach (SaleItem item in Items)
+        {
+            item.Quantity = 0;
+        }
+
+        if (QuantityChanged != null)
+            QuantityChanged.Invoke();
+    }
+
+    private async Task Checkout()
+    {
+        ErrorMsg = "";
+        Loading = true;
+
+        StoreConstants.WriteCookieAsync(jsRuntime, "CART", JsonSerializer.Serialize(Items), 2);
+
+        CartItem[] cartItems = Items.Select(item => new CartItem(item.Id, item.Quantity)).ToArray();
+        long totalItems = cartItems.Sum(i => i.Quantity);
+        string ApplicablePromoCode = totalItems == 2 ? "GAMENITE" : totalItems > 2 ? "PARTYMODE" : "";
+
+        var response = await Http.PostAsJsonAsync($"{StoreConstants.BaseUri}api/payments/create-checkout", new
+        {
+            Items = cartItems,
+            Concurrency = "usd",
+            AllowPromoCodes = StoreConstants.AllowPromoCodes,
+            MaxQuantty = StoreConstants.MaxQuantity,
+            PromoCode = ApplicablePromoCode,
+            CustomFields = new List<CustomField>(),
+            SuccessUrl = $"{NavMan.BaseUri}success",
+            CancelUrl = $"{NavMan.BaseUri}cart?Returned=true"
+        });
+
+        var result = await response.Content.ReadFromJsonAsync<CheckoutResponse>();
+        if (result.Success)
+            NavMan.NavigateTo(result.Url, true);
+        else
+        {
+            ErrorMsg = "We are unable to load your cart at this time";
+        }
+    }
+}

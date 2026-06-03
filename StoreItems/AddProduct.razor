@@ -1,0 +1,349 @@
+﻿@using BlazorBootstrap
+@using StubSite.StoreItems.Data
+@using System.Net.Http.Headers
+@using System.Text.Json
+@using System.Collections.ObjectModel
+@inject NavigationManager NavMan
+@inject HttpClient Http
+@inject IJSRuntime jsRuntime
+@implements IDisposable
+
+<div class="store-switch-flex-space">
+    <div class="store-flex-c-start">
+        <button class="store-btn-primary" @onclick=@(() => NavMan.NavigateTo("https://dashboard.stripe.com/dashboard"))>Launch Stripe Dashboard</button>
+
+        @if (product.Name != "")
+        {
+            @* Clear cart *@
+            <div>
+                <div class="store-flex-r" style="flex-wrap:nowrap;overflow-x:hidden;justify-content:start">
+                    <div class="store-flex-r-100 quantity-buttons" style="flex-shrink:0;">
+                        <button class="store-btn-primary" @onclick=ClearProduct><span class="oi oi-circle-x" /> Clear Product?</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <Dropdown Color="BlazorBootstrap.DropdownColor.Primary">
+        <BlazorBootstrap.DropdownToggleButton>Update Product</BlazorBootstrap.DropdownToggleButton>
+        <BlazorBootstrap.DropdownMenu Style="background-color:var(--btn-color);">
+            @foreach (var item in Items)
+            {
+                <BlazorBootstrap.DropdownItem @onclick=@(() => SetProduct(item)) Type="BlazorBootstrap.DropdownItemType.Button" Class="store-dropdown-btn">@item.Name</BlazorBootstrap.DropdownItem>
+            }
+        </BlazorBootstrap.DropdownMenu>
+    </Dropdown>
+</div>
+
+<div class="store-flex-r-100" style="margin:1em">
+    <div class="store-flex-c-start" style="margin:0 1em">
+        <h4>Name</h4>
+        <ValidateInput @ref=inputs[0] Placeholder="Enter Product Name" @bind-InputValue=product.Name />
+        <h4>Description (optional)</h4>
+        <textarea @bind=product.Description placeholder="Enter description (optional)"
+                  @oninput="@(async (ui) => { product.Description = (string)ui.Value; })" />
+        <h4>Price</h4>
+        @if (Updating)
+        {
+            <h6 style="color:var(--main-subtle-text-color)">Price cannot be updated from here.</h6>
+        }
+        else
+        {
+            <ValidateInput @ref=inputs[1] Placeholder="Enter Price" IsNumber=true @bind-InputValueDecimal=product.DefaultPrice />
+        }
+
+        @if (Loading)
+        {
+            <GTLoginComponents.Shared.GTSLoadingDots />
+        }
+        else if (!string.IsNullOrEmpty(product.Name))
+        {
+            <button class="store-btn-primary" disabled="@(product.Images.Count < 1 || product.DefaultPrice <= 0)" style="margin:1em" @onclick=@(() => AddProductAsync())>@(Updating ? "Update" : "Add") '@product.Name'</button>
+        }
+    </div>
+    <div class="store-flex-c-start" style="margin:0 1em">
+        <h4>Images</h4>
+        <h4>(up to 8, under 2MB)</h4>
+        <div class="store-flex-r" style="width:20%;">
+            <SortableList TItem="string"
+                          Data="product.Images"
+                          Context="item"
+                          EmptyText="No images to display"
+                          Class=""
+                          OnUpdate="@UpdateImages">
+                <ItemTemplate>
+                    <div class="store-flex-r" style="position:relative;width:fit-content">
+                        <div style="position:absolute;top:0%;right:0%;cursor:pointer">
+                            <div class="store-flex-c" style="padding:.75em;align-content:center;height:1em;width:1em;border-radius:1em;background-color:black">
+                                <span class="oi oi-circle-x" style="color:red;" @onclick=@(() => RemoveImageFromCarousel(item)) />
+                            </div>
+                        </div>
+                        <img src="@item" style="height:4em;margin:1em;border-radius:.25em" />
+                    </div>
+                </ItemTemplate>
+                <EmptyDataTemplate>
+                    <FileUploader OnUpload=@((string url) => AddImageToCarousel(url)) Title="Add Image" />
+                </EmptyDataTemplate>
+            </SortableList>
+
+            @* @for (int urlInd = 0; urlInd < product.Images.Count; urlInd++)
+            {
+                int localI = urlInd;
+                <div class="store-flex-r" style="position:relative;width:fit-content">
+                    <div style="position:absolute;top:0%;right:0%;cursor:pointer">
+                        <div class="store-flex-c" style="padding:.75em;align-content:center;height:1em;width:1em;border-radius:1em;background-color:black">
+                            <span class="oi oi-circle-x" style="color:red;" @onclick=@(() => RemoveImageFromCarousel(localI)) />
+                        </div>
+                    </div>
+                    <img src="@product.Images[localI]" style="height:4em;margin:1em;border-radius:.25em" />
+                </div>
+            } *@
+
+            @if (product.Images.Count > 0 && product.Images.Count < 8)
+            {
+                <div style="margin:1em">
+                    <FileUploader OnUpload=@((string url) => AddImageToCarousel(url)) Title="Add Image" />
+                </div>
+            }
+        </div>
+    </div>
+    <div class="store-flex-c-start" style="width:40%">
+        @if (!string.IsNullOrEmpty(product.Name) && product.Images != null && product.Images.Count > 0)
+        {
+            <div class="store-flex-c-start" style="margin:1em">
+                <h3>Preview</h3>
+
+                <div class="store-flex-c store-item-block" style="border: 2px solid gray;width:50%">
+                    <Carousel @key=Guid.NewGuid() ShowIndicators=@(product.Images.Count > 1) ShowPreviousNextControls=@(product.Images.Count > 1)>
+                        @for (int urlInd = 0; urlInd < product.Images.Count; urlInd++)
+                        {
+                            int localI = urlInd;
+                            <CarouselItem Active="@(urlInd == activeIndex)">
+                                <Image Src="@product.Images[localI]" Style="border-radius:2em" Alt="@("Image " + localI)" />
+                            </CarouselItem>
+                        }
+                    </Carousel>
+
+                    @* Name *@
+                    <h3 style="text-align:center">@product.Name</h3>
+                    @* Description *@
+                    <p style="color:var(--main-subtle-text-color);text-align:center">@product.Description</p>
+
+                    <button class="store-btn-primary" @onclick=@(() => ViewDeats())>View Details</button>
+                    <hr style="width:100%" />
+                    <div class="store-flex-r-100-sb" style="flex-grow:1">
+                        <div class="store-flex-c" style="width:100%">
+                            <div class="store-flex-r-100">
+                                @* Cost *@
+                                <h4>@StoreConstants.Pretty(product.DefaultPrice)&nbsp;</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        else
+        {
+            string reason = "";
+            if (string.IsNullOrEmpty(product.Name))
+                reason = "the name";
+
+            if (product.Images == null || product.Images.Count == 0)
+            {
+                if (string.IsNullOrEmpty(reason))
+                    reason = "an image is";
+                else
+                    reason += " and an image";
+            }
+            else
+                reason += " is";
+
+            <h5 style="text-align:center;width:100%;">Preview will show when @reason is provided.</h5>
+        }
+    </div>
+</div>
+
+<Modal @ref=detailsModal HeaderCssClass="store-modal" BodyCssClass="store-modal">
+    <HeaderTemplate>
+        <h3>@product.Name</h3>
+    </HeaderTemplate>
+    <BodyTemplate>
+        <div class="store-flex-c">
+            @* Image Carousel *@
+            <Carousel ShowIndicators=@(product.Images.Count > 1) ShowPreviousNextControls=@(product.Images.Count > 1) Class="store-view-details-img">
+                @for (int urlInd = 0; urlInd < product.Images.Count; urlInd++)
+                {
+                    int localI = urlInd;
+                    <CarouselItem Active="@(urlInd == 0)">
+                        <Image Src="@product.Images[localI]" Style="border-radius:2em" Alt="@(product.Name + " Image " + localI)" />
+                    </CarouselItem>
+                }
+            </Carousel>
+
+            @* Description *@
+            <p style="color:var(--main-subtle-text-color);text-align:center;margin-top:1em;">@product.Description</p>
+        </div>
+    </BodyTemplate>
+</Modal>
+
+@code {
+    Modal detailsModal;
+
+    int activeIndex = 0;
+    bool Loading;
+    bool Updating;
+    ValidateInput[] inputs = new ValidateInput[2];
+
+    UploadedProduct product = new UploadedProduct
+    {
+        Id = "",
+        Name = "",
+        DefaultPrice = 0,
+        Description = "",
+        Images = new List<string>(),
+        Metadata = new Dictionary<string, string>()
+    };
+
+    ObservableCollection<SaleItem> Items = new();
+    protected override async Task OnInitializedAsync()
+    {
+        Items = new ObservableCollection<SaleItem>(await TestRunner.GetSaleItems(Http));
+    }
+
+    private void UpdateImages(SortableListEventArgs args)
+    {
+        var itemToMove = product.Images[args.OldIndex];
+
+        product.Images.RemoveAt(args.OldIndex);
+        if (args.NewIndex < product.Images.Count)
+            product.Images.Insert(args.NewIndex, itemToMove);
+        else
+            product.Images.Add(itemToMove);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            string possProdImgs = await StoreConstants.ReadCookies(jsRuntime, "PRODUCT-IMAGES");
+            if (!string.IsNullOrEmpty(possProdImgs))
+            {
+                product.Images = new List<string>();
+                List<string> urls = JsonSerializer.Deserialize<List<string>>(possProdImgs);
+                foreach (var url in urls)
+                {
+                    product.Images.Add(url);
+                }
+                StateHasChanged();
+            }
+        }
+    }
+
+    public void AddImageToCarousel(string url)
+    {
+        if (product.Images.Count < 8)
+        {
+            product.Images.Add(url);
+            SetCookie();
+        }
+
+        activeIndex = product.Images.Count - 1;
+
+        StateHasChanged();
+    }
+
+    public void RemoveImageFromCarousel(string imgURL)
+    {
+        RemoveImageFromServer(imgURL);
+
+        activeIndex = 0;
+        product.Images.Remove(imgURL);
+        SetCookie();
+    }
+
+    void SetProduct(SaleItem item)
+    {
+        Updating = true;
+        product = new UploadedProduct(item);
+    }
+
+    public async Task AddProductAsync()
+    {
+        bool Validated = false;
+        foreach (var i in inputs)
+        {
+            Validated = await i.Validate();
+            if (Validated == false)
+                break;
+        }
+
+        if (Validated)
+        {
+            Loading = true;
+            StateHasChanged();
+            ClearCookie();
+
+            BasicResponse result = await StoreConstants.SendPostAPICall<BasicResponse>(Http, $"{StoreConstants.BaseUri}api/product/{(Updating ? "update" : "create")}", product);
+
+            ClearProduct();
+
+            Loading = false;
+            StateHasChanged();
+            await Task.Delay(100);
+        }
+    }
+
+    private void ClearProduct()
+    {
+        Updating = false;
+        product = new UploadedProduct
+        {
+            Id = "",
+            Name = "",
+            DefaultPrice = 0,
+            Description = "",
+            Images = new List<string>(),
+            Metadata = new Dictionary<string, string>()
+        };
+    }
+
+    private void RemoveImageFromServer(string url)
+    {
+        url = url.Substring(url.LastIndexOf("/") + 1);
+        StoreConstants.SendDeleteAPICall<BasicResponse>(Http, $"{StoreConstants.BaseUri}api/product/remove-image?fileName={url}");
+    }
+
+    private void ViewDeats()
+    {
+        detailsModal.ShowAsync();
+        StateHasChanged();
+    }
+
+    private async Task SetCookie()
+    {
+        StoreConstants.WriteCookieAsync(jsRuntime, "PRODUCT-IMAGES", JsonSerializer.Serialize(product.Images), 7);
+    }
+
+    private async Task ClearCookie()
+    {
+        StoreConstants.ClearCookieAsync(jsRuntime, "PRODUCT-IMAGES");
+    }
+
+    public void Dispose()
+    {
+        ClearCookie();
+        foreach (var image in product.Images)
+        {
+            RemoveImageFromServer(image);
+        }
+    }
+
+    class ImageReceiver
+    {
+        public string Url { get; set; }
+
+        public IBrowserFile TheFile { get; set; }
+    }
+}

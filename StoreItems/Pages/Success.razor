@@ -1,0 +1,97 @@
+﻿@page "/success"
+@using StubSite.StoreItems.Data
+@inject NavigationManager Nav
+@inject HttpClient Http
+@inject IJSRuntime jsRuntime
+
+<StoreStyle />
+<h3 style="color:var(--main-text-color)">🎉 Thank You for Your Order!</h3>
+
+@if (loading)
+{
+    <p style="color:var(--main-text-color)">Loading your order details...</p>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">
+        <strong>Something went wrong:</strong> @error
+    </div>
+}
+else
+{
+    <div>
+        <h4>Order Confirmed ✅</h4>
+
+        <p>We’ve received your payment and your order is being processed.</p>
+
+        <hr />
+
+        <p><strong>Order Number:</strong></p>
+        <h5 class="text-primary">@confirmationCode</h5>
+
+        <p class="mt-3">
+            A receipt has been sent to your email (if provided). Be sure to check your spam folder!
+        </p>
+        <p class="mt-3">
+            Confirmation email sent from our partner email: support@gurleytech.com
+        </p>
+
+        <button class="btn btn-primary mt-3" @onclick="GoHome">
+            Return to Home
+        </button>
+    </div>
+}
+
+@code {
+    private bool loading = true;
+    private string error;
+    private string confirmationCode;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var uri = new Uri(Nav.Uri);
+            var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+            var sessionId = query["session_id"];
+
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                error = "Missing session ID.";
+                return;
+            }
+
+            var result = await StoreConstants.SendGetAPICallNoToken<ConfirmResponse>(Http,$"{StoreConstants.BaseUri}api/payments/confirm?sessionId={sessionId}");
+
+            confirmationCode = result.ConfirmationCode;
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            StoreConstants.ClearCookieAsync(jsRuntime, "CART");
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void GoHome()
+    {
+        Nav.NavigateTo("/");
+    }
+
+    public class ConfirmResponse
+    {
+        public bool Success { get; set; }
+        public string Reason { get; set; }
+        public string ConfirmationCode { get; set; }
+    }
+}

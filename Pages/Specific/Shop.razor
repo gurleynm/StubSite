@@ -1,0 +1,11 @@
+﻿@page "/shop"
+
+<StubSite.StoreItems.Store/>
+
+@code {
+    protected override Task OnInitializedAsync()
+    {
+        Constants.CurPage = "Shop";
+        return base.OnInitializedAsync();
+    }
+}

@@ -365,7 +365,7 @@ input.toggler {
 .hero-subtitle {
     text-transform: uppercase;
     letter-spacing: .35em;
-    color: #d8c3a5;
+    color: darkorange;
     margin-bottom: 1rem;
     background-color: dimgray;
     border-radius: .5em;
@@ -413,7 +413,7 @@ input.toggler {
 .section-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: #d8c3a5;
+    color: darkorange;
     font-size: .85rem;
     margin-bottom: 1rem;
     width:fit-content;
@@ -438,11 +438,11 @@ input.toggler {
 .booking-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: #d8c3a5;
+    color: darkorange;
     font-size: .85rem;
     background-color: dimgray;
     border-radius: .5em;
-    padding:.5em;
+    padding: .5em;
 }
 
 .booking-cost {

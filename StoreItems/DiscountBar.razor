@@ -1,0 +1,31 @@
+﻿@using StubSite.StoreItems.Data
+<div class="fade-in" style="width:100%;background-color:black;color:white;border-radius:1em;text-align:center;padding:1em">
+    @if (TotalQuantity < 2)
+    {
+        string plural = TotalQuantity == 0 ? "s" : "";
+        <p>Add @(2 - TotalQuantity) item@(plural) to unlock 25% off</p>
+    }
+    else if (TotalQuantity == 2)
+    {
+        <p>25% unlocked 🎉 Add 1 more for 40% off</p>
+    }
+    else
+    {
+        <p>40% unlocked 🎉 Maximum savings</p>
+    }
+
+    <div class="store-flex-r-100" style="border:1px solid black;height:1rem;border-radius:12px;justify-content:start;">
+        <div class="store-progress-bar" style="background-color:#3ad87d;height:100%;width:@(TotalQuantity * 100 / divisor)%;border-radius:12px;"></div>
+    </div>
+</div>
+
+@code {
+    int divisor => TotalQuantity == 2 ? 3 : 2;
+
+    int TotalQuantity => StoreConstants.CartItems != null ? StoreConstants.CartItems.Select(ci => ci.Quantity).Sum() : 0;
+
+    public void Update()
+    {
+        StateHasChanged();
+    }
+}

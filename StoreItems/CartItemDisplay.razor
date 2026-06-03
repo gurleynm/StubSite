@@ -1,0 +1,106 @@
+﻿@using BlazorBootstrap
+@using StubSite.StoreItems.Data
+
+<div class="store-flex-c store-cart-item-block @FadeClass">
+    <div class="store-flex-r-100-sb">
+        <div class="store-flex-c-start store-item-block">
+            @* Image Carousel *@
+            <Carousel @key=Item.Id ShowIndicators=@(Item.Images.Count > 1) ShowPreviousNextControls=@(Item.Images.Count > 1)>
+                @for (int urlInd = 0; urlInd < Item.Images.Count; urlInd++)
+                {
+                    int localI = urlInd;
+                    <CarouselItem Active="@(urlInd == 0)">
+                        <Image Src="@Item.Images[localI]" Style="border-radius:2em" Alt="@(Item.Name + " Image")" />
+                    </CarouselItem>
+                }
+            </Carousel>
+            @* Name *@
+            <h3>@Item.Name</h3>
+            @* Description *@
+            <p style="color:var(--main-subtle-text-color)">@Item.Description</p>
+        </div>
+
+        <div @key=@("cid-cost-" + Item.Id) class="store-flex-r">
+            <div class="store-flex-c" style="align-content:end;flex-wrap:nowrap;overflow-x:hidden;">
+                <div class="store-flex-c quantity-buttons" style="align-items:end;flex-shrink:0;transform:translateX(-@X%);padding:1em">
+                    @* Cost *@
+                    <h4>@StoreConstants.Pretty(Item.DisplayCost)</h4>
+
+                    @if (!string.IsNullOrEmpty(AmountOffStr))
+                    {
+                        <p class="discount-tag">@AmountOffStr</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Add Button *@
+    <div class="store-flex-r-100-sb" style="padding:.5em">
+        @if (Item.Quantity == 1)
+        {
+            <button class="store-btn-primary-outline" @onclick=@SlideRight>Remove</button>
+        }
+        else
+        {
+            <button class="store-btn-primary-outline" @onclick=@SlideRight><span class="oi oi-minus" /></button>
+        }
+        <div style="justify-content:end">
+            <div style="margin:0.25em">@("x" + Item.Quantity)</div>
+        </div>
+        <button class="store-btn-primary" style="margin-right:0" @onclick=@SlideLeft><span class="oi oi-plus" /></button>
+    </div>
+    <div class="store-flex-r-100-sb" style="justify-content:end;overflow-y:hidden">
+        <h4 class="quantity-buttons" style="align-items:end;flex-shrink:0;transform:translateY(-@X%);padding:1em">Item total: @StoreConstants.Pretty(Item.DisplayCost * Item.Quantity)</h4>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public SaleItem Item { get; set; }
+
+    [Parameter]
+    public Action QuantityChanged { get; set; }
+
+    decimal AmountOff => Item.SalePercent == 0 ? Item.SaleAmount == 0 ? 0 : Item.Cost - Item.SaleAmount : Math.Round(Item.Cost * Item.SalePercent, 2);
+    string AmountOffStr => Item.SalePercent == 0 ? Item.SaleAmount == 0 ? "" : "(" + StoreConstants.Pretty(AmountOff) + " Off)" : "(" + (100 * Item.SalePercent) + "% Off)";
+
+    double X = 100;
+    string FadeClass = "";
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Task.Delay(1000);
+            X = 0;
+            StateHasChanged();
+        }
+    }
+
+    void SlideLeft()
+    {
+        Item.Quantity++;
+        if (Item.Quantity == 1)
+            X = 100;
+
+        QuantityChanged();
+    }
+
+    async Task SlideRight()
+    {
+        if (Item.Quantity == 1)
+        {
+            FadeClass = "store-fade-out";
+            StateHasChanged();
+            await Task.Delay(1000);
+        }
+        Item.Quantity--;
+        QuantityChanged();
+    }
+}

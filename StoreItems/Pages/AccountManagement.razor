@@ -1,0 +1,204 @@
+﻿@page "/account"
+@page "/account/{token}"
+@using GTLoginComponents.Repo
+@using StubSite.StoreItems.Data
+@using System.Text.Json
+@inject NavigationManager NavMan
+@inject IJSRuntime jsRuntime
+@inject HttpClient Http
+
+<StoreStyle />
+
+@if (LoadingIn)
+{
+    <h3>Loading</h3>
+    <GTLoginComponents.Shared.GTSLoadingDots />
+}
+else
+{
+    @if (string.IsNullOrEmpty(StoreConstants.UserEmail))
+    {
+        <div class="store-flex-c">
+            <h2>Seller Account Management</h2>
+            <GTLoginComponents.JustEmailNeeded OnSuccess="@(async (e) => await SuccessfulLogin(e))" Title="" BtnText="Email Login Link">
+                <TopContent>
+                    <h2>Login with your Email</h2>
+                </TopContent>
+            </GTLoginComponents.JustEmailNeeded>
+            @if (!string.IsNullOrEmpty(EmailNotify))
+            {
+                @if (EmailNotify == "Email Sent")
+                {
+                    <div style="color:green">@EmailNotify</div>
+                }
+                else
+                {
+                    <div style="color:red">@EmailNotify</div>
+                }
+            }
+        </div>
+    }
+    else
+    {
+        <div class="store-flex-c" style="padding:1em">
+            @if (Setup)
+            {
+                <AddProduct />
+            }
+            else
+            {
+                <h3 style="text-align:center">In order to accept payments, you'll need to set up an account with the payment processor: Stripe</h3>
+                @if (ShowConnect)
+                {
+                    <button class="store-btn-primary" @onclick=ConnectAsync>
+                        @(redirecting ? "Redirecting..." : "Onboard with Stripe")
+                    </button>
+                }
+                else
+                {
+                    <button class="store-btn-primary" @onclick=@ContinueOnboarding>
+                        @(redirecting ? "Redirecting..." : "Continue Setup")
+                    </button>
+                }
+            }
+        </div>
+    }
+}
+
+@code {
+    bool LoadingIn = true;
+
+    [Parameter]
+    public string token { get; set; }
+
+    string EmailNotify = "";
+
+    bool redirecting;
+    bool Setup;
+    bool ShowConnect = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Constants.CurPage = "Account";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!string.IsNullOrEmpty(token))
+                GTSAPIHandler.Token = token;
+            else
+            {
+                string possibleToken = await StoreConstants.ReadCookies(jsRuntime, "TOKEN");
+                if (!string.IsNullOrEmpty(possibleToken))
+                    GTSAPIHandler.Token = possibleToken;
+            }
+
+            if (!string.IsNullOrEmpty(GTSAPIHandler.Token))
+            {
+                var response = await StoreConstants.SendGetAPICall<VerificationResponse>(Http, $"{StoreConstants.BaseUri}api/user/verify");
+                if (response != null && response.Success)
+                {
+                    StoreConstants.UserEmail = response.Email;
+                    await CheckStatus();
+                }
+                else
+                {
+                    GTSAPIHandler.Token = "";
+                    GTSAPIHandler.TokenInvalidated = true;
+                }
+            }
+
+            await SetCookie();
+            LoadingIn = false;
+            StateHasChanged();
+        }
+    }
+
+    public async Task SuccessfulLogin(Dictionary<string, string> meta)
+    {
+        // Send Email
+        string email = meta["EMAIL"];
+        ConnectResponse result = await StoreConstants.SendPostAPICallNoToken<ConnectResponse>(Http, $"{StoreConstants.BaseUri}api/user/email",
+        new
+        {
+            Email = email,
+            SendUrl = NavMan.BaseUri + "account/{0}"
+        });
+
+        if (result.Success)
+        {
+            // Notify email sent
+            EmailNotify = "Email Sent";
+        }
+        else
+        {
+            // Notify Email fail
+            EmailNotify = "Failed to send email. Please try again.";
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task CheckStatus()
+    {
+        if (!string.IsNullOrEmpty(StoreConstants.UserEmail))
+        {
+            var ConnectReason = await OnboardingConstants.CheckReasonStatus(NavMan, Http);
+            if (ConnectReason.FullySetup)
+            {
+                Setup = true;
+            }
+            else
+            {
+                if (ConnectReason.Reason == "No Stripe account connected" || ConnectReason.Reason == "Token not set")
+                    ShowConnect = true;
+                else
+                    ShowConnect = false;
+            }
+            StateHasChanged();
+        }
+    }
+
+    private async Task SetCookie()
+    {
+        await StoreConstants.WriteCookieAsync(jsRuntime, "TOKEN", GTSAPIHandler.Token, 7);
+    }
+
+    private async Task ContinueOnboarding()
+    {
+        redirecting = true;
+        string reqUrl = await OnboardingConstants.GenerateOnboardingLink(NavMan, Http);
+
+        if (!string.IsNullOrEmpty(reqUrl))
+            NavMan.NavigateTo(reqUrl, true);
+    }
+
+    public async Task ConnectAsync()
+    {
+        redirecting = true;
+        ConnectResponse result = result = await StoreConstants.SendPostAPICall<ConnectResponse>(Http, $"{StoreConstants.BaseUri}api/stripe/connect", new
+        {
+            Email = StoreConstants.UserEmail,
+            RefreshUrl = NavMan.BaseUri + $"reauth?Email={StoreConstants.UserEmail}",
+            ReturnUrl = NavMan.BaseUri + $"connect/return?Email={StoreConstants.UserEmail}"
+        });
+
+        if (result != null)
+        {
+            if (result.Success)
+            {
+                await jsRuntime.InvokeVoidAsync("open", result.Url, "_blank");
+                //NavMan.NavigateTo(result.Url);
+            }
+        }
+    }
+
+    public class VerificationResponse
+    {
+        public bool Success { get; set; }
+        public string Email { get; set; }
+        public string Reason { get; set; }
+    }
+}

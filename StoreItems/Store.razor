@@ -1,0 +1,122 @@
+﻿@using GTLoginComponents.Repo
+@using StubSite.StoreItems.Data
+@using System.Collections.ObjectModel
+@using System.Net.Http.Headers
+@using System.Text.Json
+@inject NavigationManager NavMan
+@inject HttpClient Http
+@inject IJSRuntime jsRuntime
+
+<StoreStyle />
+
+<div class="main-store">
+    <div class="@(TotalQuantity > 0 ? "cart-dot" : "")" style="justify-content:end;">
+        @if (Loading)
+        {
+            <h3>Building Towers</h3>
+            <GTLoginComponents.Shared.GTSLoadingDots />
+        }
+        else if (TotalQuantity > 0)
+        {
+            <div class="store-flex-r fade-in" style="align-items:end;border-radius:1em;background-color:dimgray;cursor:@(TotalQuantity > 0 ? "pointer" : "auto")" @onclick=@(() => GoTo("CART"))>
+                @* View Cart *@
+                <div class="store-flex-r" style="margin:1em;">
+                    <div class="store-flex-r" style="position:relative;width:fit-content">
+                        <span class="oi oi-cart" style="font-size:xx-large" />
+                        @if (TotalQuantity > 0)
+                        {
+                            <div style="position:absolute;top:-15%;right:-45%">
+                                <div class="store-flex-c" style="padding:.75em;background-color:black;width:.75em;height:.75em;border-radius:.75em;align-content:center;">
+                                    @TotalQuantity
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @if (!Loading)
+    {
+        <CascadingValue Value="Items">
+            @* Filters *@
+            @* List of Products*@
+            <div class="store-flex-r-100-sa" style="align-items:start">
+                @if (Items.Count == 0)
+                {
+                    <i>No products to display</i>
+                }
+
+                @foreach (SaleItem item in Items)
+                {
+                    <ItemDisplay Item="@item" QuantityChanged=SaveCart />
+                }
+            </div>
+        </CascadingValue>
+    }
+</div>
+
+@code {
+    int TotalQuantity => Items.Select(ci => ci.Quantity).Sum();
+
+    bool Loading = true;
+
+    ObservableCollection<SaleItem> Items = new();
+    protected override async Task OnInitializedAsync()
+    {
+        Items = new ObservableCollection<SaleItem>(await TestRunner.GetSaleItems(Http));
+        AlignWithCart();
+        Loading = false;
+    }
+
+    override protected async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            string cartStr = await StoreConstants.ReadCookies(jsRuntime, "CART");
+            try
+            {
+                StoreConstants.CartItems = JsonSerializer.Deserialize<List<SaleItem>>(cartStr);
+            }
+            catch { }
+
+            if (StoreConstants.CartItems == null)
+                StoreConstants.CartItems = new List<SaleItem>();
+
+            AlignWithCart();
+
+        }
+    }
+
+    private void GoTo(string logCart)
+    {
+        if (logCart == "CART")
+        {
+            StoreConstants.CartItems = Items.Where(item => item.Quantity > 0).ToList();
+            NavMan.NavigateTo("/cart");
+        }
+    }
+
+    private void SaveCart()
+    {
+        StoreConstants.CartItems = Items.Where(item => item.Quantity > 0).ToList();
+        StoreConstants.WriteCookieAsync(jsRuntime, "CART", JsonSerializer.Serialize(StoreConstants.CartItems), 2);
+
+        StateHasChanged();
+    }
+
+    private void AlignWithCart()
+    {
+        if (StoreConstants.CartItems != null && StoreConstants.CartItems.Count > 0)
+        {
+            foreach (SaleItem item in StoreConstants.CartItems)
+            {
+                SaleItem match = Items.FirstOrDefault(i => i.Id == item.Id);
+                if (match != null)
+                {
+                    match.Quantity = item.Quantity;
+                }
+            }
+        }
+    }
+}

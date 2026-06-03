@@ -1,0 +1,100 @@
+﻿@using StubSite.StoreItems.Data
+@using Microsoft.AspNetCore.Components.Forms
+@using System.IO
+@using System.Net.Http.Headers
+@inject IJSRuntime jsRuntime
+@inject HttpClient Http
+
+<div class="store-flex-c">
+    <!-- Hidden InputFile -->
+    <InputFile id="fileInput" OnChange="@UploadAndRenderImage" accept="image/*" style="display:none;" />
+
+    <label for="fileInput" class="plus-sign-button">
+        @if (Loading)
+        {
+            <GTLoginComponents.Shared.GTSLoadingDots />
+        }
+        else
+        {
+            <!-- Plus Sign Label -->
+            <span class="oi oi-plus" />
+        }
+    </label>
+
+    @if (!string.IsNullOrEmpty(ErrorMsg))
+    {
+        @ErrorMsg
+    }
+</div>
+
+@code {
+    bool Loading;
+
+    public IBrowserFile UploadedFile;
+
+    string Id = Guid.NewGuid().ToString();
+    string ErrorMsg = "";
+
+    [Parameter]
+    public Action<string> OnUpload { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = "Submit Image";
+
+    public async Task UploadAndRenderImage(InputFileChangeEventArgs e)
+    {
+        ErrorMsg = "";
+        try
+        {
+            Stream ms = new MemoryStream();
+            // Limit the size of the stream to prevent denial of service attacks.
+            await e.File.OpenReadStream(maxAllowedSize: 2 * 1024 * 1024).CopyToAsync(ms); // Max 2MB
+            ms.Position = 0;
+
+            UploadedFile = e.File;
+
+            if (OnUpload != null)
+            {
+                Loading = true;
+                StateHasChanged();
+
+                OnUpload.Invoke(await UploadToServer());
+
+                Loading = false;
+                await Task.Delay(100);
+                StateHasChanged();
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMsg = "File too large. Must be under 2MB";
+        }
+    }
+
+    private async Task<string> UploadToServer()
+    {
+        if (UploadedFile != null)
+        {
+            using var content = new MultipartFormDataContent();
+            // Open a read stream with a size limit
+            using var stream = UploadedFile.OpenReadStream(maxAllowedSize: 2 * 1024 * 1024);
+            var streamContent = new StreamContent(stream);
+
+            string ft = UploadedFile.Name.EndsWith(".png") ? "png" : UploadedFile.Name.EndsWith("heic") ? "heic" : "jpeg";
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue($"image/{ft}"); // Adjust based on file type
+            content.Add(streamContent, "file", UploadedFile.Name);
+
+            ImageUploadResponse result = await StoreConstants.SendUploadImage<ImageUploadResponse>(Http, $"{StoreConstants.BaseUri}api/product/upload", content);
+
+            if (result != null && result.Success)
+                return StoreConstants.BaseUri + "Uploads/" + result.FileName;
+        }
+
+        return "";
+    }
+
+    class ImageUploadResponse : BasicResponse
+    {
+        public string FileName { get; set; }
+    }
+}

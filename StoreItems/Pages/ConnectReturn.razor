@@ -1,0 +1,79 @@
+﻿@page "/connect/return"
+@using GTLoginComponents.Repo
+@using StubSite.StoreItems.Data
+@using System.Text.Json
+@inject HttpClient Http
+@inject IJSRuntime jsRuntime
+@inject NavigationManager NavMan
+
+<StoreStyle />
+<h3 style="color:var(--main-text-color)">Setting Up Your Payments</h3>
+
+@if (loading)
+{
+    <p>Checking your account status...</p>
+}
+else if (string.IsNullOrEmpty(Email))
+{
+    <div class="alert alert-warning">
+        <strong>Email not provided</strong><br />
+    </div>
+}
+else if (isComplete)
+{
+    <div class="alert alert-success">
+        <strong>You’re ready to accept payments 🎉</strong><br />
+        Your Stripe account is fully set up.
+    </div>
+
+    <button class="btn btn-primary" @onclick="GoToDashboard">
+        Go to Dashboard
+    </button>
+}
+else
+{
+    <div class="alert alert-warning">
+        <strong>Almost there</strong><br />
+        Your account still needs a bit more information before you can accept payments.
+    </div>
+
+    <button class="btn btn-primary" @onclick="ContinueOnboarding" disabled="@redirecting">
+        @(redirecting ? "Redirecting..." : "Continue Setup")
+    </button>
+}
+
+@code {
+    private bool loading = true;
+    private bool isComplete = false;
+    private bool redirecting = false;
+
+    [SupplyParameterFromQuery]
+    public string Email { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!string.IsNullOrEmpty(Email))
+            {
+                isComplete = await OnboardingConstants.CheckStatus(Email, NavMan, jsRuntime, Http);
+            }
+            loading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task ContinueOnboarding()
+    {
+        redirecting = true;
+        string reqUrl = await OnboardingConstants.GenerateOnboardingLink(NavMan, Http);
+
+        if (!string.IsNullOrEmpty(reqUrl))
+            NavMan.NavigateTo(reqUrl, true);
+    }
+
+    private void GoToDashboard()
+    {
+        NavMan.NavigateTo("https://dashboard.stripe.com/dashboard");
+    }
+}

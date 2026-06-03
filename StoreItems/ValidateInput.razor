@@ -1,0 +1,154 @@
+﻿<div class="store-flex-c">
+    <input class="@InputClass" type="@(IsEmail ? "email" : IsNumber ? "number" : "text")" placeholder="@Placeholder" @onkeydown="@Enter" @bind=@InputValue
+            @oninput="@(async (ui) => { InputValue = (string)ui.Value; })" />
+
+    @if (ShowButton)
+    {
+        @if (Disabled)
+        {
+            <GTLoginComponents.Shared.GTSLoadingDots />
+        }
+        else
+        {
+            <button class="store-btn-primary" @onclick=@(async () => await Validate())>@BtnText</button>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool ShowButton { get; set; }
+
+    [Parameter]
+    public EventCallback OnSuccess { get; set; }
+
+    private string inputValue;
+    [Parameter]
+    public string InputValue
+    {
+        get { return inputValue; }
+        set
+        {
+            if (inputValue == value)
+                return;
+
+            inputValue = value;
+            
+            if(IsNumber && decimal.TryParse(inputValue, out decimal toss))
+            {
+                InputValueDecimal = toss;
+            }
+
+            InputValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> InputValueChanged { get; set; }
+
+    private decimal inputValueDecimal;
+    [Parameter]
+    public decimal InputValueDecimal
+    {
+        get { return inputValueDecimal; }
+        set
+        {
+            if (inputValueDecimal == value)
+                return;
+
+            inputValueDecimal = value;
+            InputValueDecimalChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<decimal> InputValueDecimalChanged { get; set; }
+
+    [Parameter]
+    public string BtnText { get; set; } = "Submit";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "Enter text";
+
+    [Parameter]
+    public bool Optional { get; set; }
+
+    [Parameter]
+    public bool IsNumber { get; set; }
+
+    [Parameter]
+    public bool IsEmail { get; set; }
+
+    string InputClass = "";
+    bool Disabled;
+
+    protected override void OnInitialized()
+    {
+        if (IsNumber)
+            InputValue = InputValueDecimal != null ? InputValueDecimal.ToString() : "";
+
+        base.OnInitialized();
+    }
+
+    private async void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+            Validate();
+    }
+
+    public async Task<bool> Validate()
+    {
+        if (Optional)
+            return true;
+
+        InputClass = string.IsNullOrEmpty(InputValue) ? "store-error-highlight" : "";
+
+        if (InputClass.Length == 0)
+        {
+            if (IsEmail)
+                InputClass = IsValidEmail(InputValue) ? "" : "store-error-highlight";
+            else if (IsNumber)
+            {
+                if (decimal.TryParse(InputValue, out decimal toss))
+                {
+                    InputValueDecimal = toss;
+                }
+                else
+                    InputClass = "store-error-highlight";
+            }
+        }
+
+        if (InputClass.Length > 0)
+            return false;
+
+        Disabled = true;
+        StateHasChanged();
+        await Task.Delay(100);
+
+        await OnSuccess.InvokeAsync();
+
+        Disabled = false;
+        StateHasChanged();
+        await Task.Delay(100);
+        return true;
+    }
+
+    bool IsValidEmail(string email)
+    {
+        var trimmedEmail = email.Trim();
+
+        if (trimmedEmail.EndsWith("."))
+        {
+            return false;
+        }
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == trimmedEmail;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+}

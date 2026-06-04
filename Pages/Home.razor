@@ -199,7 +199,7 @@
             <div class="flex-r-100-wrap">
                 @foreach (string key in Constants.CompanySocials.Keys)
                 {
-                    <button class="btn custom-btn social-btn" @onclick=@(() => NavMan.NavigateTo(Constants.CompanySocials[key]))>
+                    <button class="custom-btn social-btn" @onclick=@(() => NavMan.NavigateTo(Constants.CompanySocials[key]))>
                         Visit @key
                     </button>
                 }

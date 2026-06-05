@@ -14,40 +14,111 @@
         }
     </FancySelect>
 
-    <div id="select-day" />
-    @if (!string.IsNullOrEmpty(SelectedProduct))
+    @if (SelectedProduct == "Castle Adventure" || SelectedProduct.Contains("5-Pack"))
     {
+        <div id="select-day" />
         <div class="flex-r-100">
             <StubSite.Shared.Specific.CustomCalendar @bind-SelectedDate="SelectedDate" />
         </div>
-    }
 
-    <div id="select-time" />
-    @if (SelectedDate != default)
-    {
-        <div class="fade-in-delay" style="padding:1em">
-            <StubSite.Shared.Specific.CustomTimeSlot TimeSlots="availableSlots" OnSlotSelected="HandleSlotSelection" />
-        </div>
-    }
+        <div id="select-time" />
+        @if (SelectedDate != default)
+        {
+            <div class="fade-in-delay" style="padding:1em">
+                <StubSite.Shared.Specific.CustomTimeSlot TimeSlots="availableSlots" OnSlotSelected="HandleSlotSelection" />
+            </div>
+        }
 
-    <div id="select-paddlers" />
-    @if (selectedSlot != null)
+        <div id="select-paddlers" />
+        @if (selectedSlot != null)
+        {
+            <p class="mt-3">You selected: <strong>@SelectedDate.ToString("dddd - MMMM dd, yyyy @") @selectedSlot.DisplayTime</strong></p>
+            <div class="flex-r-100-wrap">
+                <div class="price-block">
+                    <h2 class="booking-label">
+                        Paddlers (Age 10+):
+                    </h2>
+                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                        <FancySelect @bind-Value="Paddlers">
+                            @for (int cnt = 1; cnt < 10; cnt++)
+                            {
+                                <option value="@cnt">@cnt</option>
+                            }
+                        </FancySelect>
+                        <div>x $@AdultPrice</div>
+                    </div>
+                    <hr style="width:98%" />
+                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                        <h2 class="booking-label">Paddlers:</h2>
+                        <h3 class="booking-cost">@PaddlersSubtotal.ToString("$0.00")</h3>
+                    </div>
+                </div>
+
+                <div class="price-block">
+                    <h2 class="booking-label">
+                        Youth Paddlers (Age 5-9):
+                    </h2>
+                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                        <FancySelect @bind-Value="YouthPaddlers">
+                            <option value="0">0</option>
+                            @for (int cnt = 1; cnt < 10; cnt++)
+                            {
+                                <option value="@cnt">@cnt</option>
+                            }
+                        </FancySelect>
+                        <div>x $@YouthPrice</div>
+                    </div>
+                    <hr style="width:98%" />
+                    @if (YouthPaddlers != "0")
+                    {
+                        <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                            <h2 class="booking-label">Youth Paddlers:</h2>
+                            <h3 class="booking-cost">@YouthSubtotal.ToString("$0.00")</h3>
+                        </div>
+                    }
+                </div>
+                <div class="price-block booking-label">
+                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                        <h2 class="booking-label">Subtotal:</h2>
+                        <h3 class="booking-cost-total">@((PaddlersSubtotal + YouthSubtotal).ToString("$0.00"))</h3>
+                    </div>
+                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                        <h2 class="booking-label">Taxes:</h2>
+                        <h3 class="booking-cost-total">@Taxes.ToString("$0.00")</h3>
+                    </div>
+                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
+                        <h2 class="booking-label" style="font-size:x-large">Total:</h2>
+                        <h2 class="booking-cost-total" style="font-size:x-large">@((PaddlersSubtotal + YouthSubtotal + Taxes).ToString("$0.00"))</h2>
+                    </div>
+                </div>
+
+                <div class="flex-r-100" style="margin:1em;">
+                    <h3 class="booking-label" style="color:white;text-align:center">Please note: After checkout, you will receive an email confirmation with your booking details and a form to fill out to give us some information about each paddler.</h3>
+                </div>
+
+                <div class="flex-r-100">
+                    <button class="fade-in-delay btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("/confirmation"))>
+                        Checkout
+                    </button>
+                </div>
+            </div>
+        }
+    }
+    else if (SelectedProduct == "Season Pass")
     {
-        <p class="mt-3">You selected: <strong>@SelectedDate.ToString("dddd - MMMM dd, yyyy @") @selectedSlot.DisplayTime</strong></p>
-        <div class="flex-r-100-wrap">
+        <div class="flex-c-start" style="width:100%">
             <div class="price-block">
                 <h2 class="booking-label">
-                    Paddlers (Age 10+):
+                    Paddlers:
                 </h2>
                 <div class="flex-r-100" style="justify-content:space-between;align-items:center">
                     <FancySelect @bind-Value="Paddlers">
-                        <option value="0">0</option>
                         @for (int cnt = 1; cnt < 10; cnt++)
                         {
                             <option value="@cnt">@cnt</option>
                         }
                     </FancySelect>
-                    <div>x $40</div>
+                    <div>x $@AdultPrice</div>
                 </div>
                 <hr style="width:98%" />
                 <div class="flex-r-100" style="justify-content:space-between;align-items:center">
@@ -56,33 +127,10 @@
                 </div>
             </div>
 
-            <div class="price-block">
-                <h2 class="booking-label">
-                    Youth Paddlers (Age 5-9):
-                </h2>
-                <div class="flex-r-100" style="justify-content:space-between;align-items:center">
-                    <FancySelect @bind-Value="YouthPaddlers">
-                        <option value="0">0</option>
-                        @for (int cnt = 1; cnt < 10; cnt++)
-                        {
-                            <option value="@cnt">@cnt</option>
-                        }
-                    </FancySelect>
-                    <div>x $25</div>
-                </div>
-                <hr style="width:98%" />
-                @if (YouthPaddlers != "0")
-                {
-                    <div class="flex-r-100" style="justify-content:space-between;align-items:center">
-                        <h2 class="booking-label">Youth Paddlers:</h2>
-                        <h3 class="booking-cost">@YouthSubtotal.ToString("$0.00")</h3>
-                    </div>
-                }
-            </div>
             <div class="price-block booking-label">
                 <div class="flex-r-100" style="justify-content:space-between;align-items:center">
                     <h2 class="booking-label">Subtotal:</h2>
-                    <h3 class="booking-cost-total">@((PaddlersSubtotal + YouthSubtotal).ToString("$0.00"))</h3>
+                    <h3 class="booking-cost-total">@((PaddlersSubtotal).ToString("$0.00"))</h3>
                 </div>
                 <div class="flex-r-100" style="justify-content:space-between;align-items:center">
                     <h2 class="booking-label">Taxes:</h2>
@@ -93,8 +141,9 @@
                     <h2 class="booking-cost-total" style="font-size:x-large">@((PaddlersSubtotal + YouthSubtotal + Taxes).ToString("$0.00"))</h2>
                 </div>
             </div>
+
             <div class="flex-r-100">
-                <button class="fade-in-delay btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("/rentals"))>
+                <button class="fade-in-delay btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("/confirmation"))>
                     Checkout
                 </button>
             </div>
@@ -126,6 +175,20 @@
                 return;
 
             selectedDate = value;
+
+            if (selectedDate.DayOfWeek == DayOfWeek.Saturday || selectedDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                // Weekend pricing applies
+                AdultPrice = 45;
+                YouthPrice = 30;
+            }
+            else
+            {
+                // Weekday pricing
+                AdultPrice = 40;
+                YouthPrice = 25;
+            }
+
             Jump("select-time");
         }
     }
@@ -139,8 +202,12 @@
     {
         "Castle Adventure"
         ,"Season Pass"
-        ,"5-Pack Special"
+        ,"5-Pack: Weekdays"
+        ,"5-Pack: Anytime"
     };
+
+    decimal AdultPrice = 40;
+    decimal YouthPrice = 25;
 
     string Paddlers = "1";
     string YouthPaddlers = "0";
@@ -196,7 +263,7 @@
         }
         else
         {
-            pst = (decimal.Parse(Paddlers) * 40);
+            pst = (decimal.Parse(Paddlers) * AdultPrice);
         }
         return pst;
     }
@@ -214,7 +281,7 @@
         }
         else
         {
-            ypst = (decimal.Parse(YouthPaddlers) * 25);
+            ypst = (decimal.Parse(YouthPaddlers) * YouthPrice);
         }
         return ypst;
     }

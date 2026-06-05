@@ -1,6 +1,18 @@
 ﻿@using System.Globalization
+<h3>Select your departure time:</h3>
+
 <div class="time-slot-container">
-    <h3>Select your departure time:</h3>
+    <div class="flex-r-100" style="justify-content:space-around;flex-wrap:wrap">
+        <div class="flex-r" style="align-items:center;margin:0 1em">
+            <div class="time-slot-container" style="padding:0;margin:0 .25em;border:1px solid black;width:1em;height:1em;" /> Available
+        </div>
+        <div class="flex-r" style="align-items:center;margin:0 1em">
+            <div class="time-slot-container" style="padding:0;margin:0 .25em;border:1px solid black;width:1em;height:1em;background-color:gray" /> Unavailable
+        </div>
+        <div class="flex-r" style="align-items:center;margin:0 1em">
+            <div class="time-slot-container" style="padding:0;margin:0 .25em;border:1px solid black;width:1em;height:1em;background-color:#0d6efd" /> Selected
+        </div>
+    </div>
     @foreach (var slot in TimeSlots)
     {
         <button class="btn time-btn @GetButtonClass(slot)"

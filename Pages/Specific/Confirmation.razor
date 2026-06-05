@@ -1,0 +1,108 @@
+﻿@page "/confirmation"
+
+<div class="flex-r-100" style="margin:0; padding:0; background-color:#f4f4f4; font-family:Arial, sans-serif;">
+    <div>
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding:20px;">
+            <tr>
+                <td align="center">
+
+                    <table cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:6px; overflow:hidden;">
+
+                        <!-- Header -->
+                        <tr>
+                            <td style="background-color:@Main; color:@Text; padding:20px; text-align:center;">
+                                <img src="/images/CompanyLogo.png" style="height:5em">
+                                <h2 style="margin:0;">@Constants.CompanyName</h2>
+                            </td>
+                        </tr>
+
+                        <!-- Body -->
+                        <tr>
+                            <td style="padding:30px; color:#333333;">
+
+                                <h3 style="margin-top:0;">Thank you for your order!</h3>
+
+                                <p>Hi Lindsey,</p>
+
+                                <p>
+                                    We’ve received your order and are getting it ready. Below are your order details:
+                                </p>
+
+                                <!-- Order Info -->
+                                <table width="100%" cellpadding="5" cellspacing="0" style="margin-top:20px; border-collapse:collapse;">
+                                    <tr>
+                                        <td><strong>Order Number:</strong></td>
+                                        <td>#0932A6</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Order Date:</strong></td>
+                                        <td>@DateTime.Now.ToString("MMMM dd, yyyy hh:mm tt")</td>
+                                    </tr>
+                                </table>
+
+                                {{Items}}
+
+                                <!-- Total -->
+                                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:20px;">
+                                    {{Subtotal}}
+                                    {{Discounts}}
+                                    {{Taxes}}
+                                    <tr>
+                                        <td></td>
+                                        <td align="right"><strong>Total:</strong></td>
+                                        <td align="right"><strong>{{Total}}</strong></td>
+                                    </tr>
+                                </table>
+
+                                <p style="margin-top:30px;">
+                                    If you have any questions, just reply to this email. You can check your order status <a href="{{OrderStatusUrl}}">here</a>
+                                </p>
+
+                                <p>
+                                    Thanks,<br />
+                                    @Constants.CompanyName
+                                </p>
+
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td style="background-color:#f4f4f4; text-align:center; padding:15px; font-size:12px; color:#777;">
+                                <strong>@Constants.CompanyName</strong> has partnered with Gurley Tech Solutions for all of their software needs.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:#f4f4f4; text-align:center; padding:15px; font-size:12px; color:#777;">
+                                © @DateTime.Now.Year @Constants.CompanyName. All rights reserved.
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@code {
+
+    [CascadingParameter(Name = "Main")]
+    public string Main { get; set; }
+
+    [CascadingParameter(Name = "Accent")]
+    public string Accent { get; set; }
+
+    [CascadingParameter(Name = "Text")]
+    public string Text { get; set; }
+
+    [CascadingParameter(Name = "ButtonText")]
+    public string ButtonText { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Constants.CurPage = "Confirmation";
+    }
+}

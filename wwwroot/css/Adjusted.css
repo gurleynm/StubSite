@@ -398,12 +398,6 @@ input.toggler {
     font-weight: 600;
 }
 
-.btn-primary.custom-btn {
-    background: #f4801d;
-    border: none;
-    color: black;
-}
-
 /* SECTIONS */
 
 .section-padding {
@@ -497,40 +491,21 @@ input.toggler {
     margin-top: 3rem;
 }
 
-/* MENU */
+/* SCHEDULE */
 
-.menu-section {
-    background: #ebe3db;
+.date-block {
+    align-items: center;
+    width: 6em;
+    height: 6em;
+    border-radius: 1em;
+    margin: 1em;
+    text-align: center;
 }
 
-.drink-card {
-    background: white;
-    padding: 1rem;
-    border-radius: 2rem;
-    height: 100%;
-    width: 25%;
-    transition: .2s ease;
-    margin: .5em .25em;
-}
-
-    .drink-card:hover {
-        transform: translateY(-4px);
+    .date-block:hover {
+        border: 3px solid blue;
+        cursor: pointer;
     }
-
-.drink-image-placeholder {
-    border-radius: 1.5rem;
-    background: #d9cab3;
-}
-
-.drink-title {
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 1rem;
-}
-
-.drink-description {
-    color: rgba(0,0,0,.65);
-    line-height: 1.8;
-}
 
 /* VISIT */
 
@@ -590,6 +565,9 @@ input.toggler {
 /* MOBILE */
 
 @media (max-width: 768px) {
+    .date-block {
+        padding:2em;
+    }
 
     .hero-title {
         font-size: 3.5rem;

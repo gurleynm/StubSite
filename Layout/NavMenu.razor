@@ -27,8 +27,8 @@
                     </NavLink>
                 </li> *@
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="rentals">
-                        <span class="oi" aria-hidden="true"></span> Rentals
+                    <NavLink class="nav-link" href="schedule">
+                        <span class="oi" aria-hidden="true"></span> Schedule
                     </NavLink>
                 </li>
 
@@ -49,8 +49,8 @@
             </ul>
             @if (!NoShowButtonPages.Any(page => NavMan.Uri.Trim('/').Contains(page)))
             {
-                <button class="fade-in-delay btn btn-primary custom-btn hide-in-mobile" @onclick=GoToRentals>
-                    Book Your Trip
+                <button class="fade-in-delay btn btn-primary custom-btn hide-in-mobile" @onclick=GoToSchedule>
+                    Book Your 🕑
                 </button>
             }
         </div>
@@ -58,8 +58,8 @@
     </div>
     @if (!NoShowButtonPages.Any(page => NavMan.Uri.Trim('/').Contains(page)))
     {
-        <button class="fade-in-delay btn btn-primary custom-btn hide-in-desktop" style="width:90%" @onclick=GoToRentals>
-            Book Your Trip
+        <button class="fade-in-delay btn btn-primary custom-btn hide-in-desktop" style="width:90%" @onclick=GoToSchedule>
+            Book Your 🕑
         </button>
     }
 </nav>
@@ -69,7 +69,7 @@
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
 
-    string[] NoShowButtonPages = new string[] { "rentals", "contact-us", "booking" };
+    string[] NoShowButtonPages = new string[] { "schedule", "contact-us", "booking" };
 
     List<string> Categories = new List<string>();
 
@@ -99,10 +99,10 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
-    void GoToRentals()
+    void GoToSchedule()
     {
         collapseNavMenu = true;
-        NavMan.NavigateTo("/rentals");
+        NavMan.NavigateTo("/schedule");
     }
 
     private void CurPageUpdated(object sender, string cp)

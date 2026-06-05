@@ -1,13 +1,37 @@
-﻿@page "/rentals"
+﻿@page "/schedule"
 @using StubSite.Data.Specific
 @using StubSite.Shared.Specific
+@using static StubSite.Shared.Specific.CustomTimeSlot
+@inject IJSRuntime JSRuntime
 
-<div class="flex-c-start" style="padding:1em">
-    <h2 class="section-title">Kayak Rentals</h2>
-    <h4 class="section-label" style="text-align:center">Please arrive 15 minutes before departure time</h4>
-    <hr style="background-color:@Accent;width:100%;height:.25em;opacity:1;border-radius:1em" />
-    <RentalBlocks />
+<div class="flex-c-start" style="width:100%">
+    <h4 style="text-align:center;color:white">Select previous date:</h4>
+    <input type="month" @bind-value="@SelectedMonth" max="@(DateTime.Now.ToString("yyyy-MM"))" />
+    <div class="flex-r-100" style="align-items:center;overflow-x:hidden;">
+        <div class="flex-r" style="justify-content:start;align-items:center;overflow-x:auto;overflow-y:hidden;padding-left:0">
+            @foreach (DateTime Scheduled in ScheduledDates)
+            {
+                DateTime localPlay = Scheduled;
+                <div @onclick="@(async () => await ChooseDate(localPlay))" class="flex-c date-block"
+                     style="background-color:@(SelDate != null && SelDate == localPlay ? "dodgerblue" : "darkgoldenrod");
+                                @(SelDate != null && SelDate == localPlay ? "box-shadow:0 0 10px dodgerblue;" : "");">
+                    <h4 style="">@Scheduled.ToString("ddd")</h4>
+                    <hr style="margin:0;padding:0;height:2px;width:2em;color:black" />
+                    <h4 style="">@Scheduled.ToString("MMM dd")</h4>
+                </div>
+            }
+        </div>
+    </div>
 </div>
+
+<h3 style="font-family:Special;color:white">Game of @(SelDate.ToString("MMM dd, yyyy")):</h3>
+
+@if (SelDate != default)
+{
+    <div class="fade-in-delay" style="padding:1em">
+        <StubSite.Shared.Specific.CustomTimeSlot TimeSlots="availableSlots" />
+    </div>
+}
 
 @code {
     [CascadingParameter(Name = "Main")]
@@ -22,8 +46,78 @@
     [CascadingParameter(Name = "ButtonText")]
     public string ButtonText { get; set; }
 
+
+    private List<CustomTimeSlot.TimeSlot> availableSlots = new();
+    private CustomTimeSlot.TimeSlot? selectedSlot;
+
+    public List<DateTime> ScheduledDates = new();
+    public DateTime selectedMonth { get; set; } = DateTime.Now;
+    public DateTime SelectedMonth
+    {
+        get { return selectedMonth; }
+        set
+        {
+            if (selectedMonth == value)
+                return;
+
+            selectedMonth = value;
+            SetMonthChanged(selectedMonth);
+        }
+    }
+
+    public DateTime SelDate { get; set; } = DateTime.Now;
+    DateTime StartDate = new DateTime(2026, 6, 1);
+
     protected override async Task OnInitializedAsync()
     {
-        Constants.CurPage = "Rentals";
+        Constants.CurPage = "Schedule";
+
+        await SetScheduleds();
+    }
+
+    private async Task SetMonthChanged(DateTime selMon)
+    {
+        if (selMon == null)
+            return;
+
+        if (selMon.Subtract(StartDate).Days < 0)
+            SelectedMonth = StartDate;
+        else
+            SelectedMonth = selMon;
+
+        await SetScheduleds();
+    }
+    private async Task SetScheduleds()
+    {
+        ScheduledDates.Clear();
+        DateTime Now = DateTime.Now;
+        DateTime PastDate = SelectedMonth;
+
+        for(int cnt = 1; cnt <= 7;cnt++)
+        {
+            ScheduledDates.Add(new DateTime(PastDate.Ticks).AddDays(cnt));
+        }
+    }
+
+    private async Task ChooseDate(DateTime SelectedDate)
+    {
+        SelDate = SelectedDate;
+        availableSlots.Clear();
+        // Generate time slots (e.g., 9 AM to 3 PM)
+        for (int i = 9; i <= 15; i++)
+        {
+            availableSlots.Add(new TimeSlot
+            {
+                Time = new TimeSpan(i, 0, 0),
+                IsAvailable = i != 12 // Lunch break is unavailable
+            });
+
+            availableSlots.Add(new TimeSlot
+            {
+                Time = new TimeSpan(i, 30, 0),
+                IsAvailable = i != 12 // Lunch break is unavailable
+            });
+        }
+        StateHasChanged();
     }
 }

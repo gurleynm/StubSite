@@ -3,16 +3,16 @@
     public class Constants
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
-            { "Main", "#4995c6" }
-            ,{ "Accent", "#e08831" }
+            { "Main", "#048c7f" }
+            ,{ "Accent", "#00ffff" }
             ,{ "Text", "#000000" }
             ,{ "ButtonText", "#000000" }
         };
 
         public static bool Mobile { get; set; }
         public static EventHandler<string> CurPageChanged = (sender, value) => { };
-        public static string CompanyName = "Loveland Paddlesports";
-        public static string CompanyEmail = "mark@lovelandpaddlesports.com";
+        public static string CompanyName = "Loveland Yoga";
+        public static string CompanyEmail = "anna@lovelandyoga.com";
         public static string CompanyPhone = "(513) 683-4611";
         public static string CompanyAddress = "174 Karl Brown Way Loveland, OH 45140";
         public static string CompanyMapsURL = "https://maps.app.goo.gl/uJGaX9ShQaHHAie36";
@@ -35,9 +35,9 @@
         //    ,{ "Sunday" ,"12:00PM-6:00PM" } 
         //};
         public static Dictionary<string,string> CompanySocials = new() { 
-            { "Instagram" ,"https://www.instagram.com/loveland_paddlesports" } 
-            ,{ "Facebook" ,"https://www.facebook.com/LovelandCanoe" }
-            ,{ "X" ,"https://x.com/lovelandcanoe" }
+            //{ "Instagram" ,"https://www.instagram.com/loveland_yoga" } 
+            //,{ "Facebook" ,"https://www.facebook.com/LovelandYoga" }
+            //,{ "X" ,"https://x.com/lovelandyoga" }
         };
 
         private static string curPage;

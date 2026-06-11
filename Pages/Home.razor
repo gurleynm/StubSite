@@ -7,13 +7,13 @@
 <div style="overflow-x: hidden;">
     <!-- HERO -->
     <section class="hero-section"
-             style="background-image:url('/images/Background.png')">
+             style="background-image:url('https://images.unsplash.com/photo-1506126613408-eca07ce68773')">
 
         <div class="hero-overlay"></div>
 
         <div class="hero-content container">
             <div class="hero-subtitle">
-                Adventure Starts Here
+                Private Yoga Instruction
             </div>
 
             <h1 class="hero-title">
@@ -21,12 +21,16 @@
             </h1>
 
             <p class="hero-description">
-                Experience the Little Miami River with kayak adventures. From first-time paddlers to seasoned outdoor enthusiasts, we make it easy to spend an unforgettable day on the water.
+                Personalized yoga instruction for individuals and small groups. Book sessions at partner locations or enjoy private instruction in the comfort of your home.
             </p>
 
             <div class="hero-buttons">
+                <button class="btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("#visit"))>
+                    Book a Session
+                </button>
+
                 <button class="btn btn-outline-light custom-btn" @onclick=@(() => NavMan.NavigateTo("#visit"))>
-                    Visit Us
+                    Visit
                 </button>
             </div>
         </div>
@@ -35,39 +39,62 @@
     <!-- THE SPACE -->
     <section class="section-padding" id="space">
         <div class="container">
-            <div class="row align-items-center g-5">
-
-                <div class="col-lg-6">
+            <div class="flex-c-start" style="width:100%">
+                <div>
                     <div class="section-label">
                         THE EXPERIENCE
                     </div>
 
                     <h2 class="section-title">
-                        More than a rental. A day on the river.
+                        Find balance,
+                        strength &
+                        confidence.
                     </h2>
 
                     <p class="section-text">
-                        Paddle through one of Ohio's most scenic river corridors, pass the famous Loveland Castle, and enjoy a relaxing outdoor adventure just minutes from Cincinnati. Transportation, equipment, and local expertise are all included.
+                        Personalized yoga instruction for individuals and small groups. Book sessions at partner locations or enjoy private instruction in the comfort of your home.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Your Instructor -->
+    <section class="section-padding" id="instructor">
+        <div class="container">
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-6">
+                    <div class="section-label">
+                        Meet Your Instructor
+                    </div>
+
+                    <h2 class="section-title">
+                        Hi, I'm Anna.
+                    </h2>
+
+                    <p class="section-text">
+                        With over 10 years of yoga experience and certified instruction, my goal is to help students build strength, improve mobility, and create sustainable wellness habits through personalized practice.
                     </p>
 
                     <div class="feature-row">
                         <div>
                             <div class="feature-number">
-                                5 Miles
+                                Certified
                             </div>
 
                             <div class="feature-text">
-                                Castle Adventure
+                                200 YTT Certified
                             </div>
                         </div>
 
                         <div>
                             <div class="feature-number">
-                                Daily
+                                Vinyasa Style
                             </div>
 
                             <div class="feature-text">
-                                Trips Available
+                                Focus Present Practice Yoga
                             </div>
                         </div>
                     </div>
@@ -75,105 +102,54 @@
 
                 <div class="col-lg-6">
                     <div class="gallery-grid">
-                        <img src="https://lovelandpaddlesports.com/wp-content/uploads/2022/07/home-hero-1.jpg"
+                        <img src="/images/insta.jpg"
                              class="gallery-img tall" />
 
-                        <img src="https://lovelandpaddlesports.com/wp-content/uploads/2022/07/home-shop-1.jpg"
+                        <img src="https://static.wixstatic.com/media/9ebef2_07165e272a8e40b4961e0417a6aab60c~mv2.jpeg/v1/crop/x_0,y_424,w_1242,h_1360/fill/w_582,h_638,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image0.jpeg"
                              class="gallery-img tall offset-img" />
 
-                        <img src="https://lovelandpaddlesports.com/wp-content/uploads/2022/07/castle-hero-1.jpeg"
-                             class="gallery-img wide" />
+                        @* <img src="https://static.wixstatic.com/media/9ebef2_07165e272a8e40b4961e0417a6aab60c~mv2.jpeg/v1/crop/x_0,y_424,w_1242,h_1360/fill/w_582,h_638,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image0.jpeg"
+                             class="gallery-img wide" /> *@
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FEATURED ADVENTURES -->
-    <section class="menu-section section-padding" id="menu">
-        <div class="container">
-
-            <div class="text-center mb-5">
-                <div class="section-label">
-                    FEATURED ADVENTURES
-                </div>
-
-                <h2 class="section-title">
-                    Choose your river experience.
-                </h2>
-            </div>
-
-            <RentalBlocks />
-        </div>
-    </section>
-
     <!-- VISIT -->
+
     <section class="section-padding" id="visit">
         <div class="container">
             <div class="row g-5 align-items-center">
 
                 <div class="col-lg-6">
                     <div class="section-label">
-                        VISIT US
+                        VISIT ME
                     </div>
-
                     <h2 class="section-title">
-                        Start your adventure in Loveland.
+                        Start your journey with me.
                     </h2>
 
-                    <div class="visit-block">
-                        <hr style="width:100%;opacity:1;background-color:@Accent" />
-                        <h3>Hours</h3>
-
-                        <h4 style="text-align:center">
-                            @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
-                            {
-                                @("Daily: " + Constants.CompanyHours.Values.First())
-
-                                <br />
-                                <span>
-                                    (Last trip departs at 3:00PM)
-                                </span>
-
-                            }
-                            else
-                            {
-                                @foreach (var key in Constants.CompanyHours.Keys)
-                                {
-                                    @(key + ": " + Constants.CompanyHours[key])
-
-                                    <br />
-                                }
-                            }
-                        </h4>
-
-                        <h4 class="section-label" style="text-align:center">
-                            Note: Operations are subject to weather and river conditions permitting.
-                            <br />
-                            <br />
-                            Please call 513-683-4611 or check our <a href="https://www.facebook.com/LovelandCanoe" style="color:orange;text-decoration:underline">Facebook page</a> for current status.
-                        </h4>
-                    </div>
                     <hr style="width:100%;opacity:1;background-color:@Accent" />
 
                     <div class="visit-block">
-                        <h3>Location</h3>
-
-
-                        <h4>
-                            Loveland, Ohio<br />
-                            Free parking, easy access nearby
-                        </h4>
+                        <h3><span class="oi oi-map-marker" /> Flexible Locations</h3>
                     </div>
                 </div>
-
                 <div class="col-lg-6">
-                    <div class="map-placeholder">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3088.9603346662743!2d-84.26279232404536!3d39.266466571647655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f8adece5d769%3A0xbce75d716f01c53!2sLoveland%20Paddlesports!5e0!3m2!1sen!2sus!4v1780338715773!5m2!1sen!2sus"
-                                class="map-iframe" style="height:100%;width:100%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="flex-r" style="align-items:center;flex-wrap:wrap">
+                        <div class="flex-c-start" style="align-items:center;margin:1em">
+                            <h3>Loveland</h3>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3088.9603346662743!2d-84.26279232404536!3d39.266466571647655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f8adece5d769%3A0xbce75d716f01c53!2sLoveland%20Paddlesports!5e0!3m2!1sen!2sus!4v1780338715773!5m2!1sen!2sus"
+                                    class="map-iframe" style="height:100%;width:80%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="flex-c-start" style="align-items:center">
+                            <h3>Milford</h3>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.6020202605705!2d-84.20771169999999!3d39.4331231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f4228987bf1f%3A0x31bdfa0e267a1145!2s9%20E%20Main%20St%2C%20Lebanon%2C%20OH%2045036!5e0!3m2!1sen!2sus!4v1780084882864!5m2!1sen!2su"
+                                    class="map-iframe" style="height:100%;width:80%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -189,11 +165,11 @@
             </div>
 
             <h2 class="social-title">
-                @@lovelandcanoe
+                @@abersani
             </h2>
 
             <p class="social-text">
-                River conditions, customer adventures, special events, kayak inventory updates, and photos from the Little Miami River.
+                Flexible options designed around your schedule and goals.
             </p>
 
             <div class="flex-r-100-wrap">

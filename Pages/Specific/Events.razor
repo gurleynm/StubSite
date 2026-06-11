@@ -5,16 +5,32 @@
 @inject IJSRuntime JSRuntime
 
 <div class="flex-c-start" style="width:100%">
-    <h4 style="text-align:center;color:white">Select previous date:</h4>
-    <input type="month" @bind-value="@SelectedMonth" max="@(DateTime.Now.ToString("yyyy-MM"))" />
+    <table class="flex-r-100">
+        <thead>
+            <tr>
+                <th colspan="7" style="text-align:center"
+                    >@DateTime.Now.ToString("MMMM yyyy")
+                    </th>
+            </tr>
+            <tr>
+                <th>SUN</th>
+                <th>MON</th>
+                <th>TUE</th>
+                <th>WED</th>
+                <th>THU</th>
+                <th>FRI</th>
+                <th>SAT</th>
+            </tr>
+        </thead>
+    </table>
     <div class="flex-r-100" style="align-items:center;overflow-x:hidden;">
         <div class="flex-r" style="justify-content:start;align-items:center;overflow-x:auto;overflow-y:hidden;padding-left:0">
             @foreach (DateTime Scheduled in ScheduledDates)
             {
                 DateTime localPlay = Scheduled;
                 <div @onclick="@(async () => await ChooseDate(localPlay))" class="flex-c date-block"
-                     style="background-color:@(SelDate != null && SelDate == localPlay ? "dodgerblue" : "darkgoldenrod");
-                                @(SelDate != null && SelDate == localPlay ? "box-shadow:0 0 10px dodgerblue;" : "");">
+                     style="background-color:@(SelDate != null && SelDate == localPlay ? "dodgerblue" : "burlywood");
+                                    @(SelDate != null && SelDate == localPlay ? "box-shadow:0 0 10px dodgerblue;" : "");">
                     <h4 style="">@Scheduled.ToString("ddd")</h4>
                     <hr style="margin:0;padding:0;height:2px;width:2em;color:black" />
                     <h4 style="">@Scheduled.ToString("MMM dd")</h4>
@@ -24,7 +40,7 @@
     </div>
 </div>
 
-<h3 style="font-family:Special;color:white">Game of @(SelDate.ToString("MMM dd, yyyy")):</h3>
+<h3 style="font-family:Special;color:white">Session of @(SelDate.ToString("MMM dd, yyyy")):</h3>
 
 @if (SelDate != default)
 {
@@ -93,7 +109,7 @@
         DateTime Now = DateTime.Now;
         DateTime PastDate = SelectedMonth;
 
-        for(int cnt = 1; cnt <= 7;cnt++)
+        for (int cnt = 1; cnt <= 7; cnt++)
         {
             ScheduledDates.Add(new DateTime(PastDate.Ticks).AddDays(cnt));
         }

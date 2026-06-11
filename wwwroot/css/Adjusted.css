@@ -199,7 +199,7 @@ td a, td input, td img {
     appearance: none;
     border: none;
     /* Custom styling for the select box */
-    font-family: 'Playfair Display', serif, sans-serif;
+    font-family: 'IMPRISHA', serif, sans-serif;
     font-size: 16px;
     color: #78eaff;
     background-color: #0f1424;
@@ -282,7 +282,7 @@ td a, td input, td img {
 .line {
     height: 4px;
     width: 100%;
-    background: white;
+    background: #000000A6;
     transition: all 0.3s ease; /* Smooth morphing */
     transform-origin: center;
 }
@@ -365,14 +365,14 @@ input.toggler {
 .hero-subtitle {
     text-transform: uppercase;
     letter-spacing: .35em;
-    color: darkorange;
+    color: black;
     margin-bottom: 1rem;
-    background-color: dimgray;
+    background-color: #efe1d6;
     border-radius: .5em;
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: clamp(4rem, 10vw, 7rem);
     margin-bottom: 1.5rem;
     color:white;
@@ -407,20 +407,21 @@ input.toggler {
 .section-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: darkorange;
+    color: blue;
     font-size: .85rem;
     margin-bottom: 1rem;
-    width:fit-content;
+    width: fit-content;
     padding: .5em;
-    background-color: dimgray;
+    background-color: #efe1d6;
     border-radius: .5em;
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.2;
     margin-bottom: 2rem;
+    text-align:center;
 }
 
 .section-text {
@@ -432,7 +433,7 @@ input.toggler {
 .booking-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: darkorange;
+    color: cyan;
     font-size: .85rem;
     background-color: dimgray;
     border-radius: .5em;
@@ -456,7 +457,7 @@ input.toggler {
 }
 
 .feature-number {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: 2rem;
 }
 
@@ -537,11 +538,11 @@ input.toggler {
 }
 
 .social-label {
-    color: #a8c3b2;
+    color: black;
 }
 
 .social-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: 1.5rem;
     color: white;

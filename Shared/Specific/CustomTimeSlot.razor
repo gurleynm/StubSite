@@ -1,14 +1,17 @@
 ﻿@using System.Globalization
 <div class="time-slot-container">
-    <h3>Select your departure time:</h3>
-    @foreach (var slot in TimeSlots)
-    {
-        <button class="btn time-btn @GetButtonClass(slot)"
-                @onclick="() => ToggleSlotSelection(slot)"
-                disabled="@(!slot.IsAvailable)">
-            @slot.DisplayTime
-        </button>
-    }
+    <h3>Select your start time:</h3>
+
+    <div class="flex-r-100" style="flex-wrap:wrap">
+        @foreach (var slot in TimeSlots)
+        {
+            <button class="btn time-btn @GetButtonClass(slot)"
+                    @onclick="() => ToggleSlotSelection(slot)"
+                    disabled="@(!slot.IsAvailable)">
+                @slot.DisplayTime
+            </button>
+        }
+    </div>
 </div>
 
 @code {

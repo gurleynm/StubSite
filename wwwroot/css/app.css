@@ -1,7 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, 'Playfair Display', serif, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IMPRISHA', serif, sans-serif;
 }
 
 h1:focus {
@@ -269,7 +269,7 @@ code {
         flex-direction: column;
         justify-content: space-around;
         width: 50%;
-        align-items: center
+        align-items: center;
     }
 
     .footer-hours {
@@ -334,6 +334,7 @@ code {
         flex-direction: row;
         width: 66.67%;
         justify-content: space-around;
+        flex-grow: 1;
     }
 
     .footer-company-holder {

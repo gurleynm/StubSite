@@ -1,22 +1,22 @@
-﻿<div class="footer" style="height:fit-content;padding:1em 0;background-color:#212529">
+﻿<div class="footer" style="height:fit-content;padding:1em 0;background-image: linear-gradient(to top,@Main,@Main);">
     @if (false)
     {
-        <hr style="color:white" />
-        <Header HeaderType="2" ShowButton=false Title="Demo color settings" Style="color:white" />
+        <hr style="color:black" />
+        <Header HeaderType="2" ShowButton=false Title="Demo color settings" Style="color:black" />
         <div class="flex-r-100" style="align-items:end">
             <div class="flex-c-start">
-                <label for="main-color" style="color: white;">Main</label>
+                <label for="main-color" style="color: black;">Main</label>
                 <input id="main-color" @bind=@Main type="color" />
             </div>
             <div class="flex-c-start">
-                <label for="accent-color" style="color: white;">Accent</label>
+                <label for="accent-color" style="color: black;">Accent</label>
                 <input id="accent-color" @bind=@Accent type="color" />
             </div>
             <div class="flex-c-start">
-                <p style="color: white;">--- Text ---</p>
+                <p style="color: black;">--- Text ---</p>
                 <div class="flex-r">
-                    <label for="general-text-color" style="color: white;margin:0 .25em">General</label>
-                    <label for="button-text-color" style="color: white;margin:0 .25em">Button</label>
+                    <label for="general-text-color" style="color: black;margin:0 .25em">General</label>
+                    <label for="button-text-color" style="color: black;margin:0 .25em">Button</label>
                 </div>
                 <div class="flex-r">
                     <input id="general-text-color" style="margin:0 .25em" @bind=@Text type="color" />
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <hr style="color:white" />
+        <hr style="color:black" />
     }
 
     <div class="flex-r-100" style="height:fit-content;align-items:center;justify-content:space-around">
@@ -32,22 +32,25 @@
             <div class="footer-non-hours">
                 <img alt="Company logo" src="/images/CompanyLogo.png" style="max-height:8em;border-radius:1em" />
             </div>
-            <div class="footer-hours">
-                <div class="flex-c">
-                    <div style="color: white;">Shop Hours:</div>
-                    @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
-                    {
-                        <span style="color: white;text-align:end">@("Daily: " + Constants.CompanyHours.Values.First())</span>
-                    }
-                    else
-                    {
-                        @foreach (var key in Constants.CompanyHours.Keys)
+            @if (Constants.CompanyHours.Count != 0)
+            {
+                <div class="footer-hours">
+                    <div class="flex-c">
+                        <div style="color: black;">Shop Hours:</div>
+                        @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
                         {
-                            <span style="color: white;text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
+                            <span style="color: black;text-align:end">@("Daily: " + Constants.CompanyHours.Values.First())</span>
                         }
-                    }
+                        else
+                        {
+                            @foreach (var key in Constants.CompanyHours.Keys)
+                            {
+                                <span style="color: black;text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
+                            }
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
     <div class="flex-c">
@@ -56,27 +59,27 @@
             {
                 <a href="@Constants.CompanySocials[key]" target="_blank" class="" aria-label="@key" style="width:2em;margin:.5em">
                     <div style="background-color:transparent;border-radius:2em">
-                        <img src="/images/@(key)_white.svg" style="width:2em;" alt="@key Logo" />
+                        <img src="/images/@(key)_black.svg" style="width:2em;" alt="@key Logo" />
                     </div>
                 </a>
             }
         </div>
         @if (!string.IsNullOrEmpty(Constants.CompanyAddress))
         {
-            <a style="color: white;text-align:center;text-decoration:none" href="@Constants.CompanyMapsURL">
-                <span class="oi oi-location" style="color: white;" /> @Constants.CompanyAddress
+            <a style="color: black;text-align:center;text-decoration:none" href="@Constants.CompanyMapsURL">
+                <span class="oi oi-location" style="color: black;" /> @Constants.CompanyAddress
             </a>
         }
         @if (!string.IsNullOrEmpty(Constants.CompanyEmail))
         {
-            <a href="mailto:@Constants.CompanyEmail" style="color: white;text-decoration:none">
-                <span class="oi oi-envelope-closed" style="color: white;" /> @Constants.CompanyEmail
+            <a href="mailto:@Constants.CompanyEmail" style="color: black;text-decoration:none">
+                <span class="oi oi-envelope-closed" style="color: black;" /> @Constants.CompanyEmail
             </a>
         }
         @if (!string.IsNullOrEmpty(Constants.CompanyPhone))
         {
-            <a href="tel:@Constants.CompanyPhone" style="color: white;text-decoration:none">
-                <span class="oi oi-phone" style="color: white;" /> @Constants.CompanyPhone
+            <a href="tel:@Constants.CompanyPhone" style="color: black;text-decoration:none">
+                <span class="oi oi-phone" style="color: black;" /> @Constants.CompanyPhone
             </a>
         }
     </div>

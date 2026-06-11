@@ -3,27 +3,21 @@
     public class Constants
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
-            { "Main", "#048c7f" }
-            ,{ "Accent", "#00ffff" }
+            { "Main", "#efe1d6" }
+            ,{ "Accent", "#649cef" }
             ,{ "Text", "#000000" }
             ,{ "ButtonText", "#000000" }
         };
 
         public static bool Mobile { get; set; }
         public static EventHandler<string> CurPageChanged = (sender, value) => { };
-        public static string CompanyName = "Loveland Yoga";
-        public static string CompanyEmail = "anna@lovelandyoga.com";
+        public static string CompanyName = "Bersani Yoga";
+        public static string CompanyEmail = "annabersani@gmail.com";
         public static string CompanyPhone = "(513) 683-4611";
         public static string CompanyAddress = "174 Karl Brown Way Loveland, OH 45140";
         public static string CompanyMapsURL = "https://maps.app.goo.gl/uJGaX9ShQaHHAie36";
         public static Dictionary<string,string> CompanyHours = new() { 
-            { "Sunday" ,"9AM-6PM" } 
-            ,{ "Monday" ,"9AM-6PM" } 
-            ,{ "Tuesday" ,"9AM-6PM" } 
-            ,{ "Wednesday" ,"9AM-6PM" } 
-            ,{ "Thursday" ,"9AM-6PM" } 
-            ,{ "Friday" ,"9AM-6PM" } 
-            ,{ "Saturday" ,"9AM-6PM" } 
+            
         };
         //public static Dictionary<string,string> CompanyHours = new() { 
         //    { "Monday" ,"7:30AM-6:00PM" } 

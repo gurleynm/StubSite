@@ -4,7 +4,7 @@
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
             { "Main", "#efe1d6" }
-            ,{ "Accent", "#649cef" }
+            ,{ "Accent", "#7A9E7E" }
             ,{ "Text", "#000000" }
             ,{ "ButtonText", "#000000" }
         };

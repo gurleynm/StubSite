@@ -27,23 +27,23 @@
                     </NavLink>
                 </li> *@
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="schedule">
+                    <NavLink class="nav-link" href="booking">
                         <span class="oi" aria-hidden="true"></span> Schedule
                     </NavLink>
                 </li>
 
                 @* Specific Start 
-                *@
                 <li class="nav-item">
                     <NavLink class="nav-link" href="shop">
                         <span class="oi" aria-hidden="true"></span> Shop
                     </NavLink>
                 </li>
+                *@
 
                 @* Specific End *@
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="contact-us">
-                        <span class="oi" aria-hidden="true"></span> Contact Us
+                    <NavLink class="nav-link" href="contact-me">
+                        <span class="oi" aria-hidden="true"></span> Contact Me
                     </NavLink>
                 </li>
             </ul>
@@ -102,7 +102,7 @@
     void GoToSchedule()
     {
         collapseNavMenu = true;
-        NavMan.NavigateTo("/schedule");
+        NavMan.NavigateTo("/booking");
     }
 
     private void CurPageUpdated(object sender, string cp)

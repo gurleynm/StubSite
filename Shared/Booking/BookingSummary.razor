@@ -2,6 +2,7 @@
 @if (SelectedDate.HasValue && SelectedTime != null)
 {
     <div class="booking-summary">
+        <div class="position-absolute" style="right:.5em; top:.5em;cursor:pointer" @onclick=Clear><span class="oi oi-x" /></div>
 
         <div class="summary-info">
 
@@ -31,8 +32,14 @@
                         @SelectedSession.Title
                     </strong>
                 </div>
-            }
 
+                <div>
+                    <small>Cost</small>
+                    <strong>
+                            @SelectedSession.Cost.ToString("C")
+                    </strong>
+                </div>
+            }
         </div>
 
 
@@ -69,10 +76,17 @@
     [Parameter]
     public EventCallback OnContinue { get; set; }
 
+    [Parameter]
+    public EventCallback OnClear { get; set; }
+
 
     async Task Continue()
     {
         await OnContinue.InvokeAsync();
     }
 
+    async Task Clear()
+    {
+        await OnClear.InvokeAsync();
+    }
 }

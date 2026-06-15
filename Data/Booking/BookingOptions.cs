@@ -7,6 +7,7 @@
         public string AccentColor { get; set; } = "#E8F1FB";
 
         public bool ShowAvailabilityCount { get; set; } = true;
+        public bool ShowCost { get; set; } = true;
 
         public bool ShowSessions { get; set; } = true;
 

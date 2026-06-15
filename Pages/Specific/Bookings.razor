@@ -7,20 +7,19 @@
 @using StubSite.Shared.Specific
 @using static StubSite.Shared.Specific.CustomTimeSlot
 
-<BookingWidget
- Title="Book a Yoga Session"
- Slots="@AvailableSlots"
- Options="@Options" />
+<BookingWidget Title="Book a Yoga Session"
+               Slots="@AvailableSlots"
+               Options="@Options" />
 
 @code {
     List<BookingSlot> AvailableSlots = new();
 
     BookingOptions Options = new BookingOptions
-        {
-            AccentColor = "#EAF3EA",
-            ShowAvailabilityCount = true,
-            ShowSessions = true
-        };
+    {
+        AccentColor = "#EAF3EA",
+        ShowAvailabilityCount = true,
+        ShowSessions = true
+    };
 
     protected override void OnInitialized()
     {
@@ -38,8 +37,8 @@
 
         }
 
-        // Generate time slots (e.g., 9 AM to 3 PM)
-        for (int i = 0; i < 5; i++)
+        // Generate time slots
+        for (int i = 0; i < 7; i++)
         {
             AvailableSlots.Add(new BookingSlot
             {
@@ -49,23 +48,50 @@
 
             Random random = new Random();
 
-            for (int cnt = 9; cnt <= 15; cnt++)
+            bool IsFriday = AvailableSlots[i].Date.DayOfWeek == DayOfWeek.Friday;
+            bool IsSaturday = AvailableSlots[i].Date.DayOfWeek == DayOfWeek.Saturday;
+
+            if (IsFriday || IsSaturday)
             {
                 AvailableSlots[i].Times.Add(new BookingTime
-                    {
-                        StartTime = new TimeOnly(cnt, 0),
-                        EndTime = new TimeOnly(cnt + 1, 0),
-                        AvailableSpots = random.Next(0, 6),
-                        Sessions = new List<BookingSession>
+                {
+                    StartTime = new TimeOnly(IsFriday ? 6 : 8, 0),
+                    EndTime = new TimeOnly(IsFriday ? 7 : 9, 0),
+                    Sessions = new List<BookingSession>
                         {
                             new BookingSession
                             {
-                                Title = "Morning Yoga",
+                                Title = "Sunrise Vinyasa",
                                 Description = "Start your day with a refreshing yoga session.",
-                                AvailableSpots = 5
+                                Location = "Bloom Yoga Loft",
+                                LocationURL = "https://maps.app.goo.gl/Px8euEmmX7xwBMaw6",
+                                TotalSpots = 5,
+                                TakenSpots = random.Next(0, 6),
+                                Cost = 14
                             }
                         }
-                    });
+                });
+            }
+
+            if(i == 0)
+            {
+                AvailableSlots[i].Times.Add(new BookingTime
+                {
+                    StartTime = new TimeOnly(12, 0),
+                    EndTime = new TimeOnly(13, 0),
+                    Sessions = new List<BookingSession>
+                        {
+                            new BookingSession
+                            {
+                                Title = "Midday Stretch",
+                                Description = "Take a break and rejuvenate with a midday yoga session.",
+                                Location = "Loveland Paddlesports",
+                                TotalSpots = 3,
+                                TakenSpots = random.Next(0, 3),
+                                Cost = 20
+                            }
+                        }
+                });
             }
         }
 

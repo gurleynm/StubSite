@@ -15,14 +15,22 @@
 
     @if (SelectedDate.HasValue)
     {
-        <BookingTimeSlots Slots="@SelectedSlots"
-                          Options="@Options"
-                          OnSelected="SelectTime" />
+        @if (SelectedSlots.Count == 0)
+        {
+            <div class="session-title">No Availability</div>
+        }
+        else
+        {
+            <BookingTimeSlots Slots="@SelectedSlots"
+                              Options="@Options"
+                              OnSelected="SelectTime" />
+        }
 
         <BookingSummary SelectedDate="@SelectedDate"
                         SelectedTime="@SelectedTime"
                         SelectedSession="@SelectedSession"
                         Options="@Options"
+                        OnClear="@CancelBooking"
                         OnContinue="@SubmitBooking" />
     }
 
@@ -72,6 +80,11 @@
     private async Task SelectTime(BookingTime time)
     {
         SelectedTime = time;
+        if (SelectedTime.Sessions != null && SelectedTime.Sessions.Any(sess => sess.Selected))
+        {
+            // Auto-select first session for simplicity
+            SelectedSession = SelectedTime.Sessions.First(sess => sess.Selected);
+        }
         /*
             Future:
 
@@ -85,6 +98,32 @@
     }
     private async Task SubmitBooking()
     {
+        /*
+            Future:
+
+            await BookingService.CreateAsync(
+                SelectedDate,
+                SelectedTime,
+                SelectedSession
+            );
+        */
+    }
+    private async Task CancelBooking()
+    {
+        foreach (var slot in SelectedSlots)
+        {
+            if (slot.Sessions != null)
+            {
+                foreach (var session in slot.Sessions)
+                {
+                    session.Selected = false;
+                }
+            }
+        }
+
+        SelectedTime = null;
+        SelectedSession = null;
+
         /*
             Future:
 

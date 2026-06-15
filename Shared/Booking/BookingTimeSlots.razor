@@ -3,70 +3,92 @@
 
     @foreach (var slot in Slots)
     {
+        <div class="time-card @(slot.IsAvailable ? "" : "unavailable")">
 
-        <button class="time-card"
-                disabled="@(!slot.IsAvailable)"
-                style="--primary:@Options.PrimaryColor"
-                @onclick="() => Select(slot)">
-
-
-            <div class="time">
-                @slot.StartTime
-                -
-                @slot.EndTime
-            </div>
-
-
-            @if (Options.ShowAvailabilityCount)
-            {
-                <div class="spots">
-                    @slot.AvailableSpots spots left
+            <div class="time-header">
+                <div class="time">
+                    @slot.StartTime - @slot.EndTime
                 </div>
-            }
+
+                @if (Options.ShowAvailabilityCount)
+                {
+                    <div class="spots">
+                        @slot.Sessions.Sum(sess => sess.AvailableSpots) spots left
+                    </div>
+                }
+            </div>
 
 
             @if (Options.ShowSessions && slot.Sessions.Any())
             {
-
                 <div class="sessions">
 
                     @foreach (var session in slot.Sessions)
                     {
+                        <button @key=session.Id class="session @(session.AvailableSpots <= 0 ? "disabled" : "")"
+                                disabled="@(session.AvailableSpots <= 0)"
+                                @onclick="() => SelectSession(slot, session)">
 
-                        <div class="session">
+                            <div class="store-flex-r-100-sb">
+                                <div class="session-title">
+                                    @session.Title
+                                </div>
 
-                            <h4>@session.Title</h4>
+                                @if (Options.ShowCost)
+                                {
+                                    <div class="session-cost">
+                                        @session.Cost.ToString("C")
+                                    </div>
+                                }
+                            </div>
 
 
                             @if (Options.ShowSessionDescriptions)
                             {
-                                <p>@session.Description</p>
+                                <div class="session-description">
+                                    @session.Description
+                                </div>
+                            }
+
+
+                            @if (!string.IsNullOrEmpty(session.Location))
+                            {
+                                <div style="margin:1em 0">
+                                    Where: @session.Location
+                                </div>
                             }
 
 
                             @if (Options.ShowAvailabilityCount)
                             {
+                                string AvPlural = session.AvailableSpots == 1 ? "" : "s";
+                                string TaPlural = session.TakenSpots == 1 ? "" : "s";
                                 <small>
-                                    @session.AvailableSpots available
+                                    @session.AvailableSpots spot@(AvPlural) left <strong>-</strong> (@session.TakenSpots spot@(TaPlural) taken)
                                 </small>
                             }
 
-                        </div>
-
+                        </button>
                     }
 
                 </div>
+            }
+            else
+            {
+                // No sessions, whole time is selectable
+                <button class="session"
+                        disabled="@(!slot.IsAvailable)"
+                        @onclick="() => SelectTime(slot)">
 
+                    Select this time
+
+                </button>
             }
 
-
-        </button>
-
+        </div>
     }
 
-
 </div>
-
 
 
 @code {
@@ -83,8 +105,22 @@
     public EventCallback<BookingTime> OnSelected { get; set; }
 
 
+    async Task SelectSession(
+        BookingTime time,
+        BookingSession session)
+    {
+        // Future:
+        // include session in booking object
 
-    async Task Select(BookingTime time)
+        foreach(BookingSession sess in time.Sessions)
+            sess.Selected = sess.Id == session.Id;
+        
+
+        await OnSelected.InvokeAsync(time);
+    }
+
+
+    async Task SelectTime(BookingTime time)
     {
         await OnSelected.InvokeAsync(time);
     }

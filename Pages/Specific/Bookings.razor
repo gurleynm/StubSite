@@ -1,7 +1,9 @@
 ﻿@page "/booking"
 
 @inject NavigationManager NavMan
+@using StubSite.Data.Booking
 @using StubSite.Shared
+@using StubSite.Shared.Booking
 @using StubSite.Shared.Specific
 @using static StubSite.Shared.Specific.CustomTimeSlot
 
@@ -152,11 +154,9 @@
 </div>
 
 @code {
-    string selectedProduct = "";
-    string SelectedProduct
-    {
-        get { return selectedProduct; }
-        set
+    List<BookingSlot> AvailableSlots = new();
+
+    BookingOptions Options = new BookingOptions
         {
             if (selectedProduct == value)
                 return;
@@ -221,7 +221,7 @@
 
         try
         {
-            SelectedProduct = query["subject"];
+            // SelectedProduct = query["subject"];
         }
         catch (Exception e)
         {
@@ -229,19 +229,34 @@
         }
 
         // Generate time slots (e.g., 9 AM to 3 PM)
-        for (int i = 9; i <= 15; i++)
+        for (int i = 0; i < 5; i++)
         {
-            availableSlots.Add(new TimeSlot
+            AvailableSlots.Add(new BookingSlot
             {
-                Time = new TimeSpan(i, 0, 0),
-                IsAvailable = i != 12 // Lunch break is unavailable
+                Date = DateTime.Today.AddDays(i), // Distribute across days
+                Times = new List<BookingTime>()
             });
 
-            availableSlots.Add(new TimeSlot
+            Random random = new Random();
+
+            for (int cnt = 9; cnt <= 15; cnt++)
             {
-                Time = new TimeSpan(i, 30, 0),
-                IsAvailable = i != 12 // Lunch break is unavailable
-            });
+                AvailableSlots[i].Times.Add(new BookingTime
+                    {
+                        StartTime = new TimeOnly(cnt, 0),
+                        EndTime = new TimeOnly(cnt + 1, 0),
+                        AvailableSpots = random.Next(0, 6),
+                        Sessions = new List<BookingSession>
+                        {
+                            new BookingSession
+                            {
+                                Title = "Morning Yoga",
+                                Description = "Start your day with a refreshing yoga session.",
+                                AvailableSpots = 5
+                            }
+                        }
+                    });
+            }
         }
 
         base.OnInitialized();

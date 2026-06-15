@@ -1,0 +1,98 @@
+﻿@using StubSite.Data.Booking
+<div class="booking-wrapper">
+
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h2>@Title</h2>
+    }
+
+
+    <BookingCalendar Dates="@AvailableDates"
+                     SelectedDate="@SelectedDate"
+                     OnDateSelected="SelectDate"
+                     Options="@Options" />
+
+
+    @if (SelectedDate.HasValue)
+    {
+        <BookingTimeSlots Slots="@SelectedSlots"
+                          Options="@Options"
+                          OnSelected="SelectTime" />
+
+        <BookingSummary SelectedDate="@SelectedDate"
+                        SelectedTime="@SelectedTime"
+                        SelectedSession="@SelectedSession"
+                        Options="@Options"
+                        OnContinue="@SubmitBooking" />
+    }
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = "";
+
+
+    [Parameter]
+    public List<BookingSlot> Slots { get; set; } = new();
+
+
+    [Parameter]
+    public BookingOptions Options { get; set; } = new();
+
+
+    [Parameter]
+    public EventCallback<BookingTime> OnBookingSelected { get; set; }
+
+    private BookingTime? SelectedTime;
+
+    private BookingSession? SelectedSession;
+
+
+    private DateTime? SelectedDate;
+
+
+    private IEnumerable<DateTime> AvailableDates =>
+        Slots.Select(x => x.Date);
+
+
+    private List<BookingTime> SelectedSlots =>
+        Slots.FirstOrDefault(x => x.Date == SelectedDate)
+            ?.Times ?? new();
+
+
+    private async Task SelectDate(DateTime date)
+    {
+        SelectedDate = date;
+    }
+
+
+    private async Task SelectTime(BookingTime time)
+    {
+        SelectedTime = time;
+        /*
+            Future:
+
+            Save booking
+            Call API
+            Reserve slot
+            Handle payments
+        */
+
+        await OnBookingSelected.InvokeAsync(time);
+    }
+    private async Task SubmitBooking()
+    {
+        /*
+            Future:
+
+            await BookingService.CreateAsync(
+                SelectedDate,
+                SelectedTime,
+                SelectedSession
+            );
+        */
+    }
+}

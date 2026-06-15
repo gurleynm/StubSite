@@ -32,25 +32,6 @@
             <div class="footer-non-hours">
                 <img alt="Company logo" src="/images/CompanyLogo.png" style="max-height:8em;border-radius:1em" />
             </div>
-            @if (Constants.CompanyHours.Count != 0)
-            {
-                <div class="footer-hours">
-                    <div class="flex-c">
-                        <div style="color: black;">Shop Hours:</div>
-                        @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
-                        {
-                            <span style="color: black;text-align:end">@("Daily: " + Constants.CompanyHours.Values.First())</span>
-                        }
-                        else
-                        {
-                            @foreach (var key in Constants.CompanyHours.Keys)
-                            {
-                                <span style="color: black;text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
-                            }
-                        }
-                    </div>
-                </div>
-            }
         </div>
     </div>
     <div class="flex-c">

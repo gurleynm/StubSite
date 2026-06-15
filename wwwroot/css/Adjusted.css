@@ -407,7 +407,7 @@ input.toggler {
 .section-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: blue;
+    color: forestgreen;
     font-size: .85rem;
     margin-bottom: 1rem;
     width: fit-content;

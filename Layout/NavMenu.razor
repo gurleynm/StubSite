@@ -5,7 +5,7 @@
 @inject IJSRuntime JSRuntime
 @implements IDisposable
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark top-bar fade-in border-while-open navbar-grow flex-c-start sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark top-bar fade-in border-while-open navbar-grow flex-c-start sticky-top" style="background-color:#2b2b29">
     <div class="container-fluid">
         <a class="navbar-brand" style="margin-right:0;" href="">
             <img alt="Logo image" src="images/CompanyLogo.png" style="height:3em;border-radius:1em" />
@@ -50,7 +50,7 @@
             @if (!NoShowButtonPages.Any(page => NavMan.Uri.Trim('/').Contains(page)))
             {
                 <button class="fade-in-delay btn btn-primary custom-btn hide-in-mobile" @onclick=GoToRentals>
-                    Book Your Trip
+                    Book Your Appointment
                 </button>
             }
         </div>
@@ -59,7 +59,7 @@
     @if (!NoShowButtonPages.Any(page => NavMan.Uri.Trim('/').Contains(page)))
     {
         <button class="fade-in-delay btn btn-primary custom-btn hide-in-desktop" style="width:90%" @onclick=GoToRentals>
-            Book Your Trip
+            Book Your Appointment
         </button>
     }
 </nav>
@@ -102,7 +102,7 @@
     void GoToRentals()
     {
         collapseNavMenu = true;
-        NavMan.NavigateTo("/rentals");
+        NavMan.NavigateTo("/booking?subject=appointment");
     }
 
     private void CurPageUpdated(object sender, string cp)

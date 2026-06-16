@@ -27,9 +27,11 @@
         {
             var dateToBind = new DateTime(_currentPeriod.Year, _currentPeriod.Month, dayNumber);
             var isSelected = SelectedDate.Date == dateToBind.Date;
+            var IsOpen = IsDateOpen(dateToBind);
 
             <button type="button"
-                    class="date-button @(isSelected ? "selected-date" : "") @(dateToBind.Month == DateTime.Now.Month ? "open-date" : "")"
+                    disabled="@(!IsOpen)"
+                    class="date-button @(isSelected ? "selected-date" : "") @(IsOpen ? "open-date" : "")"
                     @onclick="() => HandleDateClick(dateToBind)">
                 @dayNumber
             </button>
@@ -91,5 +93,15 @@
     {
         _currentPeriod = _currentPeriod.AddMonths(1);
         CalculateCalendarDimensions();
+    }
+
+    private bool IsDateOpen(DateTime date)
+    {
+        if (date.DayOfWeek == DayOfWeek.Monday ||
+            date.DayOfWeek == DayOfWeek.Sunday ||
+            date.DayOfWeek == DayOfWeek.Saturday)
+            return false;
+
+        return date >= DateTime.Today;
     }
 }

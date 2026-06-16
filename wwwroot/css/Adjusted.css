@@ -365,9 +365,9 @@ input.toggler {
 .hero-subtitle {
     text-transform: uppercase;
     letter-spacing: .35em;
-    color: darkorange;
+    color: white;
     margin-bottom: 1rem;
-    background-color: dimgray;
+    background-color: #c83738;
     border-radius: .5em;
 }
 
@@ -399,9 +399,9 @@ input.toggler {
 }
 
 .btn-primary.custom-btn {
-    background: #f4801d;
+    background: #c83738;
     border: none;
-    color: black;
+    color: white;
 }
 
 /* SECTIONS */
@@ -413,12 +413,12 @@ input.toggler {
 .section-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: darkorange;
+    color: white;
     font-size: .85rem;
     margin-bottom: 1rem;
-    width:fit-content;
+    width: fit-content;
     padding: .5em;
-    background-color: dimgray;
+    background-color: #c83738;
     border-radius: .5em;
 }
 
@@ -440,7 +440,7 @@ input.toggler {
     letter-spacing: .25em;
     color: darkorange;
     font-size: .85rem;
-    background-color: dimgray;
+    background-color: black;
     border-radius: .5em;
     padding: .5em;
 }
@@ -562,7 +562,7 @@ input.toggler {
 }
 
 .social-label {
-    color: #a8c3b2;
+    color: #ffffff;
 }
 
 .social-title {
@@ -577,7 +577,7 @@ input.toggler {
     margin: auto;
     line-height: 2;
     margin-bottom: 2rem;
-    color:  gray;
+    color:  black;
 }
 
 .social-btn {
@@ -675,19 +675,21 @@ input.toggler {
 }
 
 .date-button {
-    background: #fdfdfd;
+    background: lightgray;
     border: 1px solid #eaeaea;
     border-radius: 4px;
     padding: 8px 0;
     cursor: pointer;
     font-size: 0.9rem;
     transition: all 0.15s ease;
+    cursor: not-allowed;
 }
 
-    .date-button:hover {
+    .date-button.open-date:hover {
         background-color: #007bff;
         color: white;
         border-color: #007bff;
+        cursor: pointer;
     }
 
     .date-button.open-date {

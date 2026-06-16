@@ -4,26 +4,26 @@
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
             { "Main", "#4995c6" }
-            ,{ "Accent", "#e08831" }
+            ,{ "Accent", "#c83738" }
             ,{ "Text", "#000000" }
-            ,{ "ButtonText", "#000000" }
+            ,{ "ButtonText", "#ffffff" }
         };
 
         public static bool Mobile { get; set; }
         public static EventHandler<string> CurPageChanged = (sender, value) => { };
-        public static string CompanyName = "Loveland Paddlesports";
-        public static string CompanyEmail = "mark@lovelandpaddlesports.com";
-        public static string CompanyPhone = "(513) 683-4611";
-        public static string CompanyAddress = "174 Karl Brown Way Loveland, OH 45140";
-        public static string CompanyMapsURL = "https://maps.app.goo.gl/uJGaX9ShQaHHAie36";
+        public static string CompanyName = "Fairfield Cyclery";
+        public static string CompanyEmail = "sales@fairfieldcyclery.com";
+        public static string CompanyPhone = "(513) 829-7586";
+        public static string CompanyAddress = "4860 Dixie HwyFairfield, OH 45014";
+        public static string CompanyMapsURL = "https://maps.app.goo.gl/oUagEPM9HPXH2y8E8";
         public static Dictionary<string,string> CompanyHours = new() { 
-            { "Sunday" ,"9AM-6PM" } 
-            ,{ "Monday" ,"9AM-6PM" } 
-            ,{ "Tuesday" ,"9AM-6PM" } 
-            ,{ "Wednesday" ,"9AM-6PM" } 
-            ,{ "Thursday" ,"9AM-6PM" } 
-            ,{ "Friday" ,"9AM-6PM" } 
-            ,{ "Saturday" ,"9AM-6PM" } 
+            { "Sunday" ,"Closed" } 
+            ,{ "Monday" ,"Closed" } 
+            ,{ "Tuesday" ,"12PM-4PM" } 
+            ,{ "Wednesday" ,"12PM-4PM" } 
+            ,{ "Thursday" ,"12PM-4PM" } 
+            ,{ "Friday" ,"12PM-4PM" } 
+            ,{ "Saturday" ,"Closed" } 
         };
         //public static Dictionary<string,string> CompanyHours = new() { 
         //    { "Monday" ,"7:30AM-6:00PM" } 
@@ -35,9 +35,9 @@
         //    ,{ "Sunday" ,"12:00PM-6:00PM" } 
         //};
         public static Dictionary<string,string> CompanySocials = new() { 
-            { "Instagram" ,"https://www.instagram.com/loveland_paddlesports" } 
-            ,{ "Facebook" ,"https://www.facebook.com/LovelandCanoe" }
-            ,{ "X" ,"https://x.com/lovelandcanoe" }
+            { "Facebook" ,"https://www.facebook.com/profile.php?id=100063608798992" }
+            ,{ "Instagram" ,"https://www.instagram.com/fairfieldcyclery/" } 
+            //,{ "X" ,"https://x.com/lovelandcanoe" }
         };
 
         private static string curPage;

@@ -114,7 +114,7 @@
             <div class="store-flex-c-start" style="margin:1em">
                 <h3>Preview</h3>
 
-                <div class="store-flex-c store-item-block" style="border: 2px solid gray;width:50%">
+                <div class="store-flex-c store-item-block" style="border: 2px solid silver;width:50%">
                     <Carousel @key=Guid.NewGuid() ShowIndicators=@(product.Images.Count > 1) ShowPreviousNextControls=@(product.Images.Count > 1)>
                         @for (int urlInd = 0; urlInd < product.Images.Count; urlInd++)
                         {

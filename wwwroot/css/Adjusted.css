@@ -199,7 +199,7 @@ td a, td input, td img {
     appearance: none;
     border: none;
     /* Custom styling for the select box */
-    font-family: 'Playfair Display', serif, sans-serif;
+    font-family: 'IMPRISHA', serif, sans-serif;
     font-size: 16px;
     color: #78eaff;
     background-color: #0f1424;
@@ -372,7 +372,7 @@ input.toggler {
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: clamp(4rem, 10vw, 7rem);
     margin-bottom: 1.5rem;
     color:white;
@@ -423,7 +423,7 @@ input.toggler {
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.2;
     margin-bottom: 2rem;
@@ -462,7 +462,7 @@ input.toggler {
 }
 
 .feature-number {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: 2rem;
 }
 
@@ -523,7 +523,7 @@ input.toggler {
 }
 
 .drink-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     margin-bottom: 1rem;
 }
 
@@ -592,7 +592,7 @@ input.toggler {
 }
 
 .social-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'IMPRISHA', serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: 1.5rem;
     color: white;

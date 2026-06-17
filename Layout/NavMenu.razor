@@ -25,12 +25,13 @@
                     <NavLink class="nav-link" href="services">
                         <span class="oi oi-plus" aria-hidden="true"></span> Services
                     </NavLink>
-                </li> *@
+                </li>
                 <li class="nav-item">
                     <NavLink class="nav-link" href="rentals">
                         <span class="oi" aria-hidden="true"></span> Rentals
                     </NavLink>
                 </li>
+                *@
 
                 @* Specific Start 
                 *@
@@ -49,7 +50,7 @@
             </ul>
             @if (!NoShowButtonPages.Any(page => NavMan.Uri.Trim('/').Contains(page)))
             {
-                <button class="fade-in-delay btn btn-primary custom-btn hide-in-mobile" @onclick=GoToRentals>
+                <button class="fade-in-delay btn-primary custom-btn hide-in-mobile" @onclick=GoToRentals>
                     Book Your Appointment
                 </button>
             }
@@ -58,7 +59,7 @@
     </div>
     @if (!NoShowButtonPages.Any(page => NavMan.Uri.Trim('/').Contains(page)))
     {
-        <button class="fade-in-delay btn btn-primary custom-btn hide-in-desktop" style="width:90%" @onclick=GoToRentals>
+        <button class="fade-in-delay btn-primary custom-btn hide-in-desktop" style="width:90%" @onclick=GoToRentals>
             Book Your Appointment
         </button>
     }

@@ -1,0 +1,55 @@
+﻿.booking-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 18px;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,.12);
+    border: 1px solid black;
+    position: sticky;
+    bottom: 10px;
+}
+
+
+.summary-info {
+    display: flex;
+    gap: 25px;
+}
+
+
+    .summary-info small {
+        display: block;
+        color: #777;
+    }
+
+
+.continue-button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media(max-width:600px) {
+    .booking-summary {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .summary-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+
+    .continue-button {
+        width: 100%;
+    }
+}

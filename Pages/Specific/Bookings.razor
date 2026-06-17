@@ -18,6 +18,10 @@
             <StubSite.Shared.Specific.CustomTimeSlot TimeSlots="availableSlots" OnSlotSelected="HandleSlotSelection" />
         </div>
     }
+    @if (SelectedTime != default)
+    {
+        <BookingSummary SelectedDate=@SelectedDate SelectedTime=@SelectedTime />
+    }
 </div>
 
 @code {
@@ -34,6 +38,9 @@
             Jump("select-day");
         }
     }
+
+    TimeOnly SelectedTime { get; set; }
+
     DateTime selectedDate { get; set; }
     DateTime SelectedDate
     {
@@ -104,6 +111,6 @@
     private void HandleSlotSelection(TimeSlot slot)
     {
         selectedSlot = slot;
-        Jump("select-paddlers");
+        SelectedTime = TimeOnly.FromTimeSpan(slot.Time);
     }
 }

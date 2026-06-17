@@ -532,6 +532,32 @@ input.toggler {
     line-height: 1.8;
 }
 
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 25px
+}
+
+.card {
+    background: white;
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 10px 25px #0002
+}
+
+.education {
+    background: white
+}
+
+.review {
+    font-size: 1.1rem
+}
+
+.stars {
+    color: #d97706;
+    font-size: 1.5rem
+}
+
 /* VISIT */
 
 .visit-block {

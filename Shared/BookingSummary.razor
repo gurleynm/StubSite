@@ -1,0 +1,125 @@
+﻿@if (SelectedDate.HasValue && SelectedTime != null)
+{
+    <div class="booking-summary">
+        <div class="position-absolute" style="right:.5em; top:.5em;cursor:pointer" @onclick=Clear><span class="oi oi-x" /></div>
+
+        <div class="summary-info">
+
+            <div>
+                <small>Date</small>
+                <strong>
+                    @SelectedDate.Value.ToString("dddd, MMM d")
+                </strong>
+            </div>
+
+
+            <div>
+                <small>Time</small>
+                <strong>
+                    @SelectedTime
+                </strong>
+            </div>
+
+            <div style="  grid-column: span 2;">
+                <small>Your Name:</small>
+                <InputText id="name" class="form-control" placeholder="Enter name" @bind-Value="@Name" @oninput="@(async (ui) => { Name = (string)ui.Value; })" style="border:2px solid silver" />
+            </div>
+
+        </div>
+
+
+        <button class="continue-button"
+                style="--primary:@(Disabled ? "gray" : Accent)"
+                disabled="@Disabled"
+                @onclick="Continue">
+
+            @(BookingConfirmed ? "Booked ✅" : "Book Time")
+
+        </button>
+
+    </div>
+}
+
+
+@code {
+    [CascadingParameter(Name = "Main")]
+    public string Main { get; set; }
+
+    [CascadingParameter(Name = "Accent")]
+    public string Accent { get; set; }
+
+    [CascadingParameter(Name = "Text")]
+    public string Text { get; set; }
+
+    [CascadingParameter(Name = "ButtonText")]
+    public string ButtonText { get; set; }
+
+    public DateTime? selectedDate { get; set; }
+    public TimeOnly? selectedTime { get; set; }
+
+    [Parameter]
+    public DateTime? SelectedDate
+    {
+        get
+        {
+            return selectedDate;
+        }
+
+        set
+        {
+            if (selectedDate == value)
+                return;
+
+            selectedDate = value;
+            Name = "";
+        }
+    }
+
+    [Parameter]
+    public TimeOnly? SelectedTime
+    {
+        get
+        {
+            return selectedTime;
+        }
+
+        set
+        {
+            if (selectedTime == value)
+                return;
+
+            selectedTime = value;
+        }
+    }
+
+    [Parameter]
+    public EventCallback OnContinue { get; set; }
+
+    [Parameter]
+    public EventCallback OnClear { get; set; }
+
+    public string Name { get; set; } = "";
+
+    bool Disabled => Name == null || string.IsNullOrEmpty(Name.Trim());
+    bool BookingConfirmed;
+
+
+    async Task Continue()
+    {
+        BookingConfirmed = true;
+        await Task.Delay(100);
+        StateHasChanged();
+
+        await OnContinue.InvokeAsync();
+
+        await Task.Delay(2000);
+        BookingConfirmed = false;
+        StateHasChanged();
+        await Task.Delay(100);
+    }
+
+    async Task Clear()
+    {
+        await OnClear.InvokeAsync();
+    }
+}

@@ -4,8 +4,15 @@
 @inject NavigationManager NavMan
 @inject IJSRuntime JSRuntime
 
-<div class="store-flex-c store-item-block" style="border: 2px solid gray;align-content:center">
-    <Image Src="@Item.Images[0]" Style="border-radius:2em;cursor:pointer;max-height:10em" Alt="@(Item.Name + " Image")" @onclick=@(() => ViewDeats()) />
+<div class="store-flex-c store-item-block" style="border: 2px solid silver;align-content:center">
+    <div class="flex-c" style="height:10em;background-color:white;border-radius:2em;width:100%">
+        @if (Loading)
+        {
+            <GTLoginComponents.Shared.GTSLoadingDots />
+        }
+        <Image Src="@Item.Images[0]" Style="border-radius:2em;cursor:pointer;max-height:10em" Alt="@(Item.Name + " Image")" @onclick=@(() => ViewDeats()) 
+            @onload=@LoadedIn />
+    </div>
 
     @* Name *@
     <h3 style="text-align:center;margin:1em 0">@Item.Name</h3>
@@ -16,6 +23,7 @@
     <hr style="width:100%" />
     <div class="store-flex-r-100-sb" style="flex-grow:1">
         <div class="store-flex-c" style="width:100%">
+            <h4>Starting at:</h4>
             @if (!string.IsNullOrEmpty(AmountOffStr))
             {
                 <p class="discount-tag">@AmountOffStr</p>
@@ -30,22 +38,6 @@
                 }
             </div>
         </div>
-
-        @* Add Button *@
-        <div class="store-flex-r-100">
-            <button class="store-btn-primary" @onclick=GoTo>
-                Contact Sales
-            </button>
-        </div>
-
-        @if (Item.Quantity == StoreConstants.MaxQuantity)
-        {
-            <div class="store-flex-r-100 fade-in">
-                <span>
-                    Max amount is @StoreConstants.MaxQuantity
-                </span>
-            </div>
-        }
     </div>
 </div>
 
@@ -72,6 +64,7 @@
             <hr style="width:100%" />
             <div class="store-flex-r-100-sb" style="flex-grow:1">
                 <div class="store-flex-c" style="width:100%">
+                    <h4>Starting at:</h4>
                     @if (!string.IsNullOrEmpty(AmountOffStr))
                     {
                         <p class="discount-tag">@AmountOffStr</p>
@@ -129,6 +122,8 @@
 
     double X;
 
+    bool Loading = true;
+
     protected override void OnInitialized()
     {
         if (Item.Quantity > 0)
@@ -169,5 +164,11 @@
         await JSRuntime.InvokeVoidAsync("ResetBodyOverflow");
 
         NavMan.NavigateTo("contact-us?subject=" + Item.Name + " Inquiry");
+    }
+
+    private void LoadedIn()
+    {
+        Loading = false;
+        StateHasChanged();
     }
 }

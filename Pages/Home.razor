@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="feature-text">
-                                Reclined seating position
+                                Reclined seating
                             </div>
                         </div>
 
@@ -89,26 +89,47 @@
         </div>
     </section>
 
-    <!-- FEATURED ADVENTURES 
+    <!-- WHAT OTHERS SAY -->
     <section class="menu-section section-padding" id="menu">
         <div class="container">
 
             <div class="text-center mb-5">
                 <div class="section-label">
-                    FEATURED ADVENTURES
+                    What Riders Say
                 </div>
-
-                <h2 class="section-title">
-                    Choose your river experience.
-                </h2>
             </div>
 
-            <RentalBlocks />
+            <div class="cards">
+                <div class="card review">
+                    <div class="stars">★★★★★</div>
+                    <p>
+                        "Having yesterday bought a Catrike Villager trike from Fairfield Cyclery, I think it'd be hard to find a better place in the tri-state area of 
+                        Southwest Ohio to buy a recumbent bike/trike."
+                    </p>
+                    <strong>Google Review</strong>
+                </div>
+
+                <div class="card review">
+                    <div class="stars">★★★★★</div>
+                    <p>
+                        "Very Nice, Knowledgeable and patient owner... this owner was patient and persistent and had the magic touch. 10/10 guy and service."
+                    </p>
+                    <strong>Google Review</strong>
+                </div>
+
+                <div class="card review">
+                    <div class="stars">★★★★★</div>
+                    <p>
+                        "Friendly, helpful, and focused on finding the right solution instead
+                        of just selling a bike."
+                    </p>
+                    <strong>Google Review</strong>
+                </div>
+            </div>
         </div>
     </section>
-    -->
     <!-- VISIT -->
-    <section class="menu-section section-padding" id="visit">
+    <section class="section-padding" id="visit">
         <div class="container">
             <div class="row g-5 align-items-center">
 
@@ -123,25 +144,25 @@
 
                     <div class="visit-block">
                         <hr style="width:100%;opacity:1;background-color:@Accent" />
-                        <h3>Hours:</h3>
+                        <h3>Hours</h3>
+
+                        <h4 class="section-label" style="text-align:center">
+                            Note: Displayed hours are by appointment
+                            <br />
+                            <br />
+                            Please call
+                            <a href="tel:@Constants.CompanyPhone" style="color:white;text-decoration:underline">
+                                <strong>
+                                    @Constants.CompanyPhone
+                                </strong>
+                            </a>
+                            or book here before visiting.
+                        </h4>
 
                         <h4 style="text-align:center">
                             Tuesday - Friday: 12:00 PM - 4:00 PM
                             <br />
                             Saturday - Monday: Closed
-                        </h4>
-
-                        <h4 class="section-label" style="text-align:center">
-                            Note: Operations are subject to appointment scheduling.
-                            <br />
-                            <br />
-                            Please call
-                            <a href="tel:@Constants.CompanyPhone" style="color:black;text-decoration:underline">
-                                <strong>
-                                    @Constants.CompanyPhone
-                                </strong>
-                            </a>
-                            or Book your Appointment online.
                         </h4>
                     </div>
                     <hr style="width:100%;opacity:1;background-color:@Accent" />
@@ -180,10 +201,6 @@
             <h2 class="social-title">
                 @@fairfieldcyclery
             </h2>
-
-            <p class="social-text">
-                River conditions, customer adventures, special events, kayak inventory updates, and photos from the Little Miami River.
-            </p>
 
             <div class="flex-r-100-wrap">
                 @foreach (string key in Constants.CompanySocials.Keys)

@@ -1,0 +1,100 @@
+﻿@page "/home"
+@page "/home.html"
+@using System.ComponentModel.DataAnnotations
+
+<div class="menu-section flex-c-start" style="width:100%">
+    <div class="qr-sweepstakes-card">
+        @if (!submitted)
+        {
+            <div class="qr-icon">
+                🎉
+            </div>
+
+            <h1>You Found Our Hidden QR Code!</h1>
+
+            <p class="subtitle">
+                Enter your name below for a chance to win our sweepstakes.
+            </p>
+
+            <EditForm Model="entry" OnValidSubmit="SubmitEntry">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <InputText id="name"
+                               class="name-input"
+                               @bind-Value="entry.Name"
+                               placeholder="Enter your name..." />
+                    <ValidationMessage For="@(() => entry.Name)" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="wmail">Your Email</label>
+                    <InputText id="email"
+                               class="name-input"
+                               @bind-Value="entry.Email"
+                               placeholder="Enter your email..." />
+                    <ValidationMessage For="@(() => entry.Email)" />
+                </div>
+
+                <button class="submit-btn" type="submit">
+                    Enter Sweepstakes 🎟️
+                </button>
+            </EditForm>
+
+            <p class="fine-print">
+                One entry per person. Good luck!
+            </p>
+        }
+        else
+        {
+            <div class="success">
+                <div class="checkmark">
+                    ✓
+                </div>
+
+                <h2>You’re Entered!</h2>
+
+                <p>
+                    Thanks, @entry.Name! Your sweepstakes entry has been received.
+                </p>
+
+                <p class="small">
+                    Keep an eye out for the winner announcement.
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnEntrySubmitted { get; set; }
+
+    private bool submitted;
+
+    private SweepstakesEntry entry = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        Constants.CurPage = "Sweepstakes";
+        return base.OnInitializedAsync();
+    }
+
+    private async Task SubmitEntry()
+    {
+        await OnEntrySubmitted.InvokeAsync(entry.Name);
+        await OnEntrySubmitted.InvokeAsync(entry.Email);
+        submitted = true;
+    }
+
+    private class SweepstakesEntry
+    {
+        [Required(ErrorMessage = "Please enter your name")]
+        public string Name { get; set; } = "";
+        [EmailAddress(ErrorMessage = "Please enter a valid email")]
+        [Required(ErrorMessage = "Please enter your email")]
+        public string Email { get; set; } = "";
+    }
+}
+

@@ -20,7 +20,7 @@
     }
     @if (SelectedTime != default)
     {
-        <BookingSummary SelectedDate=@SelectedDate SelectedTime=@SelectedTime />
+        <BookingSummary SelectedDate=@SelectedDate SelectedTime=@SelectedTime OnClear=ClearTime />
     }
 </div>
 
@@ -101,6 +101,12 @@
                 IsAvailable = random.Next(10) <= 6
             });
         }
+    }
+
+    private void ClearTime()
+    {
+        SelectedTime = default;
+        StateHasChanged();
     }
 
     private async Task Jump(string id)

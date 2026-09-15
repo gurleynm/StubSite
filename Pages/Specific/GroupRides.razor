@@ -1,0 +1,61 @@
+﻿@page "/group-rides"
+@using StubSite.Data.Specific
+@using StubSite.Shared.Specific
+
+<div class="flex-r-100-wrap">
+    <section class="hero-section"
+             style="width:100%;background-image:url('https://nebula.wsimg.com/acc4b00346f6dc4f579394874bda7910?AccessKeyId=22876B868D3CCEA2C3AA&disposition=0&alloworigin=1')">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content container">
+            <div class="hero-subtitle">
+                Group Rides
+            </div>
+
+            <h1 class="hero-title">
+                Current Schedule
+            </h1>
+
+            <p class="hero-description">
+                Pick the ride that fits your schedule and comfort level. New to group rides? See what to expect below.
+            </p>
+        </div>
+    </section>
+
+    <div class="flex-r-100-sa" style="flex-wrap:wrap;padding:1em">
+        @foreach (var ride in Rides)
+        {
+            <GroupRideBlock Ride="ride" />
+        }
+    </div>
+</div>
+
+@code {
+    List<GroupRideInfo> Rides = new List<GroupRideInfo>();
+    protected override void OnInitialized()
+    {
+        Rides.Add(new GroupRideInfo
+        {
+            Name = "Rise and Grind ☕",
+            When = "Saturday · 9:00 AM",
+            MeetAt = "Fairfield Cyclery",
+            Distance = "25 miles",
+            Difficulty = RideDifficulty.Moderate,
+            Description = "Join us for a scenic ride through the city. All skill levels welcome!",
+            RouteUrl = "https://www.example.com/route"
+        });
+
+        Rides.Add(new GroupRideInfo
+        {
+            Name = "Sunday Ride",
+            When = "Sunday · 10:00 AM",
+            MeetAt = "Fairfield Cyclery",
+            Distance = "15 miles",
+            Difficulty = RideDifficulty.Casual,
+            Description = "A relaxed ride along the waterfront. Perfect for beginners!",
+            RouteUrl = "https://www.example.com/route2"
+        });
+        base.OnInitialized();
+    }
+}

@@ -138,7 +138,7 @@
         <div class="container">
             <div class="row g-5 align-items-center">
 
-                <div class="col-lg-6">
+                <div>
                     <div class="section-label">
                         VISIT US
                     </div>
@@ -148,52 +148,60 @@
                     </h2>
 
                     <div class="visit-block">
-                        <hr style="width:100%;opacity:1;background-color:@Accent" />
-                        <h3>Hours</h3>
+                        <div class="flex-r-100">
+                            <h2 style="text-decoration:underline">Hours</h2>
+                        </div>
 
-                        <h4 class="section-label" style="text-align:center">
-                            Note: Displayed hours are by appointment
-                            <br />
-                            <br />
-                            Please call
-                            <a href="tel:@Constants.CompanyPhone" style="color:white;text-decoration:underline">
+                        <div class="flex-r-100">
+                            <h4 class="section-label" style="text-align:center">
+                                Note: Displayed hours are by appointment
+                                <br />
+                                <br />
+                                Please call
+                                <a href="tel:@Constants.CompanyPhone" style="color:white;text-decoration:underline">
+                                    <strong>
+                                        @Constants.CompanyPhone
+                                    </strong>
+                                </a>
+                                or book here before visiting.
+                            </h4>
+                        </div>
+
+                        <div class="store-flex-r-100-se">
+                            <h4 class="hours-block" style="color:@Constants.ColorScheme["Main"]">
                                 <strong>
-                                    @Constants.CompanyPhone
+                                    Tuesday - Friday:
+                                    <br />
+                                    12:00 PM - 4:00 PM
+                                    <br />
                                 </strong>
-                            </a>
-                            or book here before visiting.
-                        </h4>
-
-                        <h4 style="text-align:center">
-                            Tuesday - Friday:
-                            <br />
-                            12:00 PM - 4:00 PM
-                            <br />
-                            <br />
-                            Saturday - Monday:
-                            <br />
-                            Closed
-                        </h4>
+                            </h4>
+                            <h4 class="hours-block" style="color:@Constants.ColorScheme["Main"]">
+                                <strong>
+                                Saturday - Monday:
+                                <br />
+                                Closed
+                                <br />
+                                </strong>
+                            </h4>
+                        </div>
                     </div>
-                    <hr style="width:100%;opacity:1;background-color:@Accent" />
 
                     <div class="visit-block">
-                        <h3>Location</h3>
-
-
-                        <h4>
-                            <span class="oi oi-map-marker" /> @Constants.CompanyAddress
-                        </h4>
+                        <div class="flex-r-100">
+                            <h2 style="text-decoration:underline">Location</h2>
+                        </div>
+                        <div class="flex-r-100">
+                            <h4 style="text-align:center">
+                                <span class="oi oi-map-marker" /> @Constants.CompanyAddress
+                            </h4>
+                        </div>
+                        <div class="map-placeholder">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3085.488502010213!2d-84.54080702404156!3d39.34517287163201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x884048bc7a6cd4cd%3A0x23d37b5b3b537492!2sFairfield%20Cyclery!5e0!3m2!1sen!2sus!4v1781583697656!5m2!1sen!2sus"
+                                    class="map-iframe" style="height:100%;width:100%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6">
-                    <div class="map-placeholder">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3085.488502010213!2d-84.54080702404156!3d39.34517287163201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x884048bc7a6cd4cd%3A0x23d37b5b3b537492!2sFairfield%20Cyclery!5e0!3m2!1sen!2sus!4v1781583697656!5m2!1sen!2sus"
-                                class="map-iframe" style="height:100%;width:100%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>

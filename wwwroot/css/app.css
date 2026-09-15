@@ -69,35 +69,199 @@ a, .btn-link {
 
 .loading-progress {
     position: relative;
-    display: block;
-    width: 8rem;
-    height: 8rem;
+    width: 240px;
+    height: 240px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: 20vh auto 1rem auto;
 }
 
-    .loading-progress circle {
-        fill: none;
-        stroke: white;
-        stroke-width: 0.6rem;
-        transform-origin: 50% 50%;
-        transform: rotate(-90deg);
+    /* Progress Ring */
+    .loading-progress::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 20px #c83738
     }
 
-        .loading-progress circle:last-child {
-            stroke: #4995c6;
-            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-            transition: stroke-dasharray 0.05s ease-in-out;
-        }
-
-.loading-progress-text {
-    position: absolute;
-    text-align: center;
-    font-weight: bold;
-    inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
+/* Logo */
+.loading-logo {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    z-index: 5;
 }
 
-    .loading-progress-text:after {
-        content: var(--blazor-load-percentage-text, "Loading");
+/* Percentage */
+.loading-progress-text {
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    z-index: 100;
+}
+
+/* Orbit Paths */
+.orbit {
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.orbit-1 {
+    animation: orbit 6s linear infinite;
+}
+
+.orbit-2 {
+    animation: orbit 8s linear infinite reverse;
+}
+
+.orbit-3 {
+    animation: orbit 10s linear infinite;
+}
+
+.orbit-4 {
+    animation: orbit 15s linear infinite reverse;
+}
+
+.orbit-5 {
+    animation: orbit 5s linear infinite;
+}
+
+@keyframes orbit {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-progress-text:after {
+    content: var(--blazor-load-percentage-text, "Loading");
+}
+
+/* Recumbent Bike */
+.recumbent-bike {
+    position: absolute;
+    width: 70px;
+    height: 42px;
+    left: 50%;
+    top: -21px;
+    margin-left: -35px;
+}
+
+    /* Wheels */
+    .recumbent-bike::before,
+    .recumbent-bike::after {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border: 3px solid #333;
+        border-radius: 50%;
+        background: #f7f4ee;
+        bottom: 2px;
+    }
+
+    .recumbent-bike::before {
+        left: 3px;
+    }
+
+    .recumbent-bike::after {
+        right: 3px;
+    }
+
+    /* Frame */
+    .recumbent-bike .frame {
+        position: absolute;
+        width: 48px;
+        height: 4px;
+        left: 11px;
+        bottom: 13px;
+        background: #c83738;
+        transform: rotate(-8deg);
+        transform-origin: left center;
+        border-radius: 4px;
+    }
+
+        /* Rear frame support */
+        .recumbent-bike .frame::before {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 24px;
+            left: 8px;
+            top: -1px;
+            background: #c83738;
+            transform: rotate(28deg);
+            border-radius: 3px;
+        }
+
+        /* Front fork / steering */
+        .recumbent-bike .frame::after {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            right: 2px;
+            top: -7px;
+            background: #c83738;
+            transform: rotate(25deg);
+            border-radius: 3px;
+        }
+
+    /* Seat */
+    .recumbent-bike .seat {
+        position: absolute;
+        width: 18px;
+        height: 11px;
+        left: 19px;
+        top: 8px;
+        background: #333;
+        border-radius: 8px 8px 3px 3px;
+        transform: rotate(-12deg);
+    }
+
+        /* Reclined back */
+        .recumbent-bike .seat::before {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 17px;
+            left: 2px;
+            top: 7px;
+            background: #333;
+            transform: rotate(-12deg);
+            border-radius: 3px;
+        }
+
+    /* Pedals */
+    .recumbent-bike .pedals {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        left: 39px;
+        top: 19px;
+        border: 2px solid #333;
+        border-radius: 50%;
+    }
+
+    /* Handlebar */
+    .recumbent-bike .handlebar {
+        position: absolute;
+        width: 13px;
+        height: 4px;
+        right: 4px;
+        top: 8px;
+        background: #333;
+        border-radius: 4px;
+        transform: rotate(-20deg);
     }
 
 code {

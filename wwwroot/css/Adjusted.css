@@ -351,7 +351,7 @@ input.toggler {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,.45);
+    background: rgba(0,0,0,.75);
 }
 
 .hero-content {
@@ -369,6 +369,7 @@ input.toggler {
     margin-bottom: 1rem;
     background-color: #c83738;
     border-radius: .5em;
+    padding: 2px;
 }
 
 .hero-title {
@@ -746,4 +747,11 @@ input.toggler {
 
 .time-btn{
     margin:1em;
+}
+
+.hours-block {
+    text-align: center;
+    background-color: black;
+    padding: 1em;
+    border-radius: 1em;
 }

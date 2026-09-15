@@ -94,6 +94,8 @@
     padding: .5em;
     border-radius: 2em;
     flex-wrap: wrap;
+    flex-grow: 1;
+    max-width:50%;
 }
 
 .store-cart-item-block {

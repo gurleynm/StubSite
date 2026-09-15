@@ -3,7 +3,7 @@
     public class Constants
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
-            { "Main", "#4995c6" }
+            { "Main", "#677b89" }
             ,{ "Accent", "#c83738" }
             ,{ "Text", "#000000" }
             ,{ "ButtonText", "#ffffff" }

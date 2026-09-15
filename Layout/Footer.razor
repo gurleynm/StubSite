@@ -32,22 +32,8 @@
         <div class="footer-company-holder" style="width:90%">
             <div class="footer-non-hours">
                 <img alt="Company logo" src="/images/CompanyLogo.png" style="max-height:8em;border-radius:1em" />
-                <button class="custom-btn" @onclick=@(() => NavMan.NavigateTo("/home.html"))>Test Court QRCode</button>
-            </div>
-            <div class="footer-hours">
-                <div class="flex-c">
-                    <div style="color: white;">Shop Hours:</div>
-                    @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
-                    {
-                        <span style="color: white;text-align:end">@("Daily: " + Constants.CompanyHours.Values.First())</span>
-                    }
-                    else
-                    {
-                        @foreach (var key in Constants.CompanyHours.Keys)
-                        {
-                            <span style="color: white;text-align:end">@(key + ": " + Constants.CompanyHours[key])</span>
-                        }
-                    }
+                <div>
+                    <button class="custom-btn" @onclick=@(() => NavMan.NavigateTo("/home.html"))>Test Court QRCode</button>
                 </div>
             </div>
         </div>
@@ -65,19 +51,19 @@
         </div>
         @if (!string.IsNullOrEmpty(Constants.CompanyAddress))
         {
-            <a style="color: white;text-align:center;text-decoration:none" href="@Constants.CompanyMapsURL">
+            <a style="color: white;text-align:center;text-decoration:none;margin:.25em" href="@Constants.CompanyMapsURL">
                 <span class="oi oi-location" style="color: white;" /> @Constants.CompanyAddress
             </a>
         }
         @if (!string.IsNullOrEmpty(Constants.CompanyEmail))
         {
-            <a href="mailto:@Constants.CompanyEmail" style="color: white;text-decoration:none">
+            <a href="mailto:@Constants.CompanyEmail" style="color: white;text-decoration:none;margin:.25em">
                 <span class="oi oi-envelope-closed" style="color: white;" /> @Constants.CompanyEmail
             </a>
         }
         @if (!string.IsNullOrEmpty(Constants.CompanyPhone))
         {
-            <a href="tel:@Constants.CompanyPhone" style="color: white;text-decoration:none">
+            <a href="tel:@Constants.CompanyPhone" style="color: white;text-decoration:none;margin:.25em">
                 <span class="oi oi-phone" style="color: white;" /> @Constants.CompanyPhone
             </a>
         }

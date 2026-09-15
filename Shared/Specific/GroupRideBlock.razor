@@ -1,0 +1,79 @@
+﻿@using StubSite.Data.Specific
+
+<div class="ride-card">
+    <div class="ride-card-header">
+        <div>
+            <h3 style="color:white">@Ride.Name</h3>
+        </div>
+
+        <div class="pace-badge pace-@Ride.Difficulty.ToString().ToLower()">
+            @Ride.Difficulty.ToString().ToUpper()
+        </div>
+    </div>
+
+    <div class="ride-details">
+        <div class="ride-detail">
+            <span class="detail-icon">📅</span>
+            <div>
+                <small>WHEN</small>
+                <strong>@Ride.When</strong>
+            </div>
+        </div>
+
+        <div class="ride-detail">
+            <span class="detail-icon">↔</span>
+            <div>
+                <small>DISTANCE</small>
+                <strong>@Ride.Distance</strong>
+            </div>
+        </div>
+
+        <div class="ride-detail">
+            <span class="detail-icon">📍</span>
+            <div>
+                <small>MEET</small>
+                <strong>@Ride.MeetAt</strong>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Ride.Description))
+    {
+        <p class="ride-description">
+            @Ride.Description
+        </p>
+    }
+
+    <div class="ride-actions">
+        @if (!string.IsNullOrWhiteSpace(Ride.RouteUrl))
+        {
+            <a href="@Ride.RouteUrl"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="route-button">
+                View Route
+                <span>↗</span>
+            </a>
+        }
+
+        <a href="@("/contact-us?subject=" + Ride.Name + " Inquiry")" class="question-button">
+            Questions?
+        </a>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public GroupRideInfo Ride { get; set; } = default!;
+
+    private string GetPaceClass(string pace)
+    {
+        return pace?.ToLowerInvariant() switch
+        {
+            "casual" => "pace-casual",
+            "moderate" => "pace-moderate",
+            "fast" => "pace-fast",
+            _ => "pace-default"
+        };
+    }
+}

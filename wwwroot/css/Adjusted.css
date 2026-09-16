@@ -351,7 +351,7 @@ input.toggler {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,.75);
+    background: rgba(0,0,0,.65);
 }
 
 .hero-content {
@@ -408,7 +408,7 @@ input.toggler {
 /* SECTIONS */
 
 .section-padding {
-    padding: 7rem 0;
+    padding: 5em 0;
 }
 
 .section-label {

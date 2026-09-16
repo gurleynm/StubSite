@@ -2,6 +2,9 @@
 @using StubSite.Data.Specific
 @using StubSite.Shared.Specific
 
+
+<PageTitle>Group Rides</PageTitle>
+
 <div class="flex-r-100-wrap">
     <section class="hero-section"
              style="width:100%;background-image:url('https://nebula.wsimg.com/acc4b00346f6dc4f579394874bda7910?AccessKeyId=22876B868D3CCEA2C3AA&disposition=0&alloworigin=1')">
@@ -35,6 +38,8 @@
     List<GroupRideInfo> Rides = new List<GroupRideInfo>();
     protected override void OnInitialized()
     {
+        Constants.CurPage = "Group Rides";
+
         Rides.Add(new GroupRideInfo
         {
             Name = "Rise and Grind ☕",

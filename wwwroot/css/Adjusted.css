@@ -342,7 +342,7 @@ input.toggler {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,.45);
+    background: rgba(0,0,0,.65);
 }
 
 .hero-content {
@@ -381,18 +381,6 @@ input.toggler {
     flex-wrap: wrap;
 }
 
-.custom-btn {
-    padding: .95rem 2rem;
-    border-radius: 999px;
-    font-weight: 600;
-}
-
-.btn-primary.custom-btn {
-    background: #a8c3b2;
-    border: none;
-    color: black;
-}
-
 /* SECTIONS */
 
 .section-padding {
@@ -402,7 +390,7 @@ input.toggler {
 .section-label {
     text-transform: uppercase;
     letter-spacing: .25em;
-    color: #8d7b68;
+    color: #664328;
     font-size: .85rem;
     margin-bottom: 1rem;
 }

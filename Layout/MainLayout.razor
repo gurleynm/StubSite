@@ -25,6 +25,18 @@
         font-family: 'Playfair Display', serif;
         color: @Text;
     }
+
+    .custom-btn {
+        padding: .95rem 2rem;
+        border-radius: 999px;
+        font-weight: 600;
+    }
+
+    .btn-primary.custom-btn {
+        background: @Constants.ColorScheme["Accent"];
+        border: none;
+        color: @Constants.ColorScheme["ButtonText"];
+    }
 </style>
 
 <CascadingValue Value="ButtonText" Name="ButtonText">

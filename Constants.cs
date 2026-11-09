@@ -3,23 +3,23 @@
     public class Constants
     {
         public static Dictionary<string, string> ColorScheme = new Dictionary<string, string> {
-            { "Main", "#efe1d6" }
-            ,{ "Accent", "#a8c3b2" }
+            { "Main", "#8c8c8c" }
+            ,{ "Accent", "#ad5b25" }
             ,{ "Text", "#5d5250" }
-            ,{ "ButtonText", "#000000" }
+            ,{ "ButtonText", "#ffffff" }
         };
 
         public static bool Mobile { get; set; }
         public static EventHandler<string> CurPageChanged = (sender, value) => { };
-        public static string CompanyName = "Lot No. 1 Coffee";
-        public static string CompanyEmail = "";//"lotno1coffee@gmail.com";
-        public static string CompanyPhone = "(513) 836-3103";
-        public static string CompanyAddress = "9 E Main St, Lebanon, OH, United States, 45036";
-        public static string CompanyMapsURL = "https://maps.app.goo.gl/15o6sYDL42qmk3MT6";
+        public static string CompanyName = "The Hive - Coffee Co. & Mercantile";
+        public static string CompanyEmail = "thehivemobilecoffee@gmail.com";//"lotno1coffee@gmail.com";
+        public static string CompanyPhone = "(937) 515-0272";
+        public static string CompanyAddress = "15168 Eastwood Rd unit 113, Williamsburg, OH 45176";
+        public static string CompanyMapsURL = "https://maps.app.goo.gl/4faocZ1JuWFxCiMd7";
         public static Dictionary<string,string> CompanyHours = new() { 
-            { "Monday - Friday" ,"7:30AM-6PM" } 
-            ,{ "Saturday" ,"8AM-6PM" } 
-            ,{ "Sunday" ,"12PM-6PM" } 
+            { "Monday - Friday" ,"6:30AM-3PM" } 
+            ,{ "Saturday" ,"7:30AM-2:00PM" } 
+            ,{ "Sunday" ,"CLOSED" } 
         };
         //public static Dictionary<string,string> CompanyHours = new() { 
         //    { "Monday" ,"7:30AM-6:00PM" } 
@@ -31,8 +31,8 @@
         //    ,{ "Sunday" ,"12:00PM-6:00PM" } 
         //};
         public static Dictionary<string,string> CompanySocials = new() { 
-            { "Instagram" ,"https://www.instagram.com/lotno1coffee?igsh=MWY3a2t1cHc2M3Mzaw==" } 
-            ,{ "Facebook" ,"https://www.facebook.com/profile.php?id=61564617675174&locale=nl_BE" }
+            { "Instagram" ,"https://www.instagram.com/thehivecoffeeco_merc/" } 
+            ,{ "Facebook" ,"https://www.facebook.com/profile.php?id=100090287984313&locale=de_DE" }
         };
 
         private static string curPage;

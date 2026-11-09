@@ -1,285 +1,404 @@
 ﻿@page "/"
-@inject NavigationManager NavMan
+@using System
 
-<PageTitle>LOT No 1</PageTitle>
+<PageTitle>Blue Collar Grooming | Williamsburg, Ohio</PageTitle>
 
-<div style="overflow-x: hidden;">
-    <!-- HERO -->
-    <section class="hero-section"
-             style="background-image:url('/images/Background2.png')">
+<div class="bcg-site">
 
-        <div class="hero-overlay"></div>
+    <main>
+        <!-- Hero -->
+        <section class="bcg-hero" id="home">
+            <div class="bcg-hero-overlay"></div>
 
-        <div class="hero-content container">
-            <div class="hero-subtitle">
-                Lebanon Coffee House
+            <div class="bcg-container bcg-hero-content">
+                <div class="bcg-eyebrow">
+                    <span></span> WILLIAMSBURG, OHIO
+                </div>
+
+                <h1>
+                    LOOK SHARP.<br />
+                    <span>STAY GROUNDED.</span>
+                </h1>
+
+                <p class="bcg-hero-tagline">
+                    @Info("Tagline", "Good People. Good Cuts.")
+                </p>
+
+                <p class="bcg-hero-description">
+                    Quality grooming. Attention to detail.
+                    No nonsense. Just a great cut and an even
+                    better experience.
+                </p>
+
+                <div class="bcg-hero-actions">
+                    <a href="@BookingUrl" target="_blank"
+                       rel="noopener noreferrer"
+                       class="bcg-button">
+                        BOOK YOUR APPOINTMENT <span>↗</span>
+                    </a>
+                    <a href="#services" class="bcg-button-outline">
+                        EXPLORE SERVICES
+                    </a>
+                </div>
+
+                <div class="bcg-hero-note">
+                    <span class="bcg-note-line"></span>
+                    INDEPENDENT GROOMING. PERSONAL SERVICE.
+                </div>
             </div>
 
-            <h1 class="hero-title">
-                LOT No 1
-            </h1>
-
-            <p class="hero-description">
-                Coffee, conversation, and a place to slow down.
-            </p>
-
-            <div class="hero-buttons">
-                <button class="btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("/menu"))>
-                    View Menu
-                </button>
-
-                <button class="btn btn-outline-light custom-btn" @onclick=@(() => NavMan.NavigateTo("#visit"))>
-                    Visit Us
-                </button>
+            <div class="bcg-hero-bottom">
+                <span>ESTABLISHED ON QUALITY</span>
+                <span>BUILT FOR THE EVERYDAY GUY</span>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- THE SPACE -->
-    <section class="section-padding" id="space">
-        <div class="container">
-            <div class="row align-items-center g-5">
+        <!-- Quick information -->
+        <section class="bcg-info-strip">
+            <div class="bcg-container bcg-info-grid">
+                <div class="bcg-info-item">
+                    <span class="bcg-info-icon">✂</span>
+                    <div>
+                        <strong>QUALITY CUTS</strong>
+                        <small>Attention to every detail</small>
+                    </div>
+                </div>
 
-                <div class="col-lg-6">
-                    <div class="section-label">
-                        THE SPACE
+                <div class="bcg-info-item">
+                    <span class="bcg-info-icon">◷</span>
+                    <div>
+                        <strong>EASY BOOKING</strong>
+                        <small>Schedule online with Square</small>
+                    </div>
+                </div>
+
+                <div class="bcg-info-item">
+                    <span class="bcg-info-icon">⌖</span>
+                    <div>
+                        <strong>LOCAL BUSINESS</strong>
+                        <small>Williamsburg, Ohio</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="bcg-section bcg-services" id="services">
+            <div class="bcg-container">
+                <div class="bcg-section-heading">
+                    <div class="bcg-eyebrow">
+                        <span></span> WHAT WE DO
+                    </div>
+                    <h2>THE RIGHT CUT.<br /><span>EVERY TIME.</span></h2>
+                    <p>
+                        Straightforward services, quality results,
+                        and a fresh look you'll feel good about.
+                    </p>
+                </div>
+
+                <div class="bcg-service-grid">
+                    @foreach (var service in Services)
+                    {
+                        <article class="bcg-service-card">
+                            <div class="bcg-service-number">
+                                @service.Number
+                            </div>
+
+                            <div class="bcg-service-divider"></div>
+
+                            <h3>@Info(service.NameKey, service.DefaultName)</h3>
+
+                            <p>
+                                @Info(service.DescriptionKey,
+                                service.DefaultDescription)
+                        </p>
+
+                        <div class="bcg-service-bottom">
+                            <div class="bcg-price">
+                                <small>PRICE</small>
+                                <strong>
+                                    @(string.IsNullOrWhiteSpace(
+                                                                        Info(service.PriceKey))
+                                                                        ? "See Square"
+                                                                        : Info(service.PriceKey))
+                                </strong>
+                            </div>
+
+                                <a href="@BookingUrl"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="@($"Book {Info(service.NameKey, service.DefaultName)}")"
+                                   class="bcg-service-link">
+                                    BOOK <span>↗</span>
+                                </a>
+                            </div>
+                        </article>
+                                        }
+                </div>
+
+                <div class="bcg-services-footer">
+                    <p>
+                        Looking for something specific?
+                        View the complete service menu and available
+                        appointment times through Square.
+                    </p>
+                    <a href="@BookingUrl" target="_blank"
+                       rel="noopener noreferrer"
+                       class="bcg-text-link">
+                        VIEW FULL SERVICE MENU ↗
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="bcg-about" id="about">
+            <div class="bcg-about-image">
+                <div class="bcg-image-label">
+                    <span>BLUE COLLAR</span>
+                    <small>GROOMING LLC</small>
+                </div>
+            </div>
+
+            <div class="bcg-about-content">
+                <div class="bcg-eyebrow">
+                    <span></span> A LITTLE ABOUT US
+                </div>
+
+                <h2>MORE THAN<br />JUST A <span>HAIRCUT.</span></h2>
+
+                <p>
+                    @Info("About",
+                    "Quality service, attention to detail, and a great experience. That's what Blue Collar Grooming is all about.")
+                </p>
+
+                <p>
+                    Whether it's your regular cleanup or your first
+                    visit, the goal is simple: make sure you leave
+                    looking your best.
+                </p>
+
+                <a href="@BookingUrl" target="_blank"
+                   rel="noopener noreferrer"
+                   class="bcg-button">
+                    COME SEE US <span>↗</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        @if (GalleryImages.Any(x => !string.IsNullOrWhiteSpace(x)))
+        {
+            <section class="bcg-section bcg-gallery" id="gallery">
+                <div class="bcg-container">
+                    <div class="bcg-section-heading bcg-centered">
+                        <div class="bcg-eyebrow">
+                            <span></span> THE FINISHED PRODUCT
+                        </div>
+                        <h2>FRESH CUTS.<br /><span>REAL RESULTS.</span></h2>
+                        <p>
+                            A look at the work, the details, and
+                            the difference a good cut makes.
+                        </p>
                     </div>
 
-                    <h2 class="section-title">
-                        Built for slow mornings and long conversations.
-                    </h2>
+                    <div class="bcg-gallery-grid">
+                        @foreach (var image in GalleryImages
+                                            .Where(x => !string.IsNullOrWhiteSpace(x)))
+                        {
+                            <div class="bcg-gallery-image">
+                                <img src="@image" alt="Blue Collar Grooming haircut portfolio" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        }
 
-                    <p class="section-text">
-                        LOT No 1 blends cozy atmosphere, quality coffee,
-                        and a downtown neighborhood feel into a space designed
-                        for connection, creativity, and comfort.
+        <!-- Booking CTA -->
+        <section class="bcg-booking">
+            <div class="bcg-container bcg-booking-content">
+                <div class="bcg-eyebrow">
+                    <span></span> YOUR NEXT CUT STARTS HERE
+                </div>
+
+                <h2>READY FOR A<br /><span>CLEANUP?</span></h2>
+
+                <p>
+                    No phone tag. No unnecessary hassle.
+                    Find a time that works and book your next
+                    appointment online.
+                </p>
+
+                <a href="@BookingUrl" target="_blank"
+                   rel="noopener noreferrer"
+                   class="bcg-button bcg-button-light">
+                    BOOK YOUR APPOINTMENT <span>↗</span>
+                </a>
+
+                <small>ONLINE SCHEDULING POWERED BY SQUARE</small>
+            </div>
+        </section>
+
+        <!-- Location -->
+        <section class="bcg-section bcg-location" id="location">
+            <div class="bcg-container bcg-location-grid">
+                <div>
+                    <div class="bcg-eyebrow">
+                        <span></span> COME ON IN
+                    </div>
+
+                    <h2>FIND <span>US.</span></h2>
+
+                    <p class="bcg-location-name">
+                        BLUE COLLAR GROOMING LLC
                     </p>
 
-                    <div class="feature-row">
-                        <div>
-                            <div class="feature-number">
-                                Local
-                            </div>
+                    <address>
+                        @AddressLine1<br />
+                        @AddressLine2
+                    </address>
 
-                            <div class="feature-text">
-                                Community Focused
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="feature-number">
-                                Fresh
-                            </div>
-
-                            <div class="feature-text">
-                                Crafted Daily
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="gallery-grid">
-                        <img src="/images/interior-1.jpg"
-                             class="gallery-img tall" />
-
-                        <img src="/images/interior-2.jpg"
-                             class="gallery-img tall offset-img" />
-
-                        <img src="/images/interior-3.jpg"
-                             class="gallery-img wide" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURED DRINKS -->
-    <section class="menu-section section-padding" id="menu">
-        <div class="container">
-
-            <div class="text-center mb-5">
-                <div class="section-label">
-                    FEATURED DRINKS
-                </div>
-
-                <h2 class="section-title">
-                    Crafted with intention.
-                </h2>
-                <div class="feature-number">
-                    JUNE SPECIALS
-                </div>
-            </div>
-
-            <div class="flex-r-100" style="flex-wrap:wrap">
-
-                @foreach (var drink in Drinks)
-                {
-                    <div class="drink-card">
-                        <div class="drink-image-placeholder">
-                            <img src="@drink.ImgSrc" alt="@drink.Name" class="gallery-img" />
-                        </div>
-
-                        @if (!string.IsNullOrEmpty(drink.Name))
-                        {
-                            <h3 class="drink-title" style="text-align:center">
-                                @drink.Name
-                            </h3>
-                        }
-
-                        @if (!string.IsNullOrEmpty(drink.Description))
-                        {
-                            <p class="drink-description" style="text-align:center">
-                                @drink.Description
-                            </p>
-                        }
-                    </div>
-                }
-
-            </div>
-        </div>
-    </section>
-
-    <!-- VISIT -->
-    <section class="section-padding" id="visit">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-
-                <div class="col-lg-6">
-                    <div class="section-label">
-                        VISIT US
-                    </div>
-
-                    <h2 class="section-title">
-                        Stop in and stay awhile.
-                    </h2>
-
-                    <div class="visit-block">
-                        <h5>Hours</h5>
-
-                        <p>
-                            @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
-                            {
-                                @("Daily: " + Constants.CompanyHours.Values.First())
-
-                                <br />
-                            }
-                            else
-                            {
-                                @foreach (var key in Constants.CompanyHours.Keys)
-                                {
-                                    @(key + ": " + Constants.CompanyHours[key])
-
-                                    <br />
-                                }
-                            }
+                    @if (!string.IsNullOrWhiteSpace(Info("Phone")))
+                    {
+                        <p class="bcg-contact-line">
+                            <strong>PHONE</strong>
+                            <a href="@($"tel:{Info("Phone")}")">
+                                @Info("Phone")
+                            </a>
                         </p>
-                    </div>
+                    }
 
-                    <div class="visit-block">
-                        <h5>Location</h5>
-
-                        <p>
-                            Heart of Lebanon, Ohio<br />
-                            Free street parking nearby
+                    @if (!string.IsNullOrWhiteSpace(Info("Email")))
+                    {
+                        <p class="bcg-contact-line">
+                            <strong>EMAIL</strong>
+                            <a href="@($"mailto:{Info("Email")}")">
+                                @Info("Email")
+                            </a>
                         </p>
-                    </div>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Info("Hours")))
+                    {
+                        <p class="bcg-contact-line">
+                            <strong>HOURS</strong>
+                            <span>@Info("Hours")</span>
+                        </p>
+                    }
+
+                    <a href="@MapsUrl" target="_blank"
+                       rel="noopener noreferrer"
+                       class="bcg-button">
+                        GET DIRECTIONS <span>↗</span>
+                    </a>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="map-placeholder">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.6020202605705!2d-84.20771169999999!3d39.4331231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8840f4228987bf1f%3A0x31bdfa0e267a1145!2s9%20E%20Main%20St%2C%20Lebanon%2C%20OH%2045036!5e0!3m2!1sen!2sus!4v1780084882864!5m2!1sen!2sus"
-                                class="map-iframe" style="height:100%;width:100%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
+                <div class="bcg-map">
+                    <iframe src="@MapEmbedUrl"
+                            title="Blue Collar Grooming location map"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            allowfullscreen>
+                    </iframe>
                 </div>
+            </div>
+        </section>
+    </main>
 
+    <!-- Footer -->
+    <footer class="bcg-footer">
+        <div class="bcg-container">
+            <div class="bcg-footer-top">
+                <a href="#home" class="bcg-brand">
+                    <img src="@Info("Logo")"
+                         alt="Blue Collar Grooming Logo" />
+                    <div class="bcg-brand-text">
+                        <span>BLUE COLLAR</span>
+                        <small>GROOMING CO.</small>
+                    </div>
+                </a>
+
+                <div class="bcg-footer-links">
+                    <a href="#services">SERVICES</a>
+                    <a href="#about">ABOUT</a>
+                    <a href="#location">LOCATION</a>
+                    <a href="@BookingUrl" target="_blank"
+                       rel="noopener noreferrer">BOOK ONLINE ↗</a>
+                </div>
+            </div>
+
+            <div class="bcg-footer-bottom">
+                <span>© @DateTime.Now.Year BLUE COLLAR GROOMING LLC</span>
+                <span>GOOD PEOPLE. GOOD CUTS.</span>
             </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- SOCIAL -->
-    <section class="social-section">
-        <div class="container text-center">
-
-            <div class="section-label social-label">
-                FOLLOW ALONG
-            </div>
-
-            <h2 class="social-title">
-                @@lotno1coffee
-            </h2>
-
-            <p class="social-text">
-                Daily drinks, seasonal specials,
-                and moments from inside the shop.
-            </p>
-
-            <div class="flex-r-100" style="flex-wrap:wrap">
-                @foreach (string key in Constants.CompanySocials.Keys)
-                {
-                    <button class="btn custom-btn social-btn" @onclick=@(() => NavMan.NavigateTo(Constants.CompanySocials[key]))>
-                        Visit @key
-                    </button>
-                }
-            </div>
-        </div>
-    </section>
+    <!-- Mobile sticky booking button -->
+    <div class="bcg-mobile-booking">
+        <a href="@BookingUrl" target="_blank"
+           rel="noopener noreferrer">
+            BOOK YOUR APPOINTMENT ↗
+        </a>
+    </div>
 </div>
 
 @code {
-
-    private List<DrinkItem> Drinks = new()
+    private string Info(string key, string fallback = "")
     {
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Teddy.png"
-        },
-
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Coconut.png"
-        },
-
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Banana.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Shortcake.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Cherry.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Strawberry.png"
-        }
-    };
-
-    protected override Task OnInitializedAsync()
-    {
-        Constants.CurPage = "Home";
-        return base.OnInitializedAsync();
+        return Constants.CompanyInfo.TryGetValue(key, out var value)
+            && !string.IsNullOrWhiteSpace(value)
+                ? value
+                : fallback;
     }
 
-    public class DrinkItem
-    {
-        public string Name { get; set; } = "";
-        public string Description { get; set; } = "";
-        public string ImgSrc { get; set; } = "";
-    }
+    private string BookingUrl =>
+        Info("BookingUrl",
+            "https://book.squareup.com/appointments/p9mg1leagi1dhw/location/LJ4Y9FNPTJNXV/services");
+
+    private string AddressLine1 => Info("Address");
+
+    private string AddressLine2 =>
+        $"{Info("City")}, {Info("State")} {Info("Zip")}".Trim();
+
+    private string FullAddress =>
+        $"{AddressLine1}, {AddressLine2}";
+
+    private string MapsUrl =>
+        $"https://www.google.com/maps/search/?api=1&query={Uri.EscapeDataString(FullAddress)}";
+
+    private string MapEmbedUrl =>
+        $"https://maps.google.com/maps?q={Uri.EscapeDataString(FullAddress)}&output=embed";
+
+    private string[] GalleryImages =>
+    [
+        Info("GalleryImage1"),
+        Info("GalleryImage2"),
+        Info("GalleryImage3"),
+        Info("GalleryImage4")
+    ];
+
+    private record ServiceCard(
+        string Number,
+        string NameKey,
+        string DescriptionKey,
+        string PriceKey,
+        string DefaultName,
+        string DefaultDescription);
+
+    private List<ServiceCard> Services =>
+    [
+        new("01", "Service1Name", "Service1Description",
+            "Service1Price", "Haircut",
+            "A fresh, personalized haircut with attention to detail."),
+
+        new("02", "Service2Name", "Service2Description",
+            "Service2Price", "Beard Trim",
+            "Clean shaping, crisp lines, and a polished finish."),
+
+        new("03", "Service3Name", "Service3Description",
+            "Service3Price", "Haircut & Beard",
+            "The complete cleanup with a fresh cut and beard trim.")
+    ];
 }

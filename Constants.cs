@@ -35,6 +35,48 @@
             ,{ "Facebook" ,"https://www.facebook.com/profile.php?id=61564617675174&locale=nl_BE" }
         };
 
+        public static Dictionary<string, string> CompanyInfo = new()
+        {
+            ["BusinessName"] = "Blue Collar Grooming LLC",
+            ["Tagline"] = "Good People. Good Cuts.",
+            ["Logo"] = "https://seller-brand-assets-f.squarecdn.com/MLZNJ3YX46RF2/7089623ceb3c3822bae9ae3d519f0fb3.jpeg?height=250",
+
+            ["Address"] = "15168 Eastwood Rd Unit 105",
+            ["City"] = "Williamsburg",
+            ["State"] = "OH",
+            ["Zip"] = "45176-9265",
+
+            ["BookingUrl"] = "https://book.squareup.com/appointments/p9mg1leagi1dhw/location/LJ4Y9FNPTJNXV/services?rwg_token=ALcMQYaDnrVUZB44r6OU8N9lDrDwuFXM9yVSTRTT5ceEnZskJWA-0Bx3v50edbzqW96pFRsCRW-_S65s_oywsSSasq_ZJ8sUoA%3D%3D",
+
+            ["Phone"] = "",
+            ["Email"] = "",
+            ["Hours"] = "",
+            ["Instagram"] = "",
+            ["Facebook"] = "",
+
+            // Services and pricing
+            ["Service1Name"] = "Signature Haircut",
+            ["Service1Description"] = "A fresh, personalized haircut with attention to every detail.",
+            ["Service1Price"] = "",
+
+            ["Service2Name"] = "Beard Trim",
+            ["Service2Description"] = "Clean shaping, crisp lines, and a polished finish.",
+            ["Service2Price"] = "",
+
+            ["Service3Name"] = "Haircut & Beard",
+            ["Service3Description"] = "The complete cleanup. A fresh cut and a perfectly shaped beard.",
+            ["Service3Price"] = "",
+
+            // Additional business information
+            ["About"] = "Blue Collar Grooming is about more than just getting a haircut. It's about quality service, attention to detail, and making sure every customer leaves looking and feeling their best.",
+
+            // Optional gallery images
+            ["GalleryImage1"] = "",
+            ["GalleryImage2"] = "",
+            ["GalleryImage3"] = "",
+            ["GalleryImage4"] = ""
+        };
+
         private static string curPage;
         public static string CurPage
         {

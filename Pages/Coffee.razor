@@ -1,0 +1,155 @@
+﻿@page "/coffee"
+@using StubSite.Shared.Specific
+
+<main class="coffee-page">
+
+    <!-- Hero -->
+    <section class="coffee-hero">
+        <div class="coffee-hero-image"></div>
+        <div class="coffee-hero-overlay"></div>
+    </section>
+
+    <!-- Intro -->
+    <section class="coffee-intro">
+        <HiveSectionTitle Centered="true"
+                          H2Color="sandybrown"
+                          Eyebrow="A LITTLE SOMETHING FOR EVERYONE"
+                          Title="Your coffee, your way."
+                          Description="Whether you're keeping it classic or trying something new,
+                         we're here to make your next coffee run a good one." />
+
+        <div class="coffee-highlights">
+            <div>
+                <span>01</span>
+                <h3>Made with care</h3>
+                <p>Thoughtful ingredients and drinks made to be enjoyed.</p>
+            </div>
+            <div>
+                <span>02</span>
+                <h3>Something different</h3>
+                <p>Creative flavors and specialty combinations to discover.</p>
+            </div>
+            <div>
+                <span>03</span>
+                <h3>Always welcoming</h3>
+                <p>Your neighborhood stop for a little pick-me-up.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="coffee-menu" id="menu">
+        <div class="coffee-menu-header">
+            <HiveSectionTitle Eyebrow="FIND YOUR FAVORITE"
+                              Title="A menu worth exploring."
+                              DescColor="gray"
+                              Description="Browse some of the things you'll find behind the bar." />
+        </div>
+
+        <nav class="coffee-menu-nav">
+            <a href="/coffee#espresso">Espresso & Classics</a>
+            <a href="/coffee#specialty">Specialty Drinks</a>
+            <a href="/coffee#iced">Cold & Iced</a>
+            <a href="/coffee#seasonal">Seasonal</a>
+        </nav>
+
+        <HiveMenuCategory Id="espresso"
+                          Eyebrow="THE CLASSICS"
+                          Title="Espresso & Classics"
+                          Description="The familiar favorites, crafted with care.">
+
+            <HiveDrinkCard Name="Latte"
+                           Category="ESPRESSO"
+                           Image="/images/Latte.jpg"
+                           Description="Rich espresso balanced with smooth steamed milk." />
+
+            <HiveDrinkCard Name="Cappuccino"
+                           Category="ESPRESSO"
+                           Image="/images/Cappuccino.jpg"
+                           Description="A classic combination of espresso and velvety foam." />
+
+        </HiveMenuCategory>
+
+        <HiveMenuCategory Id="specialty"
+                          Eyebrow="SOMETHING SPECIAL"
+                          Title="Specialty Drinks"
+                          Description="Creative coffee combinations and flavorful favorites.">
+
+            <HiveDrinkCard Name="Signature Creations"
+                           Category="SPECIALTY"
+                           Badge="HOUSE FAVORITES"
+                           Image="/images/signature.jpg"
+                           Description="Unique combinations and flavors you won't find everywhere." />
+
+            <HiveDrinkCard Name="Coffee Specials"
+                           Category="SPECIALTY"
+                           Image="/images/trio.jpg"
+                           Description="A rotating selection of creative coffee drinks." />
+
+        </HiveMenuCategory>
+
+        <HiveMenuCategory Id="iced"
+                          Eyebrow="COOL DOWN"
+                          Title="Cold & Iced"
+                          Description="Refreshing drinks for sunny days and coffee cravings.">
+
+            <HiveDrinkCard Name="Refreshers"
+                           Category="ENERGY"
+                           Image="/images/Refresher.jpg"
+                           Description="Red Bull & sour apple syrup over ice." />
+
+            <HiveDrinkCard Name="Frappuccino"
+                           Category="COLD COFFEE"
+                           Image="/images/Frappuccino.jpg"
+                           Description="Smooth, refreshing, and easy to enjoy." />
+
+            <HiveDrinkCard Name="Iced Specials"
+                           Category="SPECIALTY"
+                           Badge="FAN FAVORITES"
+                           Image="/images/seasonal.jpg"
+                           Description="Creative iced combinations and seasonal flavors." />
+
+        </HiveMenuCategory>
+
+        <HiveMenuCategory Id="seasonal"
+                          Eyebrow="HERE FOR A GOOD TIME"
+                          Title="Seasonal Favorites"
+                          Description="Something new to look forward to with every season.">
+
+            <HiveDrinkCard Name="Seasonal Lattes"
+                           Category="LIMITED TIME"
+                           Badge="SEASONAL"
+                           Image="/images/CandyCane.jpg"
+                           Description="Seasonally inspired flavors and comforting combinations." />
+
+            <HiveDrinkCard Name="Seasonal Cold Drinks"
+                           Category="LIMITED TIME"
+                           Image="/images/Gingerbread.jpg"
+                           Description="Fresh takes on iced coffee and specialty drinks." />
+
+        </HiveMenuCategory>
+    </section>
+
+    <!-- Closing CTA -->
+    <section class="coffee-bottom">
+        <div class="coffee-bottom-image"></div>
+        <div class="coffee-bottom-overlay"></div>
+
+        <div class="coffee-bottom-content">
+            <span>YOUR NEXT COFFEE IS WAITING</span>
+            <h2 style="color:sandybrown">Come find your new favorite.</h2>
+            <p>
+                Stop by The Hive, grab a drink, and stay awhile.
+            </p>
+            <a href="/visit">COME VISIT US →</a>
+        </div>
+    </section>
+
+</main>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Constants.CurPage = "Coffee";
+    }
+}

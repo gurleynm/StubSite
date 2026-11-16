@@ -1,0 +1,40 @@
+﻿
+<section class="hive-hero">
+    <div class="hero-image"
+         style="background-image: url('@Image')">
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <span class="eyebrow">@Eyebrow</span>
+        <h1>@Title</h1>
+        <p>@Description</p>
+
+        <div class="hero-actions">
+            <a href="@PrimaryUrl" class="hero-primary">
+                @PrimaryText
+            </a>
+
+            @if (!string.IsNullOrWhiteSpace(SecondaryText))
+            {
+                <a href="@SecondaryUrl" class="hero-secondary">
+                    @SecondaryText
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public string Image { get; set; } = "/images/hive-hero.jpg";
+    [Parameter] public string Eyebrow { get; set; } = "YOUR NEIGHBORHOOD COFFEEHOUSE";
+    [Parameter] public string Title { get; set; } = "Your new favorite place to buzz by.";
+    [Parameter]
+    public string Description { get; set; } =
+        "Great coffee, thoughtful finds, and a welcoming place to slow down and enjoy the little things.";
+    [Parameter] public string PrimaryText { get; set; } = "EXPLORE OUR COFFEE";
+    [Parameter] public string PrimaryUrl { get; set; } = "/coffee";
+    [Parameter] public string SecondaryText { get; set; } = "COME VISIT US";
+    [Parameter] public string SecondaryUrl { get; set; } = "/visit";
+}

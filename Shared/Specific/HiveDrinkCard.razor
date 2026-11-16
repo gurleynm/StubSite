@@ -1,0 +1,35 @@
+﻿
+<article class="hive-drink-card">
+    <div class="drink-card-image">
+        <img src="@Image" alt="@Name" loading="lazy" />
+
+        @if (!string.IsNullOrWhiteSpace(Badge))
+        {
+            <span class="drink-badge">@Badge</span>
+        }
+    </div>
+
+    <div class="drink-card-content">
+        @if (!string.IsNullOrWhiteSpace(Category))
+        {
+            <span class="drink-category">@Category</span>
+        }
+
+        <h3>@Name</h3>
+        <p>@Description</p>
+
+        @if (!string.IsNullOrWhiteSpace(Price))
+        {
+            <span class="drink-price">@Price</span>
+        }
+    </div>
+</article>
+
+@code {
+    [Parameter, EditorRequired] public string Name { get; set; } = "";
+    [Parameter, EditorRequired] public string Image { get; set; } = "";
+    [Parameter] public string Description { get; set; } = "";
+    [Parameter] public string Category { get; set; } = "";
+    [Parameter] public string Badge { get; set; } = "";
+    [Parameter] public string Price { get; set; } = "";
+}

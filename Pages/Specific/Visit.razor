@@ -1,0 +1,211 @@
+﻿
+@page "/visit"
+@using StubSite.Shared.Specific
+
+<PageTitle>Visit The Hive | Coffee Co & Mercantile</PageTitle>
+
+<main class="visit-page">
+
+    <!-- Hero -->
+    <section class="visit-hero">
+        <div class="visit-hero-overlay"></div>
+        <div class="visit-hero-content">
+            <span class="visit-eyebrow">YOUR NEIGHBORHOOD COFFEE STOP</span>
+            <h1>Come on in.<br />We've got something brewing.</h1>
+            <p>
+                Whether you're grabbing your morning coffee, browsing
+                something special, or just need a place to slow down,
+                there's always a spot for you at The Hive.
+            </p>
+            <a class="visit-primary-button" href="/visit#visit-details">
+                Find Us <span>↓</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main visit details -->
+    <section class="visit-details section-padding" id="visit-details">
+        <div class="visit-details-grid">
+
+            <div class="visit-intro">
+                <span class="visit-eyebrow">WE'LL SAVE YOU A SPOT</span>
+                <h2>Your next favorite<br />coffee break is closer<br />than you think.</h2>
+                <p>
+                    Stop in for a handcrafted coffee, discover a new
+                    favorite from our mercantile, or take a few minutes
+                    for yourself. The Hive is a place to enjoy the little
+                    things and connect with your community.
+                </p>
+
+                <div class="visit-detail-links">
+                    @if (!string.IsNullOrWhiteSpace(ShopAddress))
+                    {
+                        <a href="@DirectionsUrl" target="_blank" rel="noopener noreferrer">
+                            <span class="visit-detail-icon">↗</span>
+                            Get directions
+                        </a>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Phone))
+                    {
+                        <a href="tel:@Phone">
+                            <span class="visit-detail-icon">☎</span>
+                            @Phone
+                        </a>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Email))
+                    {
+                        <a href="mailto:@Email">
+                            <span class="visit-detail-icon">✉</span>
+                            @Email
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <div class="visit-info-card">
+                <div class="visit-info-section">
+                    <span class="visit-eyebrow">COME FIND US</span>
+                    <h3>Our Location</h3>
+
+                    @if (!string.IsNullOrWhiteSpace(ShopAddress))
+                    {
+                        <p class="visit-address">@ShopAddress</p>
+                        <a class="visit-text-link"
+                           href="@DirectionsUrl"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Get directions <span>↗</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <p class="visit-muted">Our address will be added here.</p>
+                    }
+                </div>
+
+                <div class="visit-info-divider"></div>
+
+                <div class="visit-info-section">
+                    <span class="visit-eyebrow">PLAN YOUR STOP</span>
+                    <h3>Hours</h3>
+
+                    <div class="visit-hours">
+                        @foreach (var day in Hours)
+                        {
+                            <div class="visit-hours-row">
+                                <span>@day.Key</span>
+                                <span>@day.Value</span>
+                            </div>
+                        }
+                    </div>
+                    <p class="visit-hours-note">
+                        Hours may vary for holidays and special events.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What to expect -->
+    <section class="visit-experience section-padding">
+        <div class="visit-experience-heading">
+            <HiveSectionTitle
+                Eyebrow="A LITTLE BIT OF EVERYTHING"
+                Title="Make yourself at home."
+                Description="There's more than one reason to stop by The Hive." />
+        </div>
+
+        <div class="visit-experience-grid">
+            <article class="visit-experience-card">
+                <img src="/images/hive/visit-coffee.jpg"
+                     alt="Freshly prepared coffee at The Hive" />
+                <div class="visit-experience-card-content">
+                    <span>01 / THE COFFEE</span>
+                    <h3>Find your new favorite.</h3>
+                    <p>
+                        From familiar favorites to specialty drinks,
+                        there's always something worth sipping.
+                    </p>
+                    <a href="/coffee">Explore the coffee menu ↗</a>
+                </div>
+            </article>
+
+            <article class="visit-experience-card">
+                <img src="/images/hive/visit-mercantile.jpg"
+                     alt="Curated gifts and local products in the mercantile" />
+                <div class="visit-experience-card-content">
+                    <span>02 / THE MERCANTILE</span>
+                    <h3>Stay awhile and browse.</h3>
+                    <p>
+                        Discover thoughtfully selected gifts, local
+                        finds, and little things you didn't know you needed.
+                    </p>
+                    <a href="/mercantile">Explore the mercantile ↗</a>
+                </div>
+            </article>
+
+            <article class="visit-experience-card">
+                <img src="/images/hive/visit-community.jpg"
+                     alt="A welcoming coffeehouse gathering space" />
+                <div class="visit-experience-card-content">
+                    <span>03 / THE EXPERIENCE</span>
+                    <h3>A place to connect.</h3>
+                    <p>
+                        Catch up with a friend, meet someone new, or
+                        enjoy a little time away from the everyday.
+                    </p>
+                    <a href="/our-story">Get to know The Hive ↗</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section class="visit-bottom">
+        <div class="visit-bottom-overlay"></div>
+        <div class="visit-bottom-content">
+            <span class="visit-eyebrow">WE CAN'T WAIT TO MEET YOU</span>
+            <h2>Good coffee.<br />Good company.<br />A good place to be.</h2>
+            <p>Your table, your coffee, your kind of day.</p>
+
+            @if (!string.IsNullOrWhiteSpace(ShopAddress))
+            {
+                <a class="visit-primary-button"
+                   href="@DirectionsUrl"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Come Visit Us <span>↗</span>
+                </a>
+            }
+        </div>
+    </section>
+
+</main>
+
+@code {
+    // Replace these values with the business's actual information.
+    private const string ShopAddress = "";
+    private const string Phone = "";
+    private const string Email = "";
+
+    private static string DirectionsUrl =>
+        $"https://www.google.com/maps/search/?api=1&query={Uri.EscapeDataString(ShopAddress)}";
+
+    private readonly Dictionary<string, string> Hours = new()
+    {
+        ["Monday"] = "Hours coming soon",
+        ["Tuesday"] = "Hours coming soon",
+        ["Wednesday"] = "Hours coming soon",
+        ["Thursday"] = "Hours coming soon",
+        ["Friday"] = "Hours coming soon",
+        ["Saturday"] = "Hours coming soon",
+        ["Sunday"] = "Hours coming soon"
+    };
+
+    protected override void OnInitialized()
+    {
+        Constants.CurPage = "Visit";
+    }
+}

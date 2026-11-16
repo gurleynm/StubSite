@@ -1,0 +1,32 @@
+﻿
+<article class="hive-feature-card">
+    <a href="@Url" class="feature-image">
+        <img src="@Image" alt="@Title" loading="lazy" />
+    </a>
+
+    <div class="feature-content">
+        @if (!string.IsNullOrWhiteSpace(Category))
+        {
+            <span class="feature-category">@Category</span>
+        }
+
+        <h3>@Title</h3>
+        <p>@Description</p>
+
+        @if (!string.IsNullOrWhiteSpace(LinkText))
+        {
+            <a href="@Url" class="feature-link">
+                @LinkText <span>→</span>
+            </a>
+        }
+    </div>
+</article>
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = "";
+    [Parameter, EditorRequired] public string Image { get; set; } = "";
+    [Parameter] public string Description { get; set; } = "";
+    [Parameter] public string Category { get; set; } = "";
+    [Parameter] public string Url { get; set; } = "#";
+    [Parameter] public string LinkText { get; set; } = "DISCOVER MORE";
+}

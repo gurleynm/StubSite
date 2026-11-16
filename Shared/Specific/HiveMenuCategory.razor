@@ -1,0 +1,22 @@
+﻿
+<section class="hive-menu-category" id="@Id">
+    <div class="menu-category-heading">
+        <div>
+            <span>@Eyebrow</span>
+            <h2>@Title</h2>
+            <p>@Description</p>
+        </div>
+    </div>
+
+    <div class="menu-category-content">
+        @ChildContent
+    </div>
+</section>
+
+@code {
+    [Parameter] public string Id { get; set; } = "";
+    [Parameter] public string Eyebrow { get; set; } = "";
+    [Parameter, EditorRequired] public string Title { get; set; } = "";
+    [Parameter] public string Description { get; set; } = "";
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

@@ -1,0 +1,76 @@
+﻿
+<section class="hive-drinks">
+    <div class="drink-layout">
+        <div class="drink-photo">
+            <img src="@CurrentDrink.Image" alt="@CurrentDrink.Name" />
+            <span class="drink-count">
+                @($"{activeIndex + 1:00} / {Drinks.Count:00}")
+            </span>
+        </div>
+
+        <div class="drink-details">
+            <span class="drink-eyebrow">MADE TO BE SIPPED</span>
+            <h2>@CurrentDrink.Name</h2>
+            <p>@CurrentDrink.Description</p>
+
+            <div class="drink-controls">
+                <button aria-label="Previous drink"
+                        @onclick="Previous">
+                    ←
+                </button>
+
+                <div class="drink-dots">
+                    @for (int i = 0; i < Drinks.Count; i++)
+                    {
+                        var index = i;
+                        <button class="@(activeIndex == index ? "selected" : "")"
+                                aria-label="@($"Show drink {index + 1}")"
+                                @onclick="() => activeIndex = index">
+                        </button>
+                    }
+                </div>
+
+                <button aria-label="Next drink"
+                        @onclick="Next">
+                    →
+                </button>
+            </div>
+
+            <a href="/coffee" class="drink-link">
+                EXPLORE THE COFFEE MENU →
+            </a>
+        </div>
+    </div>
+</section>
+
+@code {
+    private int activeIndex;
+
+    private DrinkItem CurrentDrink => Drinks[activeIndex];
+
+    private List<DrinkItem> Drinks =
+    [
+        new("Signature Lattes",
+            "Espresso favorites with creative flavors and house-made touches.",
+            "/images/signature.jpg"),
+
+        new("All Your Favorites",
+            "Refreshing iced coffees and specialty creations.",
+            "/images/trio.jpg"),
+
+        new("Seasonal Specials",
+            "Limited-time creations inspired by the season.",
+            "/images/seasonal.jpg")
+    ];
+
+    private void Next() =>
+        activeIndex = (activeIndex + 1) % Drinks.Count;
+
+    private void Previous() =>
+        activeIndex = (activeIndex - 1 + Drinks.Count) % Drinks.Count;
+
+    private record DrinkItem(
+        string Name,
+        string Description,
+        string Image);
+}

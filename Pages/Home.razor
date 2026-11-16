@@ -1,285 +1,32 @@
 ﻿@page "/"
-@inject NavigationManager NavMan
+@using StubSite.Shared.Specific
 
-<PageTitle>@Constants.CompanyName</PageTitle>
+<HiveHero Image="/images/Background.jpg" />
 
-<div style="overflow-x: hidden;">
-    <!-- HERO -->
-    <section class="hero-section"
-             style="background-image:url('/images/Background2.png')">
+<section class="hive-intro">
+    <HiveSectionTitle Centered="false"
+                      Title="A little bit of everything good."
+                      Description="One stop for your morning coffee and a little something unexpected." />
 
-        <div class="hero-overlay"></div>
+    <div class="hive-feature-grid">
+        <HiveFeatureCard Title="The Mercantile"
+                         Category="THOUGHTFULLY CURATED"
+                         Image="/images/mercantile.jpg"
+                         Description="Discover local makers, unique gifts, and little treasures worth taking home."
+                         Url="/mercantile"
+                         LinkText="EXPLORE OUR FINDS" />
+    </div>
+</section>
 
-        <div class="hero-content container">
-            <div class="hero-subtitle">
-                Williamsbug Coffee House
-            </div>
+<HiveDrinkShowcase />
 
-            <h1 class="hero-title">
-                @Constants.CompanyName
-            </h1>
+<HiveMercantileShowcase />
 
-            <p class="hero-description">
-                Coffee, conversation, and a place to slow down.
-            </p>
-
-            <div class="hero-buttons">
-                <button class="btn btn-primary custom-btn" @onclick=@(() => NavMan.NavigateTo("/menu"))>
-                    View Menu
-                </button>
-
-                <button class="btn btn-outline-light custom-btn" @onclick=@(() => NavMan.NavigateTo("#visit"))>
-                    Visit Us
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- THE SPACE -->
-    <section class="section-padding" id="space">
-        <div class="container">
-            <div class="row align-items-center g-5">
-
-                <div class="col-lg-6">
-                    <div class="section-label">
-                        THE SPACE
-                    </div>
-
-                    <h2 class="section-title">
-                        Built for slow mornings and long conversations.
-                    </h2>
-
-                    <p class="section-text">
-                        @(Constants.CompanyName) blends cozy atmosphere, quality coffee,
-                        and a downtown neighborhood feel into a space designed
-                        for connection, creativity, and comfort.
-                    </p>
-
-                    <div class="feature-row">
-                        <div>
-                            <div class="feature-number">
-                                Local
-                            </div>
-
-                            <div class="feature-text">
-                                Community Focused
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="feature-number">
-                                Fresh
-                            </div>
-
-                            <div class="feature-text">
-                                Crafted Daily
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="gallery-grid">
-                        <img src="/images/interior-1.jpg"
-                             class="gallery-img tall" />
-
-                        <img src="/images/interior-2.jpg"
-                             class="gallery-img tall offset-img" />
-
-                        <img src="/images/interior-3.jpg"
-                             class="gallery-img wide" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURED DRINKS -->
-    <section class="menu-section section-padding" id="menu">
-        <div class="container">
-
-            <div class="text-center mb-5">
-                <div class="section-label">
-                    FEATURED DRINKS
-                </div>
-
-                <h2 class="section-title">
-                    Crafted with intention.
-                </h2>
-                <div class="feature-number">
-                    JUNE SPECIALS
-                </div>
-            </div>
-
-            <div class="flex-r-100" style="flex-wrap:wrap">
-
-                @foreach (var drink in Drinks)
-                {
-                    <div class="drink-card">
-                        <div class="drink-image-placeholder">
-                            <img src="@drink.ImgSrc" alt="@drink.Name" class="gallery-img" />
-                        </div>
-
-                        @if (!string.IsNullOrEmpty(drink.Name))
-                        {
-                            <h3 class="drink-title" style="text-align:center">
-                                @drink.Name
-                            </h3>
-                        }
-
-                        @if (!string.IsNullOrEmpty(drink.Description))
-                        {
-                            <p class="drink-description" style="text-align:center">
-                                @drink.Description
-                            </p>
-                        }
-                    </div>
-                }
-
-            </div>
-        </div>
-    </section>
-
-    <!-- VISIT -->
-    <section class="section-padding" id="visit">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-
-                <div class="col-lg-6">
-                    <div class="section-label">
-                        VISIT US
-                    </div>
-
-                    <h2 class="section-title">
-                        Stop in and stay awhile.
-                    </h2>
-
-                    <div class="visit-block">
-                        <h5>Hours</h5>
-
-                        <p>
-                            @if (Constants.CompanyHours.Values.All(v => v.Equals(Constants.CompanyHours.Values.First())))
-                            {
-                                @("Daily: " + Constants.CompanyHours.Values.First())
-
-                                <br />
-                            }
-                            else
-                            {
-                                @foreach (var key in Constants.CompanyHours.Keys)
-                                {
-                                    @(key + ": " + Constants.CompanyHours[key])
-
-                                    <br />
-                                }
-                            }
-                        </p>
-                    </div>
-
-                    <div class="visit-block">
-                        <h5>Location</h5>
-
-                        <p>
-                            Heart of Williamsburg, Ohio<br />
-                            Free street parking nearby
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="map-placeholder">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.255078993725!2d-83.98493852405554!3d39.055100771690576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841193c47fe52cb%3A0x17a5b5126b3668ab!2sThe%20Hive%20Coffee%20Co.%20and%20Mercantile!5e0!3m2!1sen!2sus!4v1794248754211!5m2!1sen!2sus"
-                                class="map-iframe" style="height:100%;width:100%;border-radius: 2rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SOCIAL -->
-    <section class="social-section">
-        <div class="container text-center">
-
-            <div class="section-label social-label">
-                FOLLOW ALONG
-            </div>
-
-            <h2 class="social-title">
-                @@thehivecoffeeco_merc
-            </h2>
-
-            <p class="social-text">
-                Daily drinks, seasonal specials,
-                and moments from inside the shop.
-            </p>
-
-            <div class="flex-r-100" style="flex-wrap:wrap">
-                @foreach (string key in Constants.CompanySocials.Keys)
-                {
-                    <button class="btn custom-btn social-btn" @onclick=@(() => NavMan.NavigateTo(Constants.CompanySocials[key]))>
-                        Visit @key
-                    </button>
-                }
-            </div>
-        </div>
-    </section>
-</div>
+<HiveVisitBanner />
 
 @code {
-
-    private List<DrinkItem> Drinks = new()
-    {
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Teddy.png"
-        },
-
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Coconut.png"
-        },
-
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Banana.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Shortcake.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Cherry.png"
-        },
-        new()
-        {
-            Name = "",
-            Description = "",
-            ImgSrc = "/images/Strawberry.png"
-        }
-    };
-
-    protected override Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         Constants.CurPage = "Home";
-        return base.OnInitializedAsync();
-    }
-
-    public class DrinkItem
-    {
-        public string Name { get; set; } = "";
-        public string Description { get; set; } = "";
-        public string ImgSrc { get; set; } = "";
     }
 }

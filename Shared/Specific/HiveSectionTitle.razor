@@ -1,0 +1,23 @@
+﻿
+<div class="hive-section-title @(Centered ? "centered" : "")">
+    @if (!string.IsNullOrWhiteSpace(Eyebrow))
+    {
+        <span>@Eyebrow</span>
+    }
+
+    <h2 style="@(!string.IsNullOrEmpty(H2Color) ? "color:" + H2Color : "")">@Title</h2>
+
+    @if (!string.IsNullOrWhiteSpace(Description))
+    {
+        <p style="@(!string.IsNullOrEmpty(DescColor) ? "color:" + DescColor : "")">@Description</p>
+    }
+</div>
+
+@code {
+    [Parameter] public string Eyebrow { get; set; } = "";
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Description { get; set; } = "";
+    [Parameter] public bool Centered { get; set; }
+    [Parameter] public string H2Color { get; set; } = "";
+    [Parameter] public string DescColor { get; set; } = "";
+}

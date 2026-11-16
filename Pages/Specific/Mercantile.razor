@@ -1,0 +1,230 @@
+﻿
+@page "/mercantile"
+
+<PageTitle>The Mercantile | The Hive Coffee Co & Mercantile</PageTitle>
+
+<main class="mercantile-page">
+
+    <!-- Hero -->
+    <section class="mercantile-hero">
+        <div class="mercantile-hero-overlay"></div>
+
+        <div class="mercantile-hero-content">
+            <span class="mercantile-eyebrow">A LITTLE SOMETHING SPECIAL</span>
+            <h1 style="color:sandybrown">Good finds.<br />Right around the corner.</h1>
+            <p>
+                Thoughtfully chosen goods, local favorites, and little
+                treasures worth discovering. There's always something
+                new waiting to be found.
+            </p>
+
+            <a href="#explore" class="mercantile-button">
+                Explore the Mercantile <span>↓</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="mercantile-intro section-padding">
+        <div class="mercantile-intro-inner">
+            <span class="mercantile-eyebrow">MORE THAN A COFFEE RUN</span>
+            <h2>A little something<br />you didn't know you needed.</h2>
+            <p>
+                The Mercantile is our little corner for discovering
+                something special. From locally made goods to thoughtful
+                gifts and everyday favorites, we love bringing together
+                products that make you smile.
+            </p>
+            <p>
+                Stop in, take a look around, and maybe leave with
+                something unexpected.
+            </p>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="mercantile-categories section-padding" id="explore">
+        <div class="mercantile-section-heading">
+            <HiveSectionTitle
+                Eyebrow="TAKE A LOOK AROUND"
+                Title="A collection of good things."
+                Description="A few of the kinds of finds you might discover when you stop by." />
+        </div>
+
+        <div class="mercantile-category-grid">
+            @foreach (var category in Categories)
+            {
+                <article class="mercantile-category-card">
+                    <div class="mercantile-category-image">
+                        <img src="@category.Image" alt="@category.Title" />
+                        <span class="mercantile-category-number">@category.Number</span>
+                    </div>
+
+                    <div class="mercantile-category-content">
+                        <span class="mercantile-category-eyebrow">
+                            @category.Eyebrow
+                        </span>
+                        <h3>@category.Title</h3>
+                        <p>@category.Description</p>
+                    </div>
+                </article>
+            }
+        </div>
+
+        <p class="mercantile-in-store-note">
+            <span>✳</span>
+            Everything you see is available to explore in person at The Hive.
+        </p>
+    </section>
+
+    <!-- Local makers -->
+    <section class="mercantile-local">
+        <div class="mercantile-local-image">
+            <img src="/images/local-makers.jpg"
+                 alt="Locally made products and artisan goods" />
+        </div>
+
+        <div class="mercantile-local-content">
+            <span class="mercantile-eyebrow">ROOTED IN COMMUNITY</span>
+            <h2 style="color:sandybrown">Good things grow<br />close to home.</h2>
+            <p>
+                We love celebrating the creativity and talent found
+                right here in our community. Our mercantile makes room
+                for local makers, small businesses, and unique finds
+                that deserve a spot on your shelf.
+            </p>
+            <p>
+                When you shop local, you're supporting more than a
+                product. You're supporting the people behind it.
+            </p>
+
+            <a href="/visit" class="mercantile-text-link">
+                Come see what's here <span>↗</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Product discovery -->
+    <section class="mercantile-discovery section-padding">
+        <div class="mercantile-discovery-heading">
+            <div>
+                <span class="mercantile-eyebrow">ALWAYS WORTH A LOOK</span>
+                <h2>There's always<br />something new.</h2>
+            </div>
+            <p>
+                Our shelves are always evolving. Seasonal finds,
+                new arrivals, and one-of-a-kind pieces make every
+                visit a little different.
+            </p>
+        </div>
+
+        <div class="mercantile-product-grid">
+            @foreach (var item in FeaturedItems)
+            {
+                <article class="mercantile-product-card">
+                    <div class="mercantile-product-image">
+                        <img src="@item.Image" alt="@item.Name" />
+                        @if (!string.IsNullOrWhiteSpace(item.Label))
+                        {
+                            <span class="mercantile-product-label">@item.Label</span>
+                        }
+                    </div>
+                    <div class="mercantile-product-info">
+                        <span>@item.Category</span>
+                        <h3>@item.Name</h3>
+                    </div>
+                </article>
+            }
+        </div>
+
+        <div class="mercantile-purchase-note">
+            <div class="mercantile-purchase-icon">✳</div>
+            <div>
+                <h3>See something you love?</h3>
+                <p>
+                    Our mercantile is an in-store shopping experience.
+                    Visit us to browse the current collection and
+                    purchase your favorites right here at The Hive.
+                </p>
+            </div>
+            <a href="/visit" class="mercantile-button">
+                Plan Your Visit <span>↗</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section class="mercantile-bottom">
+        <div class="mercantile-bottom-overlay"></div>
+        <div class="mercantile-bottom-content">
+            <span class="mercantile-eyebrow">COFFEE IN ONE HAND, GOOD FINDS IN THE OTHER</span>
+            <h2 style="color:sandybrown">Come for the coffee.<br />Stay for the browsing.</h2>
+            <p>We saved you a little room to explore.</p>
+            <a href="/visit" class="mercantile-button">
+                Come Visit Us <span>↗</span>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<HiveFooter />
+
+@code {
+    private record CategoryItem(
+        string Number,
+        string Eyebrow,
+        string Title,
+        string Description,
+        string Image
+    );
+
+    private record FeaturedItem(
+        string Name,
+        string Category,
+        string Image,
+        string Label = ""
+    );
+
+    // Illustrative categories. Adjust these to match actual shop inventory.
+    private readonly List<CategoryItem> Categories = new()
+    {
+        new("01", "MADE WITH CARE", "Local Goods",
+            "Discover products made by talented local makers and small businesses.",
+            "/images/local-goods.jpg"),
+
+        new("02", "THOUGHTFUL FINDS", "Gifts & Goodies",
+            "Find something special for a friend, a loved one, or just yourself.",
+            "/images/gifts.jpg"),
+
+        new("03", "LITTLE EVERYDAY LUXURIES", "Home & Lifestyle",
+            "Thoughtful details and everyday favorites that make a space feel like yours.",
+            "/images/home-lifestyle.jpg"),
+
+        new("04", "A LITTLE SOMETHING EXTRA", "Seasonal Finds",
+            "Fresh inspiration and seasonal favorites worth stopping in for.",
+            "/images/seasonal.jpg")
+    };
+
+    // Replace these sample items with actual products and photos.
+    // These are display-only cards, not online product listings.
+    private readonly List<FeaturedItem> FeaturedItems = new()
+    {
+        new("Handcrafted Finds", "LOCAL GOODS",
+            "/images/featured-local.jpg", "LOCAL"),
+
+        new("Thoughtful Gifts", "GIFTS & GOODIES",
+            "/images/featured-gifts.jpg"),
+
+        new("Home Favorites", "HOME & LIFESTYLE",
+            "/images/featured-home.jpg"),
+
+        new("Seasonal Treasures", "SEASONAL",
+            "/images/featured-seasonal.jpg", "NEW FINDS")
+    };
+
+    protected override void OnInitialized()
+    {
+        Constants.CurPage = "Mercantile";
+    }
+}

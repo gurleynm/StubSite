@@ -7,11 +7,11 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark top-bar fade-in border-while-open navbar-grow flex-c-start sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">
+        <a class="navbar-brand" href="" @onclick="CloseToggle">
             <img alt="Logo image" src="images/CompanyLogo.jpg" style="height:3em;border-radius:1em" />
         </a>
-        <h2 class="navbar-toggler @NavButtonCssClass" style="position: absolute;border:none;font-size:x-large;color:#73cf27;left:50%;transform:translate(-50%,50%);top:0%;font-size:xx-large;color:white">@Constants.CurPage</h2>
-        <ToggleMenu OnToggle="ToggleNavMenu" />
+        <h2 class="navbar-toggler @NavButtonCssClass" style="position: absolute;border:none;color:#73cf27;left:50%;transform:translate(-50%,50%);top:0%;font-size:xx-large;color:white">@Constants.CurPage</h2>
+        <ToggleMenu @ref=TogMen OnToggle="ToggleNavMenu" />
         <div class="collapse navbar-collapse  fade-in-delay @NavBarCssClass" id="navbarCollapse" @onclick="ToggleNavMenu">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 @* <li class="nav-item">
@@ -28,6 +28,12 @@
                 <li class="nav-item">
                     <NavLink class="nav-link" href="visit">
                         <span class="oi" aria-hidden="true"></span> Visit
+                    </NavLink>
+                </li>
+
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="mercantile">
+                        <span class="oi" aria-hidden="true"></span> Mercantile
                     </NavLink>
                 </li>
                 
@@ -58,6 +64,7 @@
 </nav>
 
 @code {
+    ToggleMenu TogMen;
     private bool collapseNavMenu = true;
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
@@ -88,6 +95,13 @@
     private async void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+        TogMen.ShowToggler = !collapseNavMenu;
+    }
+
+    private void CloseToggle()
+    {
+        collapseNavMenu = true;
+        TogMen.ShowToggler = false;
     }
 
     private void CurPageUpdated(object sender, string cp)

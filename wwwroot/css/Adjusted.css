@@ -1813,3 +1813,511 @@ input.toggler {
         min-height: 400px;
     }
 }
+
+
+.mercantile-page {
+    background: #F5F1E9;
+    color: #292824;
+}
+
+/* Hero */
+.mercantile-hero {
+    position: relative;
+    min-height: 570px;
+    display: flex;
+    align-items: center;
+    background: url('/images/mercantile-hero.jpg') center 55% / cover;
+}
+
+.mercantile-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( 90deg, rgba(35, 33, 28, .83), rgba(35, 33, 28, .48) 58%, rgba(35, 33, 28, .08) );
+}
+
+.mercantile-hero-content {
+    position: relative;
+    z-index: 1;
+    width: min(1100px, 100%);
+    margin: auto;
+    padding: 100px 40px;
+    color: white;
+}
+
+.mercantile-eyebrow {
+    display: block;
+    color: #B69A78;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .19em;
+    margin-bottom: 18px;
+}
+
+.mercantile-hero h1 {
+    max-width: 750px;
+    font-family: Georgia, serif;
+    font-size: clamp(3.2rem, 6vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.04;
+    margin: 0 0 25px;
+}
+
+.mercantile-hero-content > p {
+    max-width: 520px;
+    color: rgba(255,255,255,.85);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 32px;
+}
+
+.mercantile-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 15px 22px;
+    background: #B69A78;
+    color: #292824;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background .2s ease, transform .2s ease;
+}
+
+    .mercantile-button:hover {
+        background: #D0B99B;
+        color: #292824;
+        transform: translateY(-2px);
+    }
+
+/* Introduction */
+.section-padding {
+    padding: 100px 40px;
+}
+
+.mercantile-intro {
+    text-align: center;
+}
+
+.mercantile-intro-inner {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.mercantile-intro h2,
+.mercantile-local h2,
+.mercantile-discovery-heading h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(2.7rem, 4.5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 0 0 25px;
+}
+
+.mercantile-intro p {
+    color: #625C52;
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+/* Category collection */
+.mercantile-categories {
+    background: #E9E3D8;
+}
+
+.mercantile-section-heading {
+    max-width: 1100px;
+    margin: 0 auto 48px;
+}
+
+.mercantile-category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.mercantile-category-card {
+    background: #F5F1E9;
+    overflow: hidden;
+}
+
+.mercantile-category-image {
+    position: relative;
+    overflow: hidden;
+}
+
+    .mercantile-category-image img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        transition: transform .5s ease;
+    }
+
+.mercantile-category-card:hover img {
+    transform: scale(1.04);
+}
+
+.mercantile-category-number {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: grid;
+    place-items: center;
+    width: 37px;
+    height: 37px;
+    background: #F5F1E9;
+    color: #292824;
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+.mercantile-category-content {
+    padding: 24px 21px 28px;
+}
+
+.mercantile-category-eyebrow {
+    color: #927858;
+    font-size: .63rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+}
+
+.mercantile-category-content h3 {
+    font-family: Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    margin: 10px 0;
+}
+
+.mercantile-category-content p {
+    color: #625C52;
+    font-size: .85rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.mercantile-in-store-note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 40px auto 0;
+    color: #625C52;
+    font-size: .88rem;
+    text-align: center;
+}
+
+    .mercantile-in-store-note span {
+        color: #9B694E;
+        font-size: 1.2rem;
+    }
+
+/* Local makers */
+.mercantile-local {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 540px;
+}
+
+.mercantile-local-image {
+    min-height: 500px;
+    overflow: hidden;
+}
+
+    .mercantile-local-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 500px;
+        object-fit: cover;
+    }
+
+.mercantile-local-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px clamp(35px, 7vw, 100px);
+    background: #292824;
+    color: #F5F1E9;
+}
+
+    .mercantile-local-content h2 {
+        margin-bottom: 25px;
+    }
+
+    .mercantile-local-content p {
+        color: rgba(245,241,233,.72);
+        font-size: .95rem;
+        line-height: 1.9;
+    }
+
+.mercantile-text-link {
+    display: inline-flex;
+    gap: 12px;
+    margin-top: 22px;
+    color: #D0B99B;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+    .mercantile-text-link:hover {
+        color: white;
+    }
+
+/* Featured items */
+.mercantile-discovery {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.mercantile-discovery-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 45px;
+}
+
+    .mercantile-discovery-heading h2 {
+        margin-bottom: 0;
+    }
+
+    .mercantile-discovery-heading > p {
+        max-width: 390px;
+        color: #625C52;
+        font-size: .95rem;
+        line-height: 1.8;
+        margin-bottom: 5px;
+    }
+
+.mercantile-product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.mercantile-product-card {
+    min-width: 0;
+}
+
+.mercantile-product-image {
+    position: relative;
+    overflow: hidden;
+    background: #E9E3D8;
+}
+
+    .mercantile-product-image img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1 / 1.1;
+        object-fit: cover;
+        transition: transform .45s ease;
+    }
+
+.mercantile-product-card:hover img {
+    transform: scale(1.04);
+}
+
+.mercantile-product-label {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    padding: 7px 10px;
+    background: #F5F1E9;
+    color: #625C52;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+
+.mercantile-product-info {
+    padding: 16px 2px;
+}
+
+    .mercantile-product-info > span {
+        color: #927858;
+        font-size: .65rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+    }
+
+    .mercantile-product-info h3 {
+        font-family: Georgia, serif;
+        font-size: 1.35rem;
+        font-weight: 400;
+        margin: 7px 0 0;
+    }
+
+.mercantile-purchase-note {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 30px;
+    margin-top: 45px;
+    background: #E9E3D8;
+}
+
+.mercantile-purchase-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #B69A78;
+    border-radius: 50%;
+    color: #927858;
+    font-size: 1.35rem;
+}
+
+.mercantile-purchase-note > div:nth-child(2) {
+    flex: 1;
+}
+
+.mercantile-purchase-note h3 {
+    font-family: Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin: 0 0 5px;
+}
+
+.mercantile-purchase-note p {
+    max-width: 600px;
+    color: #625C52;
+    font-size: .85rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Closing CTA */
+.mercantile-bottom {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 440px;
+    padding: 80px 25px;
+    background: url('/images/hive/mercantile/bottom.jpg') center / cover;
+    color: white;
+    text-align: center;
+}
+
+.mercantile-bottom-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(35, 33, 28, .7);
+}
+
+.mercantile-bottom-content {
+    position: relative;
+    z-index: 1;
+}
+
+.mercantile-bottom h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(2.6rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    margin: 0 0 18px;
+}
+
+.mercantile-bottom p {
+    color: rgba(255,255,255,.82);
+    margin-bottom: 28px;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+    .mercantile-category-grid,
+    .mercantile-product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mercantile-local-content {
+        padding: 60px 40px;
+    }
+}
+
+@media (max-width: 650px) {
+    .mercantile-hero {
+        min-height: 500px;
+        background-position: 60% center;
+    }
+
+    .mercantile-hero-overlay {
+        background: rgba(35, 33, 28, .68);
+    }
+
+    .mercantile-hero-content {
+        padding: 80px 24px;
+    }
+
+    .section-padding {
+        padding: 70px 22px;
+    }
+
+    .mercantile-category-grid,
+    .mercantile-product-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    .mercantile-category-content {
+        padding: 18px 14px 22px;
+    }
+
+        .mercantile-category-content h3 {
+            font-size: 1.25rem;
+        }
+
+        .mercantile-category-content p {
+            font-size: .78rem;
+        }
+
+    .mercantile-local {
+        grid-template-columns: 1fr;
+    }
+
+    .mercantile-local-image,
+    .mercantile-local-image img {
+        min-height: 320px;
+    }
+
+    .mercantile-local-content {
+        padding: 65px 25px;
+    }
+
+    .mercantile-discovery-heading {
+        display: block;
+    }
+
+        .mercantile-discovery-heading > p {
+            margin-top: 20px;
+        }
+
+    .mercantile-purchase-note {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 23px;
+    }
+
+        .mercantile-purchase-note > div:nth-child(2) {
+            flex-basis: calc(100% - 65px);
+        }
+
+        .mercantile-purchase-note .mercantile-button {
+            width: 100%;
+        }
+
+    .mercantile-bottom {
+        min-height: 390px;
+    }
+}

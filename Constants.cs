@@ -17,7 +17,7 @@
         public static string CompanyAddress = "15168 Eastwood Rd unit 113, Williamsburg, OH 45176";
         public static string CompanyMapsURL = "https://maps.app.goo.gl/4faocZ1JuWFxCiMd7";
         public static Dictionary<string,string> CompanyHours = new() { 
-            { "Monday - Friday" ,"6:30AM-3PM" } 
+            { "Monday - Friday" ,"6:30AM-3:00PM" } 
             ,{ "Saturday" ,"7:30AM-2:00PM" } 
             ,{ "Sunday" ,"CLOSED" } 
         };
